@@ -1,0 +1,29 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  grid-gap: 30px;
+  margin: 40px 30px;
+  .card {
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 10%);
+    cursor: pointer;
+    .cardimg {
+      img {
+        width: 150px;
+        height: 200px;
+        object-position: center;
+        margin: auto;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.footer {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  .footer_info {
+    display: flex;
+    // justify-content: center;
+    .leftfooter_info {
+      flex: 1;
+      padding-left: 50px;
+      padding-right: 50px;
+      color: black;
+      background-color: bisque;
+    }
+    .rightfooter_info {
+      flex: 1;
+      display: flex;
+      padding-left: 50px;
+      padding-right: 50px;
+      justify-content: space-between;
+    }
+  }
+}
