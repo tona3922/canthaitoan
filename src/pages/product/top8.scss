@@ -5,16 +5,12 @@
   grid-gap: 30px;
   margin: 40px 30px;
   .card {
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
     width: 70%;
     padding: 10px;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 10%);
+    background-color: #fafafa;
+    border: 0.5px solid rgb(193, 193, 193);
     cursor: pointer;
     .cardimg {
       img {
@@ -25,5 +21,33 @@
         margin-bottom: 10px;
       }
     }
+    .cardinfo {
+      button {
+        border: none;
+        font-size: 18px;
+        color: white;
+        background-color: #0077b6;
+        border-radius: 5px;
+      }
+      button:hover {
+        background-color: #023e8a;
+      }
+    }
   }
+  .card:hover {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 10%);
+  }
+}
+.moreproduct {
+  cursor: pointer;
+  width: 200px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+}
+.moreproduct:hover {
+  background: rgb(204, 204, 204);
 }

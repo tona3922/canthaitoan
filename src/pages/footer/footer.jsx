@@ -26,7 +26,6 @@ export const Footer = () => {
           <div>coke</div>
         </div>
       </div>
-      <h1>map</h1>
     </div>
   );
 };

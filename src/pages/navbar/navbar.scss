@@ -1,6 +1,6 @@
 .navbar {
-  // padding-left: 150px;
-  // padding-right: 150px;
+  position: sticky;
+  top: 0;
   height: 60px;
   display: flex;
   align-items: center;
@@ -22,7 +22,6 @@
     padding-left: 150px;
     padding-right: 150px;
     justify-content: space-between;
-    // padding-right: 50px;
     .navbartab {
       cursor: pointer;
       background-color: transparent;
@@ -34,6 +33,47 @@
     .navbartab:hover {
       background-color: aliceblue;
       color: #0077b6;
+      border-radius: 5px;
+    }
+  }
+}
+.navbarcolorChange {
+  position: sticky;
+  top: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: aliceblue;
+  color: #0077b6;
+  z-index: 1100;
+  border-bottom: 0.5px solid rgb(193, 193, 193);
+  .leftnav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    img {
+      width: 50px;
+      border-radius: 20px;
+      border-color: none;
+    }
+  }
+  .rightnav {
+    flex: 2;
+    display: flex;
+    padding-left: 150px;
+    padding-right: 150px;
+    justify-content: space-between;
+    .navbartab {
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      color: #0077b6;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .navbartab:hover {
+      background-color: #0077b6;
+      color: white;
       border-radius: 5px;
     }
   }
