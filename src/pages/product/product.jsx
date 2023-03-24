@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Navbar } from "../navbar/navbar";
 import { NavLink } from "react-router-dom";
 import "./product.scss";
