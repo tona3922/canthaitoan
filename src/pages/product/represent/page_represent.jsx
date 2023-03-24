@@ -22,10 +22,9 @@ export const PageRepresent = (props) => {
               <img src={scale.img} alt="" />
             </div>
             <div className="cardinfo">
-              <em>Name: {scale.name}</em>
-              <em>{scale.id}</em>
-              <h3>Price: contact</h3>
-              <button onClick={() => changecontent(scale)}>review</button>
+              <em>{scale.name}</em>
+              <h3>Giá: liên hệ</h3>
+              <button onClick={() => changecontent(scale)}>Chi tiết</button>
             </div>
           </div>
         ))}
@@ -43,8 +42,8 @@ export const PageRepresent = (props) => {
                   <div className="detailinfo">
                     <h2>{scalez.name}</h2>
                     <div>{scalez.id}</div>
-                    <h3>Price: contact</h3>
-                    <p>Chi tiet</p>
+                    <h3>Giá: contact</h3>
+                    <p>Thông tin chi tiết</p>
                   </div>
                 </div>
               </div>

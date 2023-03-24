@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../img/trial.png";
+import logo from "../../img/logo.jpg";
 // import { Dropdown } from "./dropdown";
 import "./navbar.scss";
 export const Navbar = () => {
-  const [colorChange, setColorchange] = useState(false);
-  // const [height, setHeight] = useState(0);
-  const changeNavbarColor = () => {
-    if (window.scrollY >= 60) {
-      setColorchange(true);
-    } else {
-      setColorchange(false);
-    }
-  };
-  window.addEventListener("scroll", changeNavbarColor);
+  // const [colorChange, setColorchange] = useState(false);
+  // const changeNavbarColor = () => {
+  //   if (window.scrollY >= 60) {
+  //     setColorchange(true);
+  //   } else {
+  //     setColorchange(false);
+  //   }
+  // };
+  // window.addEventListener("scroll", changeNavbarColor);
   return (
-    <div className={colorChange ? "navbarcolorChange" : "navbar"} id="navbar">
+    // <div className={colorChange ? "navbarcolorChange" : "navbar"} id="navbar">
+    <div className="navbar" id="navbar">
       <div className="leftnav">
         <Link
           to="/"
@@ -43,7 +43,7 @@ export const Navbar = () => {
         </Link>
         <div>
           <Link
-            to="/product/allscale/"
+            to="/product/allscale"
             style={{
               textDecoration: "none",
               color: "white",
@@ -76,18 +76,6 @@ export const Navbar = () => {
         >
           <button className="navbartab">About</button>
         </Link>
-        {/* <a className="navlink" href="/">
-          <button className="navbartab">Home</button>
-        </a>
-        <a className="navlink" href="/product">
-          <button className="navbartab">Product</button>
-        </a>
-        <a className="navlink" href="/contact">
-          <button className="navbartab">Contact</button>
-        </a>
-        <a className="navlink" href="/about">
-          <button className="navbartab">About</button>
-        </a> */}
       </div>
     </div>
   );

@@ -41,7 +41,7 @@ function App() {
             path={char + "/cansieuthi/cansieuthi"}
             element={<Cansieuthi />}
           ></Route>
-          <Route path={"/product/allscale"} element={<Allscale />}></Route>
+          <Route path={"/product/allscale/"} element={<Allscale />}></Route>
           <Route
             path="/product/allequipment/"
             element={<Allequipment />}

@@ -3,9 +3,9 @@ import { Navbar } from "../navbar/navbar";
 import { NavLink } from "react-router-dom";
 import "./product.scss";
 export const Product = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
   return (
     <div className="product">
       <Navbar />
