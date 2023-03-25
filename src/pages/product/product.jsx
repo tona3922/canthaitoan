@@ -10,7 +10,7 @@ export const Product = () => {
     <div className="product">
       <Navbar />
       <div className="whole">
-        <NavLink className="routes" to="/product/allscale/">
+        <NavLink className="routes" to="/product/allscale">
           Scale
         </NavLink>
         <NavLink className="routes" to="/product/allequipment/">

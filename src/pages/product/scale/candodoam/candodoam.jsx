@@ -1,5 +1,5 @@
 import React from "react";
-import scale from "../../../../data/scale/kythuat.json";
+import scale from "../../../../data/scale/dodoam.json";
 import { Scalenav } from "../../scalenav";
 import { Product } from "../../product";
 import { PageRepresent } from "../../represent/page_represent";

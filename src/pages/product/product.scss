@@ -31,20 +31,38 @@
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
-  .nav {
-    flex: 1;
+  @media screen and (min-width: 1090px) {
+    .nav {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-self: flex-start;
+      gap: 20px;
+    }
+    .content {
+      flex: 4;
+      text-align: center;
+    }
+  }
+  @media screen and (max-width: 1090px) {
     display: flex;
     flex-direction: column;
-    align-self: flex-start;
-    gap: 20px;
-    // .vectnav {
-    //   align-self: flex-start;
-    // }
-    // display: flex;
-    // gap: 30px;
+    .nav {
+      display: flex;
+      nav {
+        width: 300px;
+      }
+    }
+    .content {
+      text-align: center;
+    }
   }
-  .content {
-    flex: 4;
-    text-align: center;
+  @media screen and (max-width: 750px) {
+    .nav {
+      display: flex;
+      nav {
+        width: 200px;
+      }
+    }
   }
 }

@@ -4,7 +4,6 @@
   height: 60px;
   display: flex;
   align-items: center;
-  // background-color: #0077b6;
   border-bottom: 1px solid grey;
   background-color: white;
   color: white;
@@ -38,45 +37,78 @@
       border-radius: 5px;
     }
   }
-}
-.navbarcolorChange {
-  position: sticky;
-  top: 0;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  background-color: aliceblue;
-  color: #0077b6;
-  z-index: 1100;
-  border-bottom: 0.5px solid rgb(193, 193, 193);
-  .leftnav {
-    flex: 1;
+  @media screen and (max-width: 750px) {
     display: flex;
-    justify-content: center;
-    img {
-      height: 50px;
-      width: 60px;
-      border-color: none;
-    }
-  }
-  .rightnav {
-    flex: 2;
-    display: flex;
-    padding-left: 150px;
-    padding-right: 150px;
     justify-content: space-between;
-    .navbartab {
-      cursor: pointer;
-      background-color: transparent;
-      border: none;
-      color: #0077b6;
-      font-size: 20px;
-      font-weight: bold;
+    .leftnav {
+      flex: 1;
     }
-    .navbartab:hover {
-      background-color: #0077b6;
-      color: white;
-      border-radius: 5px;
+    .rightnav {
+      width: 200px;
+      justify-content: center;
+    }
+  }
+  @media screen and (max-width: 650px) {
+    display: flex;
+    justify-content: space-between;
+    .leftnav {
+      flex: 1;
+    }
+    .rightnav {
+      width: 150px;
+      justify-content: center;
+    }
+  }
+  @media screen and (max-width: 550px) {
+    display: flex;
+    justify-content: space-between;
+    .leftnav {
+      flex: 1;
+    }
+    .rightnav {
+      width: 30px;
+      justify-content: center;
     }
   }
 }
+// .navbarcolorChange {
+//   position: sticky;
+//   top: 0;
+//   height: 60px;
+//   display: flex;
+//   align-items: center;
+//   background-color: aliceblue;
+//   color: #0077b6;
+//   z-index: 1100;
+//   border-bottom: 0.5px solid rgb(193, 193, 193);
+//   .leftnav {
+//     flex: 1;
+//     display: flex;
+//     justify-content: center;
+//     img {
+//       height: 50px;
+//       width: 60px;
+//       border-color: none;
+//     }
+//   }
+//   .rightnav {
+//     flex: 2;
+//     display: flex;
+//     padding-left: 150px;
+//     padding-right: 150px;
+//     justify-content: space-between;
+//     .navbartab {
+//       cursor: pointer;
+//       background-color: transparent;
+//       border: none;
+//       color: #0077b6;
+//       font-size: 20px;
+//       font-weight: bold;
+//     }
+//     .navbartab:hover {
+//       background-color: #0077b6;
+//       color: white;
+//       border-radius: 5px;
+//     }
+//   }
+// }

@@ -8,7 +8,7 @@ export const Scalenav = () => {
     <nav>
       <div className="routes">
         <div className="title">Danh muc can</div>
-        <NavLink className="nav--route" to={"/product/allscale/"}>
+        <NavLink className="nav--route" to={"/product/allscale"}>
           Tat ca
         </NavLink>
         <NavLink

@@ -2,23 +2,23 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-items: center;
-  grid-gap: 30px;
+  grid-gap: 20px;
   margin: 40px 30px;
   .card {
-    width: 70%;
+    width: 80%;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    background-color: #fafafa;
-    border: 0.5px solid rgb(193, 193, 193);
+    border: 0.7px solid rgb(193, 193, 193);
     cursor: pointer;
     .cardimg {
       img {
-        width: 150px;
+        width: 180px;
         height: 200px;
         object-position: center;
         margin: auto;
         margin-bottom: 10px;
+        // border: 0.5px solid rgb(193, 193, 193);
       }
     }
     .cardinfo {
@@ -29,16 +29,115 @@
         background-color: #0077b6;
         border-radius: 5px;
       }
-      button:hover {
-        background-color: #023e8a;
-        cursor: pointer;
-      }
+      // button:hover {
+      //   display: grid;
+      //   grid-template-columns: 1fr 1fr 1fr 1fr;
+      //   justify-items: center;
+      //   grid-gap: 20px;
+      //   margin: 40px 30px;
+      // }
     }
   }
   .card:hover {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 10%);
   }
+  @media screen and (max-width: 1280px) {
+    // grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+    margin: 40px 30px;
+    .card {
+      width: 90%;
+      padding: 10px;
+      .cardimg {
+        img {
+          width: 170px;
+          height: 200px;
+        }
+      }
+      .cardinfo {
+        button {
+          height: 30px;
+          width: 100px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 900px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    margin: 40px 30px;
+    .card {
+      width: 200px;
+      padding: 10px;
+      .cardimg {
+        img {
+          width: 170px;
+          height: 200px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 750px) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    margin: 40px 30px;
+    .card {
+      width: 250px;
+      padding: 10px;
+      .cardimg {
+        img {
+          width: 200px;
+          height: 200px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    margin: 40px 30px;
+    .card {
+      width: 220px;
+      padding: 10px;
+      .cardimg {
+        img {
+          width: 180px;
+          height: 180px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    margin: 40px 30px;
+    .card {
+      width: 220px;
+      padding: 10px;
+      .cardimg {
+        img {
+          width: 180px;
+          height: 180px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 550px) {
+    grid-template-columns: 1fr;
+    margin: 40px 30px;
+    .card {
+      width: 220px;
+      padding: 10px;
+      .cardimg {
+        img {
+          width: 180px;
+          height: 180px;
+        }
+      }
+    }
+  }
 }
+
 .moreproduct {
   cursor: pointer;
   width: 200px;

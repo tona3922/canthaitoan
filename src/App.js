@@ -22,7 +22,7 @@ function App() {
           <Route path="/product" element={<Product />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route
-            path={char + "/cancongnghiep/cancongnghiep"}
+            path="/product/scale/cancongnghiep/cancongnghiep"
             element={<Cancongnghiep />}
           ></Route>
           <Route
@@ -41,7 +41,7 @@ function App() {
             path={char + "/cansieuthi/cansieuthi"}
             element={<Cansieuthi />}
           ></Route>
-          <Route path={"/product/allscale/"} element={<Allscale />}></Route>
+          <Route path={"/product/allscale"} element={<Allscale />}></Route>
           <Route
             path="/product/allequipment/"
             element={<Allequipment />}
