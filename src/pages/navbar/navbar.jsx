@@ -1,10 +1,14 @@
 // import React, { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../img/logo.jpg";
-// import { Dropdown } from "./dropdown";
+import hamburger from "../../img/hamburger.png";
 import "./navbar.scss";
 export const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  function toggle() {
+    setIsOpen(!isOpen);
+  }
   // const [colorChange, setColorchange] = useState(false);
   // const changeNavbarColor = () => {
   //   if (window.scrollY >= 60) {
@@ -18,19 +22,25 @@ export const Navbar = () => {
     // <div className={colorChange ? "navbarcolorChange" : "navbar"} id="navbar">
     <div className="navbar" id="navbar">
       <div className="leftnav">
-        <Link
-          to="/"
-          style={{
-            textDecoration: "none",
-            color: "white",
-            fontWeight: "bold",
-            fontSize: 20,
-          }}
-        >
-          <img src={logo} alt="" />
-        </Link>
+        <div className="logonav">
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: 20,
+            }}
+          >
+            <img src={logo} alt="" />
+          </Link>
+        </div>
+        <button className="notActive" onClick={toggle}>
+          <img src={hamburger} alt="" />
+        </button>
       </div>
-      <div className="rightnav">
+
+      <div className={isOpen ? "menuisActive" : "rightnav"}>
         <Link
           to="/"
           style={{

@@ -54,4 +54,26 @@
     }
     padding-top: 20px;
   }
+  @media screen and (max-width: 950px) {
+    .intro {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .intro {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+    .title {
+      width: 70%;
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .intro {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
 }
