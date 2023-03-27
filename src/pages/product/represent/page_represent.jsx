@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-// import scale from "../../../../data/scale/allscale.json";
-// import { Scalenav } from ".././scalenav";
-// import { Product } from ".././product";
+import React, { useState, useEffect } from "react";
 import ".././product.scss";
 export const PageRepresent = (props) => {
   const scaless = [props];
@@ -13,6 +10,10 @@ export const PageRepresent = (props) => {
     setState([scale]);
     setbuttonPopup(!buttonPopup);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [props]);
   return (
     <div className="content">
       <div className="container">

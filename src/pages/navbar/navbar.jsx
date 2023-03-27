@@ -50,7 +50,7 @@ export const Navbar = () => {
             fontSize: 20,
           }}
         >
-          <button className="navbartab">Home</button>
+          <button className="navbartab">Trang chủ</button>
         </Link>
         <div>
           <Link
@@ -62,7 +62,7 @@ export const Navbar = () => {
               fontSize: 20,
             }}
           >
-            <button className="navbartab">Product</button>
+            <button className="navbartab">Sản phẩm</button>
           </Link>
         </div>
         <Link
@@ -74,7 +74,7 @@ export const Navbar = () => {
             fontSize: 20,
           }}
         >
-          <button className="navbartab">Contact</button>
+          <button className="navbartab">Liên hệ</button>
         </Link>
         <Link
           to="/about"
@@ -85,7 +85,7 @@ export const Navbar = () => {
             fontSize: 20,
           }}
         >
-          <button className="navbartab">About</button>
+          <button className="navbartab">Giới thiệu</button>
         </Link>
       </div>
     </div>

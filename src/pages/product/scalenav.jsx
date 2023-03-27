@@ -7,27 +7,27 @@ export const Scalenav = () => {
   return (
     <nav>
       <div className="routes">
-        <div className="title">Danh muc can</div>
+        <div className="title">Danh mục cân</div>
         <NavLink className="nav--route" to={"/product/allscale"}>
-          Tat ca
+          Tất cả
         </NavLink>
         <NavLink
           className="nav--route"
           to={char + "cancongnghiep/cancongnghiep"}
         >
-          Can Cong Nghiep
+          Cân Công Nghiệp
         </NavLink>
         <NavLink className="nav--route" to={char + "cankythuat/cankythuat"}>
-          Can Ky Thuat
+          Cân Kỹ Thuật
         </NavLink>
         <NavLink className="nav--route" to={char + "candodoam/candodoam"}>
-          Can Do do am
+          Can Đo Độ Ẩm
         </NavLink>
         <NavLink className="nav--route" to={char + "canphantich/canphantich"}>
-          Can Phan Tich
+          Can Phân Tích
         </NavLink>
         <NavLink className="nav--route" to={char + "cansieuthi/cansieuthi"}>
-          Can Sieu Thi
+          Cân Siêu Thị
         </NavLink>
       </div>
     </nav>

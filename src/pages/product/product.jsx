@@ -11,10 +11,10 @@ export const Product = () => {
       <Navbar />
       <div className="whole">
         <NavLink className="routes" to="/product/allscale">
-          Scale
+          Các loại Cân
         </NavLink>
         <NavLink className="routes" to="/product/allequipment/">
-          Equipment
+          Thiết bị cân
         </NavLink>
       </div>
     </div>
