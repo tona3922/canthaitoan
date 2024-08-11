@@ -1,13 +1,12 @@
 import Navbar from "@/app/components/navbar";
-import Link from "next/link";
 import React from "react";
 
-const About = () => {
+const Support = () => {
   return (
     <div>
-      <div>About us</div>
+      <div>support side</div>
     </div>
   );
 };
 
-export default About;
+export default Support;
