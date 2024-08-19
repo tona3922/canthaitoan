@@ -6,8 +6,8 @@ import Image from "next/image";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex justify-center z-0">
-      <div className="flex flex-row justify-around w-3/4 items-center px-24 py-4 top-0 fixed">
+    <div className="flex justify-center py-4">
+      <div className="flex flex-row justify-around w-3/4 items-center">
         <Link
           href="/"
           className="flex flex-row items-center justify-center gap-2"
@@ -106,18 +106,20 @@ const Navbar = () => {
         </button>
         <button>
           <Link
+            href="/pages/support"
+            className="font-bold text-lg hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+          >
+            Support
+          </Link>
+        </button>
+        <button>
+          <Link
             href="/pages/about"
             className="font-bold text-lg hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
           >
             About
           </Link>
         </button>
-        <Link
-          href="/pages/support"
-          className="font-bold text-lg hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
-        >
-          Support
-        </Link>
       </div>
     </div>
   );
