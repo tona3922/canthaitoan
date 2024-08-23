@@ -6,8 +6,8 @@ import Image from "next/image";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex justify-center py-4">
-      <div className="flex flex-row justify-around w-3/4 items-center">
+    <div className="flex justify-center">
+      <div className="flex flex-row justify-around w-5/6 items-center fixed py-4 bg-white">
         <Link
           href="/"
           className="flex flex-row items-center justify-center gap-2"
@@ -25,7 +25,7 @@ const Navbar = () => {
         <button>
           <Link
             href="/"
-            className="font-bold text-lg hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+            className="font-bold text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
           >
             Home
           </Link>
@@ -41,7 +41,7 @@ const Navbar = () => {
         >
           <Link
             href="/pages/products"
-            className="font-bold text-lg hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+            className="font-bold text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
           >
             <span aria-expanded={open}>Products</span>
             {open && (
@@ -107,7 +107,7 @@ const Navbar = () => {
         <button>
           <Link
             href="/pages/support"
-            className="font-bold text-lg hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+            className="font-bold text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
           >
             Support
           </Link>
@@ -115,7 +115,7 @@ const Navbar = () => {
         <button>
           <Link
             href="/pages/about"
-            className="font-bold text-lg hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+            className="font-bold text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
           >
             About
           </Link>
