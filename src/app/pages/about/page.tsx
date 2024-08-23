@@ -12,7 +12,7 @@ const About = () => {
   const query = "CÔNG+TY+TNHH+CÂN+ĐIỆN+TỬ+THÁI+TOÀN/";
   const mapData = `https://maps.google.com/maps?q=${query}&t=&z=15&ie=UTF8&iwloc=&output=embed&z=18`;
   return (
-    <div className="mt-10 flex min-h-screen justify-center py-12">
+    <div className="mt-16 flex min-h-screen justify-center py-12">
       <div className="flex flex-col w-2/3 gap-4">
         <motion.div
           initial="offscreen"
@@ -20,9 +20,7 @@ const About = () => {
           viewport={{ once: true, amount: 0.8 }}
           variants={divVariants}
         >
-          <h2 className="text-3xl font-customTitle font-bold text-slate-700">
-            About us
-          </h2>
+          <h2 className="text-3xl font-customTitle font-bold">About us</h2>
         </motion.div>
         <motion.div
           initial="offscreen"
