@@ -1,9 +1,65 @@
 "use client";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
+    <div className="mt-16 flex flex-col min-h-screen py-12">
+      <div>Excited to scale the world</div>
+      <div className="flex justify-center px-20">
+        <Swiper
+          navigation
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Navigation, Pagination]}
+        >
+          <SwiperSlide>
+            <div className="flex justify-center">
+              <Image
+                alt="first house"
+                width={400}
+                height={200}
+                src="https://images.unsplash.com/photo-1615873968403-89e068629265?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2UlMjBpbnRlcmlvcnxlbnwwfDB8MHx8fDA%3D"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="flex justify-center">
+              <Image
+                alt="first house"
+                width={400}
+                height={200}
+                src="https://images.unsplash.com/photo-1649083048337-4aeb6dda80bb?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aG91c2UlMjBpbnRlcmlvcnxlbnwwfDB8MHx8fDA%3D"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="flex justify-center">
+              <Image
+                alt="first house"
+                width={400}
+                height={200}
+                src="https://images.unsplash.com/photo-1616137356540-b13b2a04a507?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGhvdXNlJTIwaW50ZXJpb3J8ZW58MHwwfDB8fHww"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="flex justify-center">
+              <Image
+                alt="first house"
+                width={400}
+                height={200}
+                src="https://images.unsplash.com/photo-1701422052273-fd673aed2d1c?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fGhvdXNlJTIwaW50ZXJpb3J8ZW58MHwwfDB8fHww"
+              />
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
       <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
         <Image
           className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"

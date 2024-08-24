@@ -7,7 +7,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
     <div className="flex justify-center">
-      <div className="flex flex-row justify-around w-5/6 items-center fixed py-4 bg-white">
+      <div className="flex flex-row justify-around w-full px-32 items-center fixed py-4 bg-white">
         <Link
           href="/"
           className="flex flex-row items-center justify-center gap-2"
