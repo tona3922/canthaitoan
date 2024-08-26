@@ -1,74 +1,44 @@
 "use client";
+import Item from "@/components/Item";
+import SwiperAd from "@/components/SwiperAd";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 export default function Home() {
   return (
-    <div className="mt-16 flex flex-col min-h-screen py-12">
-      <div>Excited to scale the world</div>
-      <div className="flex justify-center px-20">
-        <Swiper
-          navigation
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Navigation, Pagination]}
-        >
-          <SwiperSlide>
-            <div className="flex justify-center">
-              <Image
-                alt="first house"
-                width={400}
-                height={200}
-                src="https://images.unsplash.com/photo-1615873968403-89e068629265?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2UlMjBpbnRlcmlvcnxlbnwwfDB8MHx8fDA%3D"
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="flex justify-center">
-              <Image
-                alt="first house"
-                width={400}
-                height={200}
-                src="https://images.unsplash.com/photo-1649083048337-4aeb6dda80bb?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aG91c2UlMjBpbnRlcmlvcnxlbnwwfDB8MHx8fDA%3D"
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="flex justify-center">
-              <Image
-                alt="first house"
-                width={400}
-                height={200}
-                src="https://images.unsplash.com/photo-1616137356540-b13b2a04a507?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGhvdXNlJTIwaW50ZXJpb3J8ZW58MHwwfDB8fHww"
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="flex justify-center">
-              <Image
-                alt="first house"
-                width={400}
-                height={200}
-                src="https://images.unsplash.com/photo-1701422052273-fd673aed2d1c?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fGhvdXNlJTIwaW50ZXJpb3J8ZW58MHwwfDB8fHww"
-              />
-            </div>
-          </SwiperSlide>
-        </Swiper>
+    <div className="mt-8 flex flex-col min-h-screen py-12">
+      <div className="flex justify-center px-10 h-[630px]">
+        <SwiperAd />
       </div>
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="text-3xl font-bold font-customTitle">News</div>
+      <div className="grid grid-cols-4 place-items-center px-10 gap-3">
+        <div className="px-4 py-3 border-gray-300 border-[1px] rounded-lg cursor-pointer hover:border-sky-600">
+          <Image
+            src="https://www.mt.com/dam/homepage-redesign-2016-r01/thumbnails/esbu_industrial_ver2.jpg/_jcr_content/renditions/original.webp"
+            alt="item"
+            className="w-full rounded-md"
+            width={300}
+            height={200}
+          />
+          <h2 className="font-semibold font-customCardTitle text-xl">Title</h2>
+          <p>
+            Content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi at quibusdam expedita provident quae atque facilis, eum
+            incidunt ea, suscipit vero quaerat eaque sit possimus nostrum
+            doloribus laudantium iusto. Omnis.
+          </p>
+        </div>
+        <div>
+          <Item />
+        </div>
+        <div>clastake1</div>
+        <div>clastake1</div>
+      </div>
+      <div className="text-3xl text-sky-600 font-bold font-customTitle">
+        Products
+      </div>
+
+      <div className="text-3xl text-sky-600 font-bold font-customTitle">
+        Services and Support
       </div>
 
       <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
