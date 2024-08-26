@@ -30,7 +30,7 @@ const Footer = () => {
         </div>
         <div className="flex-1 flex flex-row justify-between">
           <div className="text-xl font-customCardTitle font-bold mb-4">
-            Service & Support
+            Services & Support
           </div>
           <div className="text-xl font-customCardTitle font-bold mb-4">
             About us
