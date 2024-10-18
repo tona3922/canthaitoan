@@ -46,18 +46,46 @@ export default function Home() {
             eos eligendi.
           </p>
         </div>
-        <div className="flex justify-center items-center">
-          <Link href="/pages/products">
-            <button className="bg-black text-white text-xl font-semibold px-12 py-4 rounded-lg hover:bg-sky-600">
-              More
-            </button>
+        <div className="rounded-lg p-4 flex justify-end items-center">
+          <Link
+            href="/pages/products"
+            className="text-2xl font-semibold hover:underline"
+          >
+            Click for more products
           </Link>
         </div>
       </div>
-      <div className="bg-sky-600 px-32 py-10 flex flex-col">
+      <div className="bg-black border-t-2 border-b-2 px-32 py-10 flex flex-col gap-5">
         <div className="text-white text-3xl font-bold font-customTitle">
           News
         </div>
+        <article className="bg-neutral-900 rounded-lg p-6 text-neutral-400 hover:text-white cursor-pointer flex flex-col gap-4">
+          <h3 className="text-2xl font-customDetail font-semibold">Title</h3>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci
+            totam accusantium exercitationem quasi libero illum? Tempora
+            repellendus vel odit mollitia sequi? Minus ad laborum cupiditate
+            eum! Veritatis aspernatur maxime rem.
+          </p>
+        </article>
+        <article className="bg-neutral-900 rounded-lg p-6 text-neutral-400 hover:text-white cursor-pointer flex flex-col gap-4">
+          <h3 className="text-2xl font-customDetail font-semibold">Title</h3>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci
+            totam accusantium exercitationem quasi libero illum? Tempora
+            repellendus vel odit mollitia sequi? Minus ad laborum cupiditate
+            eum! Veritatis aspernatur maxime rem.
+          </p>
+        </article>
+        <article className="bg-neutral-900 rounded-lg p-6 text-neutral-400 hover:text-white cursor-pointer flex flex-col gap-4">
+          <h3 className="text-2xl font-customDetail font-semibold">Title</h3>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci
+            totam accusantium exercitationem quasi libero illum? Tempora
+            repellendus vel odit mollitia sequi? Minus ad laborum cupiditate
+            eum! Veritatis aspernatur maxime rem.
+          </p>
+        </article>
       </div>
 
       <div className="px-32 py-10">

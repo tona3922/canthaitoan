@@ -1,21 +1,29 @@
 import Item from "@/components/Item";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import React from "react";
+import React, { Fragment } from "react";
+import Filter from "./components/Filter";
 
 const Products = () => {
   return (
-    <div className="my-20 flex flex-col min-h-screen px-32 gap-6">
-      <p>products page</p>
-      <div className="grid grid-cols-4 place-items-center gap-6">
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
+    <div className="py-10 my-10 mx-4 flex gap-4">
+      <div className="basis-1/5 top-20">
+        <Filter />
+      </div>
+      <div className="basis-4/5 flex flex-col gap-6">
+        <div className="grid grid-cols-4 place-items-center gap-6">
+          <Item />
+          <Item />
+          <Item />
+          <Item />
+          <Item />
+          <Item />
+          <Item />
+          <Item />
+          <Item />
+          <Item />
+          <Item />
+        </div>
       </div>
     </div>
   );

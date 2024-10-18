@@ -6,7 +6,7 @@ import Image from "next/image";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex justify-center">
+    <div className="flex z-10 justify-center">
       <div className="flex flex-row justify-around w-full px-32 items-center fixed py-4 bg-white z-10 border-b-2">
         <Link
           href="/"
@@ -31,7 +31,7 @@ const Navbar = () => {
           </Link>
         </button>
         <button
-          className="h-10"
+          className="h-12"
           onMouseEnter={() => {
             setOpen(true);
           }}
