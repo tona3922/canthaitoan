@@ -8,8 +8,6 @@ const divVariants: Variants = {
   onscreen: { y: 0, transition: { type: "spring", duration: 1.5 } },
 };
 const About = () => {
-  // const lat = 10.808822;
-  // const long = 106.6864915;
   const query = "CÔNG+TY+TNHH+CÂN+ĐIỆN+TỬ+THÁI+TOÀN/";
   const mapData = `https://maps.google.com/maps?q=${query}&t=&z=15&ie=UTF8&iwloc=&output=embed&z=18`;
   return (

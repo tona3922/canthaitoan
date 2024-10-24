@@ -6,8 +6,8 @@ import Filter from "./components/Filter";
 
 const Products = () => {
   return (
-    <div className="py-10 my-10 mx-4 flex gap-4">
-      <div className="basis-1/5 top-20">
+    <div className="py-12 my-10 mx-4 flex gap-4">
+      <div className="basis-1/5">
         <Filter />
       </div>
       <div className="basis-4/5 flex flex-col gap-6">
