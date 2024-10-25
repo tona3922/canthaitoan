@@ -3,9 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.ant-tooltip.ant-slider-tooltip.css-dev-only-do-not-override-1hpnbz2.ant-tooltip-placement-top {
+/* .ant-tooltip.ant-slider-tooltip.css-dev-only-do-not-override-1hpnbz2.ant-tooltip-placement-top {
   z-index: auto;
 }
+.ant-slider-tooltip .ant-tooltip-inner{
+  padding: 6px;
+} */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
