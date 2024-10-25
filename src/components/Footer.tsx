@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="border-t-2 px-32 pt-12 pb-20">
+    <div className="border-t-2 px-32 py-12">
       <div className="text-sky-600 font-customTitle font-bold text-3xl mb-6">
         Can Thai Toan
       </div>

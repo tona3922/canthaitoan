@@ -61,7 +61,7 @@ const Navbar = () => {
                         <path d="M8.724.053A.5.5 0 0 0 8.2.1L4.333 3H1.5A1.5 1.5 0 0 0 0 4.5v3A1.5 1.5 0 0 0 1.5 9h2.833L8.2 11.9a.5.5 0 0 0 .8-.4V.5a.5.5 0 0 0-.276-.447Z" />
                       </svg>
                     </div>
-                    <span className="whitespace-nowrap">Priority Ratings</span>
+                    <span className="whitespace-nowrap">Cân công nghiệp</span>
                   </a>
                 </li>
                 <li>
@@ -79,7 +79,7 @@ const Navbar = () => {
                         <path d="M8.724.053A.5.5 0 0 0 8.2.1L4.333 3H1.5A1.5 1.5 0 0 0 0 4.5v3A1.5 1.5 0 0 0 1.5 9h2.833L8.2 11.9a.5.5 0 0 0 .8-.4V.5a.5.5 0 0 0-.276-.447Z" />
                       </svg>
                     </div>
-                    <span className="whitespace-nowrap">Priority Ratings</span>
+                    <span className="whitespace-nowrap">Cân phòng thí nghiệm</span>
                   </a>
                 </li>
                 <li>
@@ -97,7 +97,7 @@ const Navbar = () => {
                         <path d="M8.724.053A.5.5 0 0 0 8.2.1L4.333 3H1.5A1.5 1.5 0 0 0 0 4.5v3A1.5 1.5 0 0 0 1.5 9h2.833L8.2 11.9a.5.5 0 0 0 .8-.4V.5a.5.5 0 0 0-.276-.447Z" />
                       </svg>
                     </div>
-                    <span className="whitespace-nowrap">Priority Ratings</span>
+                    <span className="whitespace-nowrap">Khác</span>
                   </a>
                 </li>
               </ul>
