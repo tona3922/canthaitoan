@@ -24,11 +24,11 @@ const Support = () => {
 
     emailjs
       .sendForm(
-        process.env.NEXT_PUBLIC_YOUR_SERVICE_ID,
-        process.env.NEXT_PUBLIC_YOUR_TEMPLATE_ID,
-        form.current,
+        process.env.NEXT_PUBLIC_YOUR_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_YOUR_TEMPLATE_ID as string,
+        form.current as any,
         {
-          publicKey: process.env.NEXT_PUBLIC_YOUR_PUBLIC_KEY,
+          publicKey: process.env.NEXT_PUBLIC_YOUR_PUBLIC_KEY as string,
         }
       )
       .then(
@@ -50,7 +50,7 @@ const Support = () => {
       <div className="flex justify-center">
         <form
           className="flex flex-col gap-5 w-1/3"
-          ref={form}
+          ref={form as any}
           onSubmit={sendEmail}
         >
           <h1 className="text-3xl font-customDetail font-bold">Contact form</h1>
