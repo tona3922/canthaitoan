@@ -2,113 +2,130 @@
 import Item from "@/components/Item";
 import SwiperAd from "@/components/SwiperAd";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="mt-8 flex flex-col min-h-screen py-12">
-      <div className="flex justify-center px-10 h-[630px]">
+    <div className="mt-20 min-h-screen">
+      <div className="flex pt-4 justify-center h-[630px] px-12">
         <SwiperAd />
       </div>
-      <div className="text-3xl font-bold font-customTitle">News</div>
-      <div className="grid grid-cols-4 place-items-center px-10 gap-3">
-        <div className="px-4 py-3 border-gray-300 border-[1px] rounded-lg cursor-pointer hover:border-sky-600">
-          <Image
-            src="https://www.mt.com/dam/homepage-redesign-2016-r01/thumbnails/esbu_industrial_ver2.jpg/_jcr_content/renditions/original.webp"
-            alt="item"
-            className="w-full rounded-md"
-            width={300}
-            height={200}
-          />
-          <h2 className="font-semibold font-customCardTitle text-xl">Title</h2>
-          <p>
-            Content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Excepturi at quibusdam expedita provident quae atque facilis, eum
-            incidunt ea, suscipit vero quaerat eaque sit possimus nostrum
-            doloribus laudantium iusto. Omnis.
+      <div className="px-32 py-10 grid grid-cols-3 gap-6">
+        <div className="flex items-center">
+          <p className="text-4xl font-bold font-customTitle">Products</p>
+        </div>
+        <div className="border-2 rounded-lg p-4">
+          <p className=" font-customDetail">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur ut
+            vel beatae libero aliquam iusto enim obcaecati blanditiis, officia
+            porro id voluptas perspiciatis labore minus optio neque voluptate
+            eos eligendi.
           </p>
         </div>
-        <div>
-          <Item />
+        <div className="border-2 rounded-lg p-4">
+          <p className=" font-customCardTitle">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur ut
+            vel beatae libero aliquam iusto enim obcaecati blanditiis, officia
+            porro id voluptas perspiciatis labore minus optio neque voluptate
+            eos eligendi.
+          </p>
         </div>
-        <div>clastake1</div>
-        <div>clastake1</div>
+        <div className="border-2 rounded-lg p-4">
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur ut
+            vel beatae libero aliquam iusto enim obcaecati blanditiis, officia
+            porro id voluptas perspiciatis labore minus optio neque voluptate
+            eos eligendi.
+          </p>
+        </div>
+        <div className="border-2 rounded-lg p-4">
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur ut
+            vel beatae libero aliquam iusto enim obcaecati blanditiis, officia
+            porro id voluptas perspiciatis labore minus optio neque voluptate
+            eos eligendi.
+          </p>
+        </div>
+        <div className="rounded-lg p-4 flex justify-end items-center">
+          <Link
+            href="/pages/products"
+            className="text-2xl font-semibold hover:underline"
+          >
+            Click for more products
+          </Link>
+        </div>
       </div>
-      <div className="text-3xl text-sky-600 font-bold font-customTitle">
-        Products
+      <div className="bg-black border-t-2 border-b-2 px-32 py-10 flex flex-col gap-5">
+        <div className="text-white text-3xl font-bold font-customTitle">
+          News
+        </div>
+        <article className="bg-neutral-900 rounded-lg p-6 text-neutral-400 hover:text-white cursor-pointer flex flex-col gap-4">
+          <h3 className="text-2xl font-customDetail font-semibold">Title</h3>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci
+            totam accusantium exercitationem quasi libero illum? Tempora
+            repellendus vel odit mollitia sequi? Minus ad laborum cupiditate
+            eum! Veritatis aspernatur maxime rem.
+          </p>
+        </article>
+        <article className="bg-neutral-900 rounded-lg p-6 text-neutral-400 hover:text-white cursor-pointer flex flex-col gap-4">
+          <h3 className="text-2xl font-customDetail font-semibold">Title</h3>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci
+            totam accusantium exercitationem quasi libero illum? Tempora
+            repellendus vel odit mollitia sequi? Minus ad laborum cupiditate
+            eum! Veritatis aspernatur maxime rem.
+          </p>
+        </article>
+        <article className="bg-neutral-900 rounded-lg p-6 text-neutral-400 hover:text-white cursor-pointer flex flex-col gap-4">
+          <h3 className="text-2xl font-customDetail font-semibold">Title</h3>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci
+            totam accusantium exercitationem quasi libero illum? Tempora
+            repellendus vel odit mollitia sequi? Minus ad laborum cupiditate
+            eum! Veritatis aspernatur maxime rem.
+          </p>
+        </article>
       </div>
 
-      <div className="text-3xl text-sky-600 font-bold font-customTitle">
-        Services and Support
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className="px-32 py-10">
+        <div className="text-3xl font-bold font-customTitle">
+          Services and Support
+        </div>
+        <div className="mt-6 grid grid-cols-3 gap-6">
+          <div className="col-span-2 border-2 rounded-lg p-4">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt
+              consequatur autem, sapiente recusandae tempora at libero maiores
+              dolorem explicabo reprehenderit deserunt nostrum alias, qui,
+              voluptas eveniet dignissimos. Unde, vitae quidem!
+            </p>
+          </div>
+          <div className="border-2 rounded-lg p-4">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt
+              consequatur autem, sapiente recusandae tempora at libero maiores
+              dolorem explicabo reprehenderit deserunt nostrum alias, qui,
+              voluptas eveniet dignissimos. Unde, vitae quidem!
+            </p>
+          </div>
+          <div className="border-2 rounded-lg p-4">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt
+              consequatur autem, sapiente recusandae tempora at libero maiores
+              dolorem explicabo reprehenderit deserunt nostrum alias, qui,
+              voluptas eveniet dignissimos. Unde, vitae quidem!
+            </p>
+          </div>
+          <div className="col-span-2 border-2 rounded-lg p-4">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt
+              consequatur autem, sapiente recusandae tempora at libero maiores
+              dolorem explicabo reprehenderit deserunt nostrum alias, qui,
+              voluptas eveniet dignissimos. Unde, vitae quidem!
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

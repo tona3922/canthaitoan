@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { Variants, motion } from "framer-motion";
+import { Divider } from "antd";
 
 const divVariants: Variants = {
   offscreen: { y: 60 },
@@ -20,7 +21,9 @@ const About = () => {
           viewport={{ once: true, amount: 0.8 }}
           variants={divVariants}
         >
-          <h2 className="text-3xl font-customTitle font-bold">About us</h2>
+          <Divider orientation="left" style={{ borderColor: "	#E0E0E0" }}>
+            <h2 className="text-3xl font-customTitle font-bold">About us</h2>
+          </Divider>
         </motion.div>
         <motion.div
           initial="offscreen"
