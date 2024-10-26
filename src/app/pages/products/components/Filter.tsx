@@ -1,25 +1,11 @@
 "use client";
-import React, { useState } from "react";
-import { Select, Slider } from "antd";
+import React from "react";
+import { Select } from "antd";
 
 const Filter = () => {
-  const [minval, setMinVal] = useState(5000000);
-  const [maxval, setMaxVal] = useState(30000000);
-  const handleChange = (value: number[]) => {
-    if (value[0] < value[1]) {
-      setMinVal(value[0]);
-      setMaxVal(value[1]);
-    } else {
-      setMinVal(value[1]);
-      setMaxVal(value[0]);
-    }
-  };
-  const formatter = (value: number) => {
-    return value?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
   return (
     <div className="flex flex-col py-4 justify-center gap-4 rounded-lg px-2">
-      <h1 className="text-xl font-semibold">Bo loc tim kiem</h1>
+      <h1 className="text-xl font-semibold text-gray-600">Bo loc tim kiem</h1>
       <div className="flex flex-col gap-1">
         <h3 className="text-md">San pham can tim</h3>
         <input
@@ -68,29 +54,7 @@ const Filter = () => {
           ]}
         />
       </div>
-      <div className="flex flex-col gap-2">
-        <h3 className="text-md">Gia</h3>
-        <div className="text-sm">
-          {formatter(minval)} - {formatter(maxval)}
-        </div>
-        <Slider
-          range
-          tooltip={{
-            formatter: null,
-            // autoAdjustOverflow: false,
-            // open: true,
-            // placement: "top",
-            // formatter(value) {
-            //   return value?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            // },
-          }}
-          onChange={handleChange}
-          max={100000000}
-          step={5000000}
-          defaultValue={[minval, maxval]}
-        />
-      </div>
-      <button className="bg-sky-500 text-white text-lg w-1/2 self-center rounded-lg p-2">
+      <button className="bg-sky-500 text-white text-lg self-center rounded-lg p-2">
         Tim kiem
       </button>
     </div>
