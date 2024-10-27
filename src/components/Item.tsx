@@ -1,14 +1,12 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
-const Item = () => {
+const Item: React.FC<{ id: string }> = ({ id }) => {
   return (
-    <>
-      <article
-        className="border-gray-300 border-[1px] flex flex-col gap-2 cursor-pointer hover:border-sky-600"
-        // onClick={showModal}
-      >
+    <Link href={`/pages/detail/${id}`}>
+      <article className="border-gray-300 border-[1px] flex flex-col gap-2 cursor-pointer hover:border-sky-600">
         <Image
           src="https://www.mt.com/dam/homepage-redesign-2016-r01/thumbnails/esbu_industrial_ver2.jpg/_jcr_content/renditions/original.webp"
           alt="item"
@@ -26,7 +24,7 @@ const Item = () => {
           doloribus laudantium iusto. Omnis.
         </p>
       </article>
-    </>
+    </Link>
   );
 };
 
