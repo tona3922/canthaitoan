@@ -1,4 +1,7 @@
-import type { MenuProps } from "antd";
+export type TSelectData = {
+  label: string;
+  value: string;
+};
 export const NavbarLayer = [
   {
     label: "Cân phòng thí nghiệm",
