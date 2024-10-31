@@ -1,28 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
-import { Button, Modal } from "antd";
+import Link from "next/link";
 
-const Item = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+const Item: React.FC<{ id: string }> = ({ id }) => {
   return (
-    <>
-      <article
-        className="border-gray-300 border-[1px] flex flex-col gap-2 cursor-pointer hover:border-sky-600"
-        onClick={showModal}
-      >
+    <Link href={`/pages/detail/${id}`}>
+      <article className="border-gray-300 border-[1px] flex flex-col gap-2 cursor-pointer hover:border-sky-600">
         <Image
           src="https://www.mt.com/dam/homepage-redesign-2016-r01/thumbnails/esbu_industrial_ver2.jpg/_jcr_content/renditions/original.webp"
           alt="item"
@@ -40,29 +24,7 @@ const Item = () => {
           doloribus laudantium iusto. Omnis.
         </p>
       </article>
-      <Modal
-        centered
-        title="Basic Modal"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Image
-          src="https://www.mt.com/dam/homepage-redesign-2016-r01/thumbnails/esbu_industrial_ver2.jpg/_jcr_content/renditions/original.webp"
-          alt="item"
-          className="w-full"
-          width={200}
-          height={100}
-        />
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
-    </>
+    </Link>
   );
 };
 
