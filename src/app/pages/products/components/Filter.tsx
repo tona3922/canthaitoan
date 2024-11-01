@@ -1,11 +1,20 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { Select } from "antd";
-import { NavbarLayer } from "../../../../../NavbarLayer";
+import { NavbarLayer, TSelectData } from "../../../../../NavbarLayer";
 
 const Filter = () => {
   const data = NavbarLayer;
-  const handleChange = () => {};
+  const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
+  const handleChange = (value: string) => {
+    const findData = NavbarLayer.find((item) => item.label === value);
+    if (findData) {
+      setSubData(findData.children);
+    }
+  };
+  const handleChangeSub = (value: string) => {
+    console.log(value);
+  };
   const handleSubmit = () => {};
   const [inp, setInp] = useState("");
   return (
@@ -21,7 +30,6 @@ const Filter = () => {
           placeholder="Nhập tên sản phẩm"
           value={inp}
           onChange={(e) => setInp(e.target.value)}
-          // onChange={handleChange}
           className="text-sm border rounded-md py-2.5 pl-2 outline-none w-full"
         />
       </div>
@@ -42,6 +50,25 @@ const Filter = () => {
           onChange={handleChange}
         />
       </div>
+      {subData !== undefined && subData.length > 0 && (
+        <div className="flex flex-col gap-1">
+          <h3 className="text-md">Loai cu the</h3>
+          <Select
+            showSearch
+            allowClear={true}
+            className="w-full h-10"
+            placeholder="Các loại cân"
+            optionFilterProp="label"
+            filterSort={(optionA, optionB) =>
+              (optionA?.label ?? "")
+                .toLowerCase()
+                .localeCompare((optionB?.label ?? "").toLowerCase())
+            }
+            options={subData}
+            onChange={handleChangeSub}
+          />
+        </div>
+      )}
       <button
         className="bg-sky-500 text-white text-lg self-center rounded-lg p-2"
         type="submit"
