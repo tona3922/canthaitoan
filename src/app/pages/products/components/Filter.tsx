@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { Select } from "antd";
-import { NavbarLayer, TSelectData } from "../../../../../NavbarLayer";
+import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 
 const Filter = () => {
   const data = NavbarLayer;
