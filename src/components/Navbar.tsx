@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import rightArrow from "../asset/right-arrow.png";
-import { NavbarLayer } from "../../NavbarLayer";
+import { NavbarLayer } from "@/asset/NavbarLayer";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
