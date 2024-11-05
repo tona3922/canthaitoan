@@ -4,6 +4,28 @@ import React, { Fragment, useState } from "react";
 import Filter from "./components/Filter";
 
 const Products = () => {
+  // useEffect(() => {
+  //   const getAllProducts = async () => {
+  //     try {
+  //       // const response = await fetch("https://canthaitoan.vercel.app/api/auth");
+  //       const response = await fetch("http://localhost:3001/product/");
+
+  //       if (!response.ok) {
+  //         const errorText = await response.text();
+  //         throw new Error(
+  //           `Request failed with status ${response.status}: ${errorText}`
+  //         );
+  //       }
+  //       const data = await response.json();
+  //       console.log(data);
+  //       setFetchData(data.allProducts);
+  //       // return response.json();
+  //     } catch (error: any) {
+  //       throw new Error(`Data failed: ${error.message}`);
+  //     }
+  //   };
+  //   getAllProducts();
+  // }, []);
   const [isLoading, setIsLoading] = useState(false);
   return (
     <div className="pt-12 pb-6 my-10 mx-10">

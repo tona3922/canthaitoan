@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import rightArrow from "../asset/right-arrow.png";
+import rightArrow from "@/asset/right-arrow.png";
 import { NavbarLayer } from "@/asset/NavbarLayer";
 
 const Navbar = () => {
@@ -16,14 +16,14 @@ const Navbar = () => {
           className="flex flex-row text-xl font-customTitle items-center justify-center gap-2"
         >
           Thai toan
-          <Image
+          {/* <Image
             src="/vercel.svg"
             alt="Vercel Logo"
             className="dark:invert"
             width={100}
             height={24}
             priority
-          />
+          /> */}
         </Link>
         <button>
           <Link
@@ -76,14 +76,17 @@ const Navbar = () => {
                             {item.children.map((child, index) => {
                               return (
                                 <li key={index}>
-                                  <a
+                                  <Link
                                     className="text-slate-800 hover:bg-slate-50 flex rounded text-md p-2"
-                                    href="#"
+                                    href={{
+                                      pathname: "/pages/products",
+                                      query: { name: child.label },
+                                    }}
                                   >
                                     <span className="whitespace-nowrap text-md">
                                       {child.label}
                                     </span>
-                                  </a>
+                                  </Link>
                                 </li>
                               );
                             })}

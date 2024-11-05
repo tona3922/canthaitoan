@@ -4,13 +4,21 @@ import { ImageKitProvider, IKUpload, IKImage } from "imagekitio-next";
 import { Select } from "antd";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { authenticator } from "./hooks/useAuthentication";
-import { error } from "console";
 const publicKey = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY;
 const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_ENDPOINT;
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4xMjMiLCJlbWFpbCI6InZvdGhhaXRvYW4xMkBnbWFpbC5jb20iLCJpZCI6IjY3MjUxMmNmZWFjM2ZiYzNiMzA2YTVlMSJ9LCJpYXQiOjE3MzA3MzY3MjEsImV4cCI6MTczMDgyMzEyMX0.HgcWhAqP8G-5sIIwIeA550ACD3CQ-QGvxOiK3ht0eys";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4xMjMiLCJlbWFpbCI6InZvdGhhaXRvYW4xMkBnbWFpbC5jb20iLCJpZCI6IjY3MjUxMmNmZWFjM2ZiYzNiMzA2YTVlMSJ9LCJpYXQiOjE3MzA4MjgwNzEsImV4cCI6MTczMDkxNDQ3MX0.RPm9oFnUH1tbkAoTEw6ezOkFVXqhSncLPsgrTMWrWvc";
+type TNote = {
+  noteName: string;
+  noteDescription: string;
+};
 const Home = () => {
+  const [fetchData, setFetchData] = useState<any>([]);
   const data = NavbarLayer;
+  const [note, setNote] = useState<TNote[]>([
+    { noteName: "", noteDescription: "" },
+  ]);
+  const [counter, setCounter] = useState(1);
   const [type, setType] = useState<string>("");
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
@@ -42,6 +50,7 @@ const Home = () => {
       type: type,
       subtype: type2 ?? "",
       image: result.url,
+      information: note,
     };
     console.log(data);
     try {
@@ -76,6 +85,18 @@ const Home = () => {
     }
   };
 
+  const handleClick = () => {
+    setCounter(counter + 1);
+    note.push({ noteName: "", noteDescription: "" });
+    setNote(note);
+    console.log(counter);
+  };
+  const handleClickDecrease = () => {
+    setCounter(counter - 1);
+    note.pop();
+    setNote(note);
+    console.log(counter);
+  };
   return (
     <div className="py-20 px-4 h-screen">
       <form action="" onSubmit={handleSubmit}>
@@ -119,9 +140,61 @@ const Home = () => {
             />
           </div>
         )}
+        <button
+          type="button"
+          className="bg-gray-400 p-2 rounded-lg text-white"
+          onClick={handleClick}
+        >
+          Thêm thông số kỹ thuật
+        </button>
+        <button
+          type="button"
+          className="bg-red-500 p-2 rounded-lg text-white"
+          onClick={handleClickDecrease}
+        >
+          Xóa thông số kỹ thuật
+        </button>
+        {Array.from(Array(counter)).map((_, index) => {
+          return (
+            <div className="flex" key={index}>
+              <input
+                className="border h-10 px-1 outline-none"
+                name="noteName"
+                type="text"
+                placeholder="name"
+                required
+                onChange={(e) => {
+                  if (index < note.length) {
+                    note[index].noteName = e.target.value;
+                  }
+                  console.log("changed : ", note);
+                }}
+              />
+              <input
+                className="border w-1/4 h-10 px-1 outline-none"
+                name="noteDescription"
+                type="text"
+                placeholder="description"
+                required
+                onChange={(e) => {
+                  if (index < note.length) {
+                    note[index].noteDescription = e.target.value;
+                  }
+                  console.log("changed : ", note);
+                }}
+              />
+            </div>
+          );
+        })}
         <div>
           <label htmlFor="description">Mô tả</label>
-          <input type="text" className="border" name="description" required />
+          <textarea
+            name="description"
+            id=""
+            required
+            className="border w-full"
+          ></textarea>
+          {/* <input type="text" className="border" name="description" required /> */}
         </div>
         <div>
           <ImageKitProvider
@@ -147,8 +220,21 @@ const Home = () => {
             )}
           </ImageKitProvider>
         </div>
-        <button type="submit">Thêm sản phẩm</button>
+        <button
+          className="bg-sky-600 text-white text-lg rounded-md p-2 font-medium"
+          type="submit"
+        >
+          Thêm sản phẩm
+        </button>
       </form>
+      {fetchData.length > 0 &&
+        fetchData.map((item: any, index: any) => {
+          return (
+            <div key={index}>
+              <div>{item.description}</div>
+            </div>
+          );
+        })}
     </div>
   );
 };
