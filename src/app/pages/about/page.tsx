@@ -7,7 +7,7 @@ const divVariants: Variants = {
   offscreen: { y: 60 },
   onscreen: { y: 0, transition: { type: "spring", duration: 1.5 } },
 };
-const About = () => {
+export default function Page() {
   const query = "CÔNG+TY+TNHH+CÂN+ĐIỆN+TỬ+THÁI+TOÀN/";
   const mapData = `https://maps.google.com/maps?q=${query}&t=&z=15&ie=UTF8&iwloc=&output=embed&z=18`;
   return (
@@ -55,6 +55,4 @@ const About = () => {
       </div>
     </main>
   );
-};
-
-export default About;
+}

@@ -3,7 +3,29 @@ import Item from "@/components/Item";
 import React, { Fragment, useState } from "react";
 import Filter from "./components/Filter";
 
-const Products = () => {
+export default function Page() {
+  // useEffect(() => {
+  //   const getAllProducts = async () => {
+  //     try {
+  //       // const response = await fetch("https://canthaitoan.vercel.app/api/auth");
+  //       const response = await fetch("http://localhost:3001/product/");
+
+  //       if (!response.ok) {
+  //         const errorText = await response.text();
+  //         throw new Error(
+  //           `Request failed with status ${response.status}: ${errorText}`
+  //         );
+  //       }
+  //       const data = await response.json();
+  //       console.log(data);
+  //       setFetchData(data.allProducts);
+  //       // return response.json();
+  //     } catch (error: any) {
+  //       throw new Error(`Data failed: ${error.message}`);
+  //     }
+  //   };
+  //   getAllProducts();
+  // }, []);
   const [isLoading, setIsLoading] = useState(false);
   return (
     <div className="pt-12 pb-6 my-10 mx-10">
@@ -33,6 +55,4 @@ const Products = () => {
       <button>More</button>
     </div>
   );
-};
-
-export default Products;
+}

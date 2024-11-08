@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { notification } from "antd";
 import emailjs from "@emailjs/browser";
 
-const Support = () => {
+export default function Page() {
   const form = useRef();
   const [api, contextHolder] = notification.useNotification();
 
@@ -125,6 +125,4 @@ const Support = () => {
       </div>
     </div>
   );
-};
-
-export default Support;
+}
