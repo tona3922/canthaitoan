@@ -6,7 +6,11 @@ import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { authenticator } from "./hooks/useAuthentication";
 const publicKey = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY;
 const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_ENDPOINT;
-const token = localStorage.getItem("accessToken");
+let token = "";
+
+if (typeof window !== "undefined") {
+  token = window.localStorage.getItem("accessToken") ?? "";
+}
 type TNote = {
   noteName: string;
   noteDescription: string;
