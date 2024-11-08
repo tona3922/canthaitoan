@@ -1,18 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ImageKitProvider, IKUpload, IKImage } from "imagekitio-next";
 import { Select } from "antd";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { authenticator } from "./hooks/useAuthentication";
 const publicKey = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY;
 const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_ENDPOINT;
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4xMjMiLCJlbWFpbCI6InZvdGhhaXRvYW4xMkBnbWFpbC5jb20iLCJpZCI6IjY3MjUxMmNmZWFjM2ZiYzNiMzA2YTVlMSJ9LCJpYXQiOjE3MzA4MjgwNzEsImV4cCI6MTczMDkxNDQ3MX0.RPm9oFnUH1tbkAoTEw6ezOkFVXqhSncLPsgrTMWrWvc";
+const token = localStorage.getItem("accessToken");
 type TNote = {
   noteName: string;
   noteDescription: string;
 };
-const Home = () => {
+export default function Page() {
   const [fetchData, setFetchData] = useState<any>([]);
   const data = NavbarLayer;
   const [note, setNote] = useState<TNote[]>([
@@ -237,6 +236,4 @@ const Home = () => {
         })}
     </div>
   );
-};
-
-export default Home;
+}

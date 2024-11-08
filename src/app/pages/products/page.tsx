@@ -3,7 +3,7 @@ import Item from "@/components/Item";
 import React, { Fragment, useState } from "react";
 import Filter from "./components/Filter";
 
-const Products = () => {
+export default function Page() {
   // useEffect(() => {
   //   const getAllProducts = async () => {
   //     try {
@@ -55,6 +55,4 @@ const Products = () => {
       <button>More</button>
     </div>
   );
-};
-
-export default Products;
+}
