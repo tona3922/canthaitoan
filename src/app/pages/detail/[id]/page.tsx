@@ -1,66 +1,81 @@
 "use client";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { TProduct } from "../../products/product";
 export default function Page({ params }: { params: { id: string } }) {
-  console.log(params);
+  const [detail, setDetail] = useState<TProduct>();
+  useEffect(() => {
+    const getAllProducts = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND}/product/${params.id}`
+        );
+        // const response = await fetch("http://localhost:3001/product/");
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(
+            `Request failed with status ${response.status}: ${errorText}`
+          );
+        }
+        const data = await response.json();
+        setDetail(data.product);
+      } catch (error: any) {
+        throw new Error(`Data failed: ${error.message}`);
+      }
+    };
+    getAllProducts();
+  }, []);
   return (
     <main className="min-h-screen pt-20 pb-10">
       <div className="flex justify-center">
         <div className="w-2/3 flex flex-row gap-6">
           <div className="flex-1 flex justify-center items-center">
             <Image
-              src="https://www.mt.com/images/WebShop/MainImage/30524635.jpg"
+              src={
+                detail?.image ??
+                "https://www.mt.com/images/WebShop/MainImage/30524635.jpg"
+              }
               alt="item"
-              className="w-64 h-64"
+              className="w-full h-80"
               width={100}
               height={100}
             />
           </div>
           <div className="flex-1">
             <h1 className="text-3xl text-sky-600 font-bold font-customCardTitle">
-              Title here {params.id}
+              {detail?.name}
             </h1>
             <hr />
             <div className="flex flex-col gap-0.5 mt-2">
-              <h2 className="text-lg font-semibold text-slate-500">
-                Smart Features.
-              </h2>
-              <p className="text-md">
-                Accurate and reliable for trusted jewelry weighing. 505 ct/101 g
-                capacity, 0.001 ct/0.1 mg readability, color touchscreen, FACT
-                fully automatic internal adjustment, 3 interfaces, 8 built-in
-                applications, overload protection, metal base
-              </p>
+              <h2 className="text-lg font-semibold text-slate-500">Loại cân</h2>
+              <p className="text-md">{detail?.type}</p>
             </div>
             <div className="flex flex-col gap-0.5 mt-2">
-              <h2 className="text-lg font-semibold text-slate-500">
-                Designed to Perform
-              </h2>
-              <p className="text-md">
-                Advanced weighing technologies, solid construction, and special
-                design features deliver the accuracy you need for weighing
-                jewelry and precious metals.
-              </p>
+              <h2 className="text-lg font-semibold text-slate-500">Mô tả</h2>
+              <p className="text-md whitespace-pre">{detail?.description}</p>
             </div>
-            <div className="flex flex-col gap-0.5 mt-2">
-              <h2 className="text-lg font-semibold text-slate-500">
-                Intuitive Touch Screen Operation
-              </h2>
-              <p className="text-md">
-                The large color touchscreen is easy to read, even under the
-                dazzling glare of shop lights, while the user interface is
-                simple for anyone to use.
-              </p>
-            </div>
-            <div className="flex flex-col gap-0.5 mt-2">
-              <h2 className="text-lg font-semibold text-slate-500">
-                Automatic Performance Testing JET
-              </h2>
-              <p className="text-md">
-                balances use internal weights to automatically test and adjust
-                the balance, helping to ensure that weighing performance remains
-                true.
-              </p>
-            </div>
+            {detail?.information && (
+              <div className="flex flex-col gap-0.5 mt-2">
+                <h2 className="text-lg font-semibold text-slate-500">
+                  Thông số kỹ thuật
+                </h2>
+                {detail?.information.map((criteria, index) => {
+                  return (
+                    <div
+                      className="flex flex-row gap-2 items-center mt-2"
+                      key={index}
+                    >
+                      <h2 className="text-md">{criteria.noteName} :</h2>
+                      <p className="text-md font-semibold">
+                        {criteria.noteDescription}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
             <button className="mt-6 py-2 px-4 bg-gray-700 rounded-lg text-white text-lg font-semibold">
               Liên hệ báo giá
             </button>

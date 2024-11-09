@@ -34,13 +34,9 @@ export default function Page() {
       .then(
         () => {
           successNotification();
-          console.log(process.env.NEXT_PUBLIC_YOUR_SERVICE_ID);
-          console.log("SUCCESS!");
         },
         (error) => {
           errorNotification();
-          console.log(process.env.NEXT_PUBLIC_YOUR_SERVICE_ID);
-          console.log("FAILED...", error.text);
         }
       );
   };

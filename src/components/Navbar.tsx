@@ -29,11 +29,11 @@ const Navbar = () => {
             priority
           /> */}
         </Link>
-        <div className="flex flex-row justify-center gap-20">
+        <nav className="flex flex-row justify-center lg:gap-20 md:gap-10">
           <button>
             <Link
               href="/"
-              className="font-medium font-customCardTitle text-gray-600 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+              className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
               Home
             </Link>
@@ -49,7 +49,7 @@ const Navbar = () => {
           >
             <Link
               href="/pages/products"
-              className="font-medium font-customCardTitle text-gray-600 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+              className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
               <span aria-expanded={open}>Products</span>
               {open && (
@@ -108,7 +108,7 @@ const Navbar = () => {
           <button>
             <Link
               href="/pages/support"
-              className="font-medium font-customCardTitle text-gray-600 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+              className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
               Support
             </Link>
@@ -116,7 +116,7 @@ const Navbar = () => {
           <button>
             <Link
               href="/pages/about"
-              className="font-medium font-customCardTitle text-gray-600 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+              className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
               About
             </Link>
@@ -125,16 +125,15 @@ const Navbar = () => {
             <button>
               <Link
                 href="/pages/newproduct"
-                className="font-medium font-customCardTitle text-gray-600 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+                className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
               >
                 New Product
               </Link>
             </button>
           )}
-        </div>
+        </nav>
         {cookie !== undefined ? (
           <button
-            className=""
             onClick={() => {
               deleteSession();
               setCookie(undefined);
@@ -142,7 +141,7 @@ const Navbar = () => {
           >
             <Link
               href="/pages/auth"
-              className="font-medium font-customCardTitle text-gray-600 text-xl hover:text-sky-600"
+              className="font-medium font-customCardTitle text-xl "
             >
               Log out
             </Link>
@@ -151,7 +150,7 @@ const Navbar = () => {
           <button className="">
             <Link
               href="/pages/auth"
-              className="font-medium font-customCardTitle text-gray-600 text-xl hover:text-sky-600"
+              className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600"
             >
               Login
             </Link>
