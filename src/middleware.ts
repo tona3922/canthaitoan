@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import Cookies from "js-cookie";
 
 // 1. Specify protected and public routes
 const protectedRoutes = ["/pages/newproduct"];
-const publicRoutes = ["/pages/auth", "/"];
+const publicRoutes = ["/pages/auth"];
 
 export const middleware = (req: NextRequest) => {
   //   console.log("use me");

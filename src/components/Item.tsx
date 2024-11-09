@@ -2,27 +2,23 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { TProduct } from "@/app/pages/products/product";
 
-const Item: React.FC<{ id: string }> = ({ id }) => {
+const Item: React.FC<{ props: TProduct }> = ({ props }) => {
   return (
-    <Link href={`/pages/detail/${id}`}>
-      <article className="border-gray-300 border-[1px] flex flex-col gap-2 cursor-pointer hover:border-sky-600">
+    <Link href={`/pages/detail/${props._id}`}>
+      <article className="border-gray-300 border-[1px] flex flex-col gap-2 cursor-pointer hover:border-sky-600 w-52 h-80">
         <Image
-          src="https://www.mt.com/dam/homepage-redesign-2016-r01/thumbnails/esbu_industrial_ver2.jpg/_jcr_content/renditions/original.webp"
+          src={props.image}
           alt="item"
-          className="w-full h-36"
+          className="w-full h-52"
           width={200}
           height={100}
         />
         <h2 className="font-semibold font-customCardTitle px-2 text-lg">
-          Title
+          {props.name}
         </h2>
-        <p className="text-sm px-2 pb-2">
-          Content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Excepturi at quibusdam expedita provident quae atque facilis, eum
-          incidunt ea, suscipit vero quaerat eaque sit possimus nostrum
-          doloribus laudantium iusto. Omnis.
-        </p>
+        <p className="text-sm px-2 pb-2">{props.description}</p>
       </article>
     </Link>
   );
