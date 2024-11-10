@@ -11,7 +11,7 @@ const Item: React.FC<{ props: TProduct }> = ({ props }) => {
         <Image
           src={props.image}
           alt="item"
-          className="w-full h-52"
+          className="w-full h-56"
           width={200}
           height={100}
         />
