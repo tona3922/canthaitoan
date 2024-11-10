@@ -19,15 +19,7 @@ const Navbar = () => {
           href="/"
           className="flex flex-row text-xl font-customTitle items-center justify-center gap-2"
         >
-          Thai toan
-          {/* <Image
-            src="/vercel.svg"
-            alt="Vercel Logo"
-            className="dark:invert"
-            width={100}
-            height={24}
-            priority
-          /> */}
+          Can Thai Toan
         </Link>
         <nav className="flex flex-row justify-center lg:gap-20 md:gap-10">
           <button>
@@ -35,7 +27,7 @@ const Navbar = () => {
               href="/"
               className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
-              Home
+              Trang chủ
             </Link>
           </button>
           <button
@@ -51,7 +43,7 @@ const Navbar = () => {
               href="/pages/products"
               className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
-              <span aria-expanded={open}>Products</span>
+              <span aria-expanded={open}>Sản phẩm</span>
               {open && (
                 <ul className="origin-top absolute top-full left-1/2 -translate-x-1/2 min-w-[284px] bg-white border p-2 border-slate-200 rounded-lg shadow-xl transition-all duration-200 ease-out transform opacity-100 translate-y-2.5">
                   {data.map((item, idx) => {
@@ -107,10 +99,10 @@ const Navbar = () => {
           </button>
           <button>
             <Link
-              href="/pages/support"
+              href="/pages/service"
               className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
-              Support
+              Dịch vụ
             </Link>
           </button>
           <button>
@@ -118,7 +110,7 @@ const Navbar = () => {
               href="/pages/about"
               className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
-              About
+              Liên hệ
             </Link>
           </button>
           {cookie !== undefined && (
@@ -127,7 +119,7 @@ const Navbar = () => {
                 href="/pages/newproduct"
                 className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
               >
-                New Product
+                Thêm sản phẩm
               </Link>
             </button>
           )}

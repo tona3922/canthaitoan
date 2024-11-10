@@ -1,7 +1,11 @@
 "use client";
 import React from "react";
 import { Variants, motion } from "framer-motion";
-import { Divider } from "antd";
+import Image from "next/image";
+import email from "@/asset/email.png";
+import location from "@/asset/pin.png";
+import phone from "@/asset/phone-call.png";
+import ContactForm from "@/components/ContactForm";
 
 const divVariants: Variants = {
   offscreen: { y: 60 },
@@ -12,42 +16,56 @@ export default function Page() {
   const mapData = `https://maps.google.com/maps?q=${query}&t=&z=15&ie=UTF8&iwloc=&output=embed&z=18`;
   return (
     <main>
-      <div className="mt-16 flex min-h-screen justify-center py-12">
-        <div className="flex flex-col w-2/3 gap-4">
+      <div className="mt-16 flex min-h-screen gap-24 pt-4 pb-12 px-16">
+        <ContactForm />
+        <div className="flex flex-col gap-4">
           <motion.div
             initial="offscreen"
             whileInView="onscreen"
             viewport={{ once: true, amount: 0.8 }}
             variants={divVariants}
+            className="flex flex-col gap-4"
           >
-            <Divider orientation="left" style={{ borderColor: "	#E0E0E0" }}>
-              <h2 className="text-3xl font-customTitle font-bold">About us</h2>
-            </Divider>
+            <div className="flex gap-2">
+              <Image
+                src={location}
+                alt="location"
+                className="dark:invert"
+                width={24}
+                height={20}
+                priority
+              />
+              <p className="text-lg">
+                183/14A Hoàng Hoa Thám, Phường 6, Quận Bình Thạnh, TP Hồ Chí
+                Minh
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <Image
+                src={phone}
+                alt="location"
+                className="dark:invert"
+                width={24}
+                height={5}
+                priority
+              />
+              <p className="text-lg">0123456789</p>
+            </div>
+            <div className="flex gap-3">
+              <Image
+                src={email}
+                alt="location"
+                className="dark:invert"
+                width={28}
+                height={20}
+                priority
+              />
+              <p className="text-lg">nguyetthuscale@canthaitoan.com</p>
+            </div>
           </motion.div>
-          <motion.div
-            initial="offscreen"
-            whileInView="onscreen"
-            viewport={{ once: true, amount: 0.8 }}
-            variants={divVariants}
-          >
-            <p className="font-customDetail text-sky-600 font-bold text-xl">
-              Main representative
-            </p>
-            <p className="text-lg">
-              183 Hoang Hoa Tham, Ward 9, District Binh Thanh, Ho Chi Minh City
-            </p>
-          </motion.div>
-
-          <p className="font-customDetail text-sky-600 font-bold text-xl">
-            Sale & service
-          </p>
-          <p className="text-lg">0123456789</p>
-          <p className="font-customDetail text-sky-600 font-bold text-xl">
-            Map & Location
-          </p>
           <iframe
-            width="750"
-            height="400"
+            width="300"
+            height="500"
             className="rounded-lg w-full border-gray-400"
             src={mapData}
           ></iframe>
