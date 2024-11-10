@@ -3,9 +3,18 @@ import Item from "@/components/Item";
 import React, { useEffect, useState } from "react";
 import Filter from "./components/Filter";
 import { TProduct } from "./product";
+import { useSearchParams } from "next/navigation";
 
 export default function Page() {
   const [fetchData, setFetchData] = useState<any>([]);
+  const searchParams = useSearchParams();
+  const type = searchParams.get("type");
+  const subtype = searchParams.get("subtype");
+  console.log("type: ", type);
+  console.log("subtype: ", subtype);
+  const paramsObj = { type: type ?? "", subtype: subtype ?? "" };
+  const newSearchParams = new URLSearchParams(paramsObj);
+  console.log(newSearchParams.toString());
 
   useEffect(() => {
     const getAllProducts = async () => {

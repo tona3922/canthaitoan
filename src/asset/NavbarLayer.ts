@@ -5,79 +5,79 @@ export type TSelectData = {
 export const NavbarLayer = [
   {
     label: "Cân phòng thí nghiệm",
-    value: "Cân phòng thí nghiệm",
+    value: "can phong thi nghiem",
     children: [
       {
         label: "Cân phân tích",
-        value: "Cân phân tích",
+        value: "can phan tich",
       },
       {
         label: "Cân sấy ẩm",
-        value: "",
+        value: "can say am",
       },
       {
         label: "Cân tỷ trọng",
-        value: "",
+        value: "can ty trong",
       },
     ],
   },
   {
     label: "Cân kỹ thuật",
-    value: "Cân kỹ thuật",
+    value: "can ky thuat",
   },
   {
     label: "Cân đếm số lượng",
-    value: "Cân đếm số lượng",
+    value: "can dem so luong",
   },
   {
     label: "Cân bàn - cân sàn",
-    value: "Cân bàn - cân sàn",
+    value: "can ban va can san",
     children: [
       {
         label: "Cân phân tích kỹ thuật",
-        value: "Cân phân tích kỹ thuật",
+        value: "can phan tich ky thuat",
       },
       {
         label: "Cân đĩa",
-        value: "Cân đĩa",
+        value: "can dia",
       },
     ],
   },
   {
     label: "Cân treo",
-    value: "Cân treo",
+    value: "can treo",
   },
   {
     label: "Cân xe nâng",
-    value: "Cân xe nâng",
+    value: "can xe nang",
   },
   {
     label: "Cân ngành vàng",
-    value: "Cân ngành vàng",
+    value: "can nganh vang",
   },
   {
     label: "Cân tính tiền",
-    value: "Cân tính tiền",
+    value: "can tinh tien",
   },
   {
     label: "Thiết bị cân",
-    value: "Thiết bị cân",
+    value: "thiet bi can",
     children: [
       {
         label: "Cảm ứng tải",
-        value: "Cảm ứng tải",
+        value: "cam ung tai",
       },
       {
         label: "Bộ chỉ thị cân",
-        value: "Bộ chỉ thị cân",
+        value: "bo chi thi can",
       },
       {
         label: "Máy in cân",
-        value: "Máy in cân",
+        value: "may in can",
       },
       {
         label: "Quả cân",
-        value: "Quả cân",
+        value: "qua can",
       },
     ],
   },
