@@ -21,7 +21,7 @@ const Navbar = () => {
         >
           Can Thai Toan
         </Link>
-        <nav className="flex flex-row justify-center lg:gap-20 md:gap-10">
+        <nav className="flex flex-row justify-center lg:gap-20 md:gap-6">
           <button>
             <Link
               href="/"
@@ -56,7 +56,7 @@ const Navbar = () => {
                           className="text-slate-800 hover:bg-slate-50 flex items-center justify-between rounded text-md p-2"
                           href={{
                             pathname: "/pages/products",
-                            query: { type: item.label },
+                            query: { type: item.value },
                           }}
                         >
                           <span className="whitespace-nowrap text-md">
@@ -81,8 +81,8 @@ const Navbar = () => {
                                       href={{
                                         pathname: "/pages/products",
                                         query: {
-                                          type: item.label,
-                                          subtype: child.label,
+                                          type: item.value,
+                                          subtype: child.value,
                                         },
                                       }}
                                     >

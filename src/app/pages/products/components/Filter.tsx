@@ -7,7 +7,7 @@ const Filter = () => {
   const data = NavbarLayer;
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
   const handleChange = (value: string) => {
-    const findData = NavbarLayer.find((item) => item.label === value);
+    const findData = NavbarLayer.find((item) => item.value === value);
     if (findData) {
       setSubData(findData.children);
     }

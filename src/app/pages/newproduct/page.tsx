@@ -29,7 +29,7 @@ export default function Page() {
 
   const handleChange = (value: string) => {
     setType(value);
-    const findData = NavbarLayer.find((item) => item.label === value);
+    const findData = NavbarLayer.find((item) => item.value === value);
     if (findData) {
       setSubData(findData.children);
     }
@@ -91,13 +91,11 @@ export default function Page() {
     setCounter(counter + 1);
     note.push({ noteName: "", noteDescription: "" });
     setNote(note);
-    console.log(counter);
   };
   const handleClickDecrease = () => {
     setCounter(counter - 1);
     note.pop();
     setNote(note);
-    console.log(counter);
   };
   const successNotification = () => {
     api["success"]({
