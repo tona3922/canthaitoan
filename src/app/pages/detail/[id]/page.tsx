@@ -25,7 +25,7 @@ export default function Page({ params }: { params: { id: string } }) {
       }
     };
     getAllProducts();
-  }, []);
+  }, [params.id]);
   return (
     <main className="min-h-screen pt-20 pb-10 flex justify-center items-center">
       <div className="w-2/3 flex flex-row gap-6">

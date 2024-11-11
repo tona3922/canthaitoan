@@ -21,7 +21,7 @@ const Navbar = () => {
         >
           Can Thai Toan
         </Link>
-        <nav className="flex flex-row justify-center lg:gap-20 md:gap-10">
+        <nav className="flex flex-row justify-center lg:gap-20 md:gap-6">
           <button>
             <Link
               href="/"
@@ -52,9 +52,12 @@ const Navbar = () => {
                         key={idx}
                         className={`${item.children ? "relative group" : ""}`}
                       >
-                        <a
+                        <Link
                           className="text-slate-800 hover:bg-slate-50 flex items-center justify-between rounded text-md p-2"
-                          href="#"
+                          href={{
+                            pathname: "/pages/products",
+                            query: { type: item.value },
+                          }}
                         >
                           <span className="whitespace-nowrap text-md">
                             {item.label}
@@ -66,7 +69,7 @@ const Navbar = () => {
                               className="h-4 w-4"
                             />
                           )}
-                        </a>
+                        </Link>
                         {item.children && (
                           <div className="origin-top-left hidden group-hover:block ease-in-out absolute -top-2 translate-x-[16.5rem] px-3">
                             <ul className="bg-white border border-slate-200 p-2 rounded-lg shadow-xl transition duration-150">
@@ -77,7 +80,10 @@ const Navbar = () => {
                                       className="text-slate-800 hover:bg-slate-50 flex rounded text-md p-2"
                                       href={{
                                         pathname: "/pages/products",
-                                        query: { name: child.label },
+                                        query: {
+                                          type: item.value,
+                                          subtype: child.value,
+                                        },
                                       }}
                                     >
                                       <span className="whitespace-nowrap text-md">
