@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Filter from "./components/Filter";
 import { TProduct } from "./product";
 import { useSearchParams } from "next/navigation";
+import { Pagination } from "antd";
 
 export default function Page() {
   const [fetchData, setFetchData] = useState<any>([]);
@@ -43,7 +44,7 @@ export default function Page() {
       <div className="flex gap-4">
         <div className="basis-1/5 min-h-screen">
           <div className="sticky top-16">
-            <Filter />
+            <Filter setFetchData={setFetchData} />
           </div>
         </div>
         <div className="basis-4/5 flex flex-col gap-6">
@@ -56,8 +57,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-
-      <button>More</button>
+      <Pagination defaultCurrent={1} total={5} />
     </div>
   );
 }

@@ -49,7 +49,7 @@ export default function Page() {
                 height={5}
                 priority
               />
-              <p className="text-lg">0123456789</p>
+              <p className="text-lg">0908699986 - 0903638421</p>
             </div>
             <div className="flex gap-3">
               <Image
@@ -60,7 +60,7 @@ export default function Page() {
                 height={20}
                 priority
               />
-              <p className="text-lg">nguyetthuscale@canthaitoan.com</p>
+              <p className="text-lg">nguyetthu@canthaitoan.com</p>
             </div>
           </motion.div>
           <iframe
