@@ -1,7 +1,5 @@
 "use client";
-import Item from "@/components/Item";
 import SwiperAd from "@/components/SwiperAd";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Filter from "./components/Filter";
 import { TProduct } from "./product";
 import { useSearchParams } from "next/navigation";
-import { Pagination } from "antd";
+import { Empty, Pagination } from "antd";
 
 export default function Page() {
   const [fetchData, setFetchData] = useState<any>([]);
@@ -22,7 +22,11 @@ export default function Page() {
             process.env.NEXT_PUBLIC_BACKEND
           }/product/filter?${new URLSearchParams(paramsObj).toString()}`
         );
-        // const response = await fetch("http://localhost:3001/product/");
+        // const response = await fetch(
+        //   `http://localhost:3001/product/product/filter?${new URLSearchParams(
+        //     paramsObj
+        //   ).toString()}`
+        // );
 
         if (!response.ok) {
           const errorText = await response.text();
@@ -47,14 +51,15 @@ export default function Page() {
             <Filter setFetchData={setFetchData} />
           </div>
         </div>
-        <div className="basis-4/5 flex flex-col gap-6">
-          <div className="grid grid-cols-5 place-items-center gap-4">
-            {fetchData &&
-              fetchData.length > 0 &&
-              fetchData.map((item: TProduct, index: any) => {
+        <div className="basis-4/5">
+          {fetchData && fetchData.length > 0 && (
+            <div className="grid grid-cols-5 place-items-center gap-4">
+              {fetchData.map((item: TProduct, index: any) => {
                 return <Item props={item} key={index} />;
               })}
-          </div>
+            </div>
+          )}
+          {fetchData && fetchData.length === 0 && <Empty />}
         </div>
       </div>
       <Pagination defaultCurrent={1} total={5} />
