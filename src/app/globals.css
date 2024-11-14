@@ -22,3 +22,18 @@ input[type="number"] {
 .ant-spin {
   color: white;
 }
+.js-toc {
+  .toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    .toc-list-item {
+      color: #495057;
+      font-size: 18px;
+    }
+    .is-active-li {
+      color: #0077b6;
+      font-weight: 700;
+    }
+  }
+}
