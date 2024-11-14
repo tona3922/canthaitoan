@@ -3,8 +3,24 @@ import Item from "@/components/Item";
 import SwiperAd from "@/components/SwiperAd";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}`);
+        if (response.ok) {
+          // console.log("Data fetched");
+        } else {
+          throw new Error("Failed to load data");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <div className="mt-20 min-h-screen">
       <div className="flex pt-4 justify-center h-[630px] px-12">
