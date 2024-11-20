@@ -48,6 +48,11 @@ const ContactForm = () => {
         ref={form as any}
         onSubmit={sendEmail}
       >
+        <p>
+          Với quy trình làm việc chuyên nghiệp và đội ngũ nhân sự giàu kinh
+          nghiệm, đam mê và sáng tạo, sẽ là lựa chọn hàng đầu cho khách hàng khi
+          cần mua các sản phẩm cân điện tử chất lượng cao.
+        </p>
         <h1 className="text-3xl font-customDetail font-bold">
           Điền form liên hệ
         </h1>

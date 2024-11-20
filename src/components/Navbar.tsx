@@ -25,7 +25,7 @@ const Navbar = () => {
           <button>
             <Link
               href="/"
-              className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+              className="font-medium text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
               Trang chủ
             </Link>
@@ -41,7 +41,7 @@ const Navbar = () => {
           >
             <Link
               href="/pages/products"
-              className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+              className="font-medium text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
               <span aria-expanded={open}>Sản phẩm</span>
               {open && (
@@ -106,7 +106,7 @@ const Navbar = () => {
           <button>
             <Link
               href="/pages/service"
-              className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+              className="font-medium text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
               Dịch vụ
             </Link>
@@ -114,7 +114,7 @@ const Navbar = () => {
           <button>
             <Link
               href="/pages/about"
-              className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+              className="font-medium text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
             >
               Liên hệ
             </Link>
@@ -123,7 +123,7 @@ const Navbar = () => {
             <button>
               <Link
                 href="/pages/newproduct"
-                className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
+                className="font-medium text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
               >
                 Thêm sản phẩm
               </Link>
@@ -137,10 +137,7 @@ const Navbar = () => {
               setCookie(undefined);
             }}
           >
-            <Link
-              href="/pages/auth"
-              className="font-medium font-customCardTitle text-xl "
-            >
+            <Link href="/pages/auth" className="font-medium text-xl ">
               Log out
             </Link>
           </button>
@@ -148,7 +145,7 @@ const Navbar = () => {
           <button className="">
             <Link
               href="/pages/auth"
-              className="font-medium font-customCardTitle text-gray-500 text-xl hover:text-sky-600"
+              className="font-medium text-neutral-500 text-xl hover:text-sky-600"
             >
               Login
             </Link>
