@@ -95,7 +95,7 @@ export default function Page() {
             ngay hôm nay để biết thêm thông tin chi tiết và nhận được sự tư vấn
             tốt nhất từ đội ngũ của chúng tôi.
           </p>
-          <h1 id="3" className="text-2xl font-semibold">
+          <h1 id="2" className="text-2xl font-semibold">
             Bảo Trì
           </h1>
           <hr />
@@ -172,7 +172,7 @@ export default function Page() {
               hành hoạt động trở lại bình thường
             </li>
           </ul>
-          <h1 id="2" className="text-2xl font-semibold">
+          <h1 id="3" className="text-2xl font-semibold">
             Vận Chuyển Lắp Đặt
           </h1>
           <hr />
