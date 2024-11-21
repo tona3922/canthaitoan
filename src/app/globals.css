@@ -22,3 +22,40 @@ input[type="number"] {
 .ant-spin {
   color: white;
 }
+.js-toc {
+  .toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    .is-active-link {
+      color: #0077b6;
+      font-weight: 700;
+      /* border-left-color: #000;
+      border-left-width: 2px;
+      padding-left: 5px; */
+    }
+    .toc-list-item {
+      /* color: #495057; */
+      font-size: 18px;
+    }
+    .is-active-li {
+      color: #0077b6;
+      font-weight: 700;
+    }
+    .is-collapsible {
+      padding-left: 30px;
+      /* max-height: 1000px; */
+      overflow: hidden;
+      .toc-list-item {
+        color: #000;
+        font-size: 18px;
+        font-weight: 400;
+      }
+      /* transition: all 100ms ease-in-out; */
+    }
+
+    .is-collapsed {
+      max-height: 0;
+    }
+  }
+}

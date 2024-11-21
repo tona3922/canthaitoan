@@ -23,8 +23,8 @@ const SwiperAd = () => {
         <div className="flex justify-center">
           <Image
             alt="first house"
-            width={1000}
-            height={300}
+            width={600}
+            height={400}
             src="https://images.unsplash.com/photo-1615873968403-89e068629265?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2UlMjBpbnRlcmlvcnxlbnwwfDB8MHx8fDA%3D"
           />
         </div>
@@ -33,8 +33,8 @@ const SwiperAd = () => {
         <div className="flex justify-center">
           <Image
             alt="first house"
-            width={1000}
-            height={300}
+            width={600}
+            height={400}
             src="https://images.unsplash.com/photo-1615873968403-89e068629265?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2UlMjBpbnRlcmlvcnxlbnwwfDB8MHx8fDA%3D"
           />
         </div>
@@ -43,8 +43,8 @@ const SwiperAd = () => {
         <div className="flex justify-center">
           <Image
             alt="first house"
-            width={1000}
-            height={300}
+            width={600}
+            height={400}
             src="https://images.unsplash.com/photo-1615873968403-89e068629265?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2UlMjBpbnRlcmlvcnxlbnwwfDB8MHx8fDA%3D"
           />
         </div>
@@ -53,8 +53,8 @@ const SwiperAd = () => {
         <div className="flex justify-center">
           <Image
             alt="first house"
-            width={1000}
-            height={300}
+            width={600}
+            height={400}
             src="https://images.unsplash.com/photo-1615873968403-89e068629265?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2UlMjBpbnRlcmlvcnxlbnwwfDB8MHx8fDA%3D"
           />
         </div>

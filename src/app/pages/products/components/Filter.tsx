@@ -3,9 +3,10 @@ import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { Select } from "antd";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 
-const Filter: React.FC<{ setFetchData: Dispatch<SetStateAction<any>> }> = ({
-  setFetchData,
-}) => {
+const Filter: React.FC<{
+  setFetchData: Dispatch<SetStateAction<any>>;
+  setShowData: Dispatch<SetStateAction<any>>;
+}> = ({ setFetchData, setShowData }) => {
   const data = NavbarLayer;
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
   const [type, setType] = useState<string>("");
@@ -36,8 +37,9 @@ const Filter: React.FC<{ setFetchData: Dispatch<SetStateAction<any>> }> = ({
       if (response.ok) {
         console.log(response);
         const data = await response.json();
-        console.log(data.foundProduct);
+        // console.log(data.foundProduct);
         setFetchData(data.foundProduct);
+        setShowData(data.foundProduct.slice(0, 10));
         // Handle success
       } else {
         console.log(response);
@@ -50,7 +52,7 @@ const Filter: React.FC<{ setFetchData: Dispatch<SetStateAction<any>> }> = ({
   };
   const [inp, setInp] = useState("");
   return (
-    <div className="flex flex-col py-4 justify-center gap-4 rounded-lg px-2">
+    <div className="flex flex-col p-4 justify-center gap-4 rounded-lg border">
       <h1 className="text-xl font-semibold text-gray-600">Bộ lọc tìm kiếm</h1>
       <div className="flex flex-col gap-1">
         <h3 className="text-md">Sản phẩm cần tìm</h3>
