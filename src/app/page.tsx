@@ -1,5 +1,4 @@
 "use client";
-import Item from "@/components/Item";
 import SwiperAd from "@/components/SwiperAd";
 import {
   CustomerServiceOutlined,
