@@ -65,18 +65,21 @@ export default function Page() {
               </div>
             </div>
           ) : showData.length ? (
-            <div className="flex-col gap-6">
+            <>
               <div className="grid grid-cols-5 place-items-center gap-4">
                 {showData.map((item: TProduct, index: any) => {
                   return <Item props={item} key={index} />;
                 })}
               </div>
-              <Pagination
-                defaultCurrent={page}
-                total={fetchData.length}
-                onChange={setChange}
-              />
-            </div>
+              <div className="flex mt-4">
+                <Pagination
+                  defaultCurrent={page}
+                  total={fetchData.length}
+                  onChange={setChange}
+                  className="mx-auto"
+                />
+              </div>
+            </>
           ) : (
             <div className="mt-20">
               <Empty />
