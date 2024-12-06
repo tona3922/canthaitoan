@@ -11,7 +11,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const data = NavbarLayer;
   const [cookie, setCookie] = useState(Cookies.get("session"));
-  useEffect(() => {}, [cookie]);
+
   return (
     <div className="flex z-10 justify-center">
       <div className="flex flex-row justify-around w-full items-center fixed py-1 bg-white z-10 border-b">

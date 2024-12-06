@@ -21,19 +21,23 @@ export default function Page() {
     createSession();
     try {
       console.log(data);
-      const response = await fetch("http://localhost:3001/user/login", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND}/user/login`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.ok) {
         setIsLoading(false);
         console.log(response);
         const data = await response.json();
         localStorage.setItem("accessToken", data.accessToken);
         createSession();
+        window.location.reload();
         router.push("/");
         return;
       } else {

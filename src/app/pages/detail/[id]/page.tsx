@@ -2,8 +2,29 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { TProduct } from "../../products/product";
+import { deleteProduct } from "./hooks/deleteProduct";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { Modal } from "antd";
+import { NavbarLayer } from "@/asset/NavbarLayer";
 export default function Page({ params }: { params: { id: string } }) {
   const [detail, setDetail] = useState<TProduct>();
+  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cookie, setCookie] = useState(Cookies.get("session"));
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    deleteProduct(params.id);
+    router.push("/pages/products");
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   useEffect(() => {
     const getAllProducts = async () => {
       try {
@@ -26,6 +47,13 @@ export default function Page({ params }: { params: { id: string } }) {
     };
     getAllProducts();
   }, [params.id]);
+  const showTypeLabel = (str: string | undefined) => {
+    if (detail) {
+      const findData = NavbarLayer.find((item) => item.value === str);
+      return findData?.label;
+    }
+    return "";
+  };
   return (
     <main className="min-h-screen pt-20 pb-10 flex justify-center items-center">
       <div className="w-2/3 flex flex-row gap-6">
@@ -48,7 +76,7 @@ export default function Page({ params }: { params: { id: string } }) {
           <hr />
           <div className="flex flex-col gap-0.5 mt-2">
             <h2 className="text-lg font-semibold text-slate-500">Loại cân</h2>
-            <p className="text-md">{detail?.type}</p>
+            <p className="text-md">{showTypeLabel(detail?.type)}</p>
           </div>
           <div className="flex flex-col gap-0.5 mt-2">
             <h2 className="text-lg font-semibold text-slate-500">Mô tả</h2>
@@ -74,12 +102,43 @@ export default function Page({ params }: { params: { id: string } }) {
               })}
             </div>
           )}
-
-          <button className="mt-6 py-2 px-4 bg-gray-700 rounded-lg text-white text-lg font-semibold">
-            Liên hệ báo giá
-          </button>
+          <div className="mt-6 flex gap-3">
+            <button
+              className="p-2 bg-gray-700 rounded-lg text-white font-semibold"
+              onClick={() => router.push("/pages/about")}
+            >
+              Liên hệ báo giá
+            </button>
+            {cookie !== undefined && (
+              <>
+                <button
+                  className="bg-gray-700 text-white p-2 rounded-lg"
+                  onClick={() => router.push(`/pages/edit/${params.id}`)}
+                >
+                  Chỉnh sửa sản phẩm
+                </button>
+                <button
+                  className="bg-red-500 p-2 rounded-lg text-white font-semibold"
+                  onClick={() => {
+                    showModal();
+                  }}
+                >
+                  Xóa sản phẩm
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
+      <Modal
+        title="Xóa sản phẩm"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        centered
+      >
+        <p>Bạn có chắc chắn muốn xóa sản phẩm</p>
+      </Modal>
     </main>
   );
 }

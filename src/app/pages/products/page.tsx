@@ -38,7 +38,7 @@ export default function Page() {
         const data = await response.json();
         setIsLoading(false);
         setFetchData(data.foundProduct);
-        setShowData(data.foundProduct.slice(0, 10));
+        setShowData(data.foundProduct.slice(0, 15));
       } catch (error: any) {
         setIsLoading(false);
         throw new Error(`Data failed: ${error.message}`);
@@ -76,6 +76,7 @@ export default function Page() {
                   defaultCurrent={page}
                   total={fetchData.length}
                   onChange={setChange}
+                  pageSize={15}
                   className="mx-auto"
                 />
               </div>
