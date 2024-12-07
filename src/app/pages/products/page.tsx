@@ -66,7 +66,7 @@ export default function Page() {
             </div>
           ) : showData.length ? (
             <>
-              <div className="grid grid-cols-5 place-items-center gap-4">
+              <div className="grid sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-5 place-items-center gap-4">
                 {showData.map((item: TProduct, index: any) => {
                   return <Item props={item} key={index} />;
                 })}

@@ -170,9 +170,7 @@ export default function Page({ params }: { params: { id: string } }) {
         cancelText="Cancel"
         centered
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <p>Bạn chắc chắn muốn xóa hình ảnh này</p>
       </Modal>
       <form
         action=""
@@ -301,14 +299,12 @@ export default function Page({ params }: { params: { id: string } }) {
             urlEndpoint={urlEndpoint}
             authenticator={authenticator}
           >
-            <>
-              <h2 className="text-lg">File upload</h2>
-              <IKUpload
-                fileName="test-upload.png"
-                onError={onError}
-                onSuccess={onSuccess}
-              />
-            </>
+            <h2 className="text-lg">File upload</h2>
+            <IKUpload
+              fileName="test-upload.png"
+              onError={onError}
+              onSuccess={onSuccess}
+            />
             {!hide && product?.image && (
               <IKImage
                 src={product?.image}
