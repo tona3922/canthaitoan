@@ -38,7 +38,7 @@ export default function Page() {
         const data = await response.json();
         setIsLoading(false);
         setFetchData(data.foundProduct);
-        setShowData(data.foundProduct.slice(0, 10));
+        setShowData(data.foundProduct.slice(0, 15));
       } catch (error: any) {
         setIsLoading(false);
         throw new Error(`Data failed: ${error.message}`);
@@ -65,18 +65,22 @@ export default function Page() {
               </div>
             </div>
           ) : showData.length ? (
-            <div className="flex-col gap-6">
-              <div className="grid grid-cols-5 place-items-center gap-4">
+            <>
+              <div className="grid sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-5 place-items-center gap-4">
                 {showData.map((item: TProduct, index: any) => {
                   return <Item props={item} key={index} />;
                 })}
               </div>
-              <Pagination
-                defaultCurrent={page}
-                total={fetchData.length}
-                onChange={setChange}
-              />
-            </div>
+              <div className="flex mt-4">
+                <Pagination
+                  defaultCurrent={page}
+                  total={fetchData.length}
+                  onChange={setChange}
+                  pageSize={15}
+                  className="mx-auto"
+                />
+              </div>
+            </>
           ) : (
             <div className="mt-20">
               <Empty />

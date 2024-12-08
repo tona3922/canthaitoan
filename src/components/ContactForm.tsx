@@ -56,7 +56,7 @@ const ContactForm = () => {
         <h1 className="text-3xl font-customDetail font-bold">
           Điền form liên hệ
         </h1>
-        <div className="flex flex-row gap-12">
+        <div className="flex md:flex-row md:gap-12 phone:flex-col phone:gap-4">
           <div className="flex-1 flex flex-col gap-2">
             <label className="font-normal font-customDetail text-lg text-gray-600">
               Họ Tên <span className="text-red-600">*</span>

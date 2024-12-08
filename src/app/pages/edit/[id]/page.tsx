@@ -1,9 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { ImageKitProvider, IKUpload, IKImage } from "imagekitio-next";
-import { notification, Select } from "antd";
+import { useEffect, useState } from "react";
+import { fetchProductById } from "./hooks/editProduct";
+import { TProduct } from "../../products/product";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
-import { authenticator } from "./hooks/useAuthentication";
+import { Modal, notification, Select } from "antd";
+import { ImageKitProvider, IKUpload, IKImage } from "imagekitio-next";
+import { authenticator } from "../../newproduct/hooks/useAuthentication";
+import { TNote } from "../../newproduct/page";
 const publicKey = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY;
 const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_ENDPOINT;
 let token = "";
@@ -11,11 +14,59 @@ let token = "";
 if (typeof window !== "undefined") {
   token = window.localStorage.getItem("accessToken") ?? "";
 }
-export type TNote = {
-  noteName: string;
-  noteDescription: string;
-};
-export default function Page() {
+export default function Page({ params }: { params: { id: string } }) {
+  const [product, setProduct] = useState<TProduct>();
+  const [input, setInput] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hide, setHide] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setHide(true);
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  useEffect(() => {
+    const fetchProductById = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND}/product/${params.id}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data.product);
+          setProduct(data.product);
+          setInput(data.product.name);
+          setType(data.product.type);
+          setCounter(data.product.information.length);
+          setNote(data.product.information);
+          setDescription(data.product.description);
+          if (data.product.type) {
+            const findData = NavbarLayer.find(
+              (item) => item.value === data.product.type
+            );
+            if (findData) {
+              setSubData(findData.children);
+              setType2(data.product.subtype);
+            }
+          }
+        } else {
+          console.log(response);
+          throw new Error("Failed post data");
+          // Handle error
+        }
+      } catch (error) {
+        throw new Error("Failed post data");
+      }
+    };
+    fetchProductById();
+  }, [params.id]);
   const [api, contextHolder] = notification.useNotification();
   const data = NavbarLayer;
   const [note, setNote] = useState<TNote[]>([
@@ -26,6 +77,7 @@ export default function Page() {
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
   const [result, setResult] = useState<any>();
+  const [description, setDescription] = useState("");
 
   const handleChange = (value: string) => {
     setType(value);
@@ -52,16 +104,16 @@ export default function Page() {
       description: formData.get("description"),
       type: type,
       subtype: type2 ?? "",
-      image: result.url,
+      image: result !== undefined ? result.url : product?.image,
       information: note,
     };
     console.log(data);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND}/product/newproduct`,
+        `${process.env.NEXT_PUBLIC_BACKEND}/product/${params.id}`,
         // "http://localhost:3001/product/newproduct",
         {
-          method: "POST",
+          method: "PATCH",
           body: JSON.stringify(data),
           headers: {
             Authorization: `Bearer ${token}`,
@@ -77,8 +129,6 @@ export default function Page() {
       } else {
         console.log("response: ", response);
         errorNotification(response.statusText);
-        // throw new Error("Failed post data");
-        // Handle error
       }
     } catch (error) {
       errorNotification("Error server");
@@ -100,7 +150,7 @@ export default function Page() {
   const successNotification = () => {
     api["success"]({
       message: "Success",
-      description: "Add product successfully",
+      description: "Update product successfully",
     });
   };
   const errorNotification = (msg: string) => {
@@ -112,6 +162,16 @@ export default function Page() {
   return (
     <div className="py-20 min-h-screen flex justify-center">
       {contextHolder}
+      <Modal
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText="Delete image"
+        cancelText="Cancel"
+        centered
+      >
+        <p>Bạn chắc chắn muốn xóa hình ảnh này</p>
+      </Modal>
       <form
         action=""
         onSubmit={handleSubmit}
@@ -127,6 +187,8 @@ export default function Page() {
             className="border outline-none p-2 text-md rounded-lg"
             name="name"
             required
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -143,6 +205,7 @@ export default function Page() {
                 .localeCompare((optionB?.label ?? "").toLowerCase())
             }
             options={data}
+            value={type}
             onChange={handleChange}
           />
         </div>
@@ -162,6 +225,7 @@ export default function Page() {
               }
               options={subData}
               onChange={handleChangeSub}
+              value={type2}
             />
           </div>
         )}
@@ -175,6 +239,8 @@ export default function Page() {
             required
             placeholder="Mô tả"
             className="border p-2 w-full h-52 rounded-md"
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
           ></textarea>
         </div>
         <div className="flex flex-row gap-2">
@@ -193,7 +259,7 @@ export default function Page() {
             Xóa thông số kỹ thuật
           </button>
         </div>
-        {Array.from(Array(counter)).map((_, index) => {
+        {note.map((_, index) => {
           return (
             <div className="flex" key={index}>
               <input
@@ -208,6 +274,7 @@ export default function Page() {
                   }
                   console.log("changed : ", note);
                 }}
+                value={note[index].noteName}
               />
               <input
                 className="border h-10 px-1 outline-none"
@@ -221,6 +288,7 @@ export default function Page() {
                   }
                   console.log("changed : ", note);
                 }}
+                value={note[index].noteDescription}
               />
             </div>
           );
@@ -231,14 +299,25 @@ export default function Page() {
             urlEndpoint={urlEndpoint}
             authenticator={authenticator}
           >
-            <>
-              <h2 className="text-lg">File upload</h2>
-              <IKUpload
-                fileName="test-upload.png"
-                onError={onError}
-                onSuccess={onSuccess}
+            <h2 className="text-lg">File upload</h2>
+            <IKUpload
+              fileName="test-upload.png"
+              onError={onError}
+              onSuccess={onSuccess}
+            />
+            {!hide && product?.image && (
+              <IKImage
+                src={product?.image}
+                width="200"
+                height="200"
+                alt="Alt text"
               />
-            </>
+            )}
+            {!hide && (
+              <button onClick={showModal} type="button">
+                Delete image
+              </button>
+            )}
             {result && (
               <IKImage
                 path={result.filePath}
@@ -253,7 +332,7 @@ export default function Page() {
           className="bg-sky-600 text-white w-1/3 self-center text-lg rounded-md p-2 font-medium"
           type="submit"
         >
-          Thêm sản phẩm
+          Update sản phẩm
         </button>
       </form>
     </div>

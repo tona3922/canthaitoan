@@ -11,11 +11,11 @@ const Footer = () => {
     "Hiệu Chuẩn - Kiểm Định",
   ];
   return (
-    <div className="py-4 bg-gradient-to-b from-sky-700 to-sky-900 px-32">
+    <div className="py-4 bg-gradient-to-b from-sky-700 to-sky-900 lg:px-32 phone:px-4">
       <div className="font-customTitle text-white  font-bold text-3xl mb-4">
         Can Thai Toan
       </div>
-      <div className="flex flex-row gap-20">
+      <div className="flex lg:flex-row lg:gap-20 phone:flex-col phone:gap-4">
         <div className="flex-[2_2_0%]">
           <div className="text-xl text-neutral-400 font-customCardTitle font-bold mb-4">
             Giới thiệu

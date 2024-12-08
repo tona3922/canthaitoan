@@ -1,5 +1,6 @@
 "use client";
 import SwiperAd from "@/components/SwiperAd";
+import TopSelectItem from "@/components/TopSelectItem";
 import {
   CustomerServiceOutlined,
   DollarOutlined,
@@ -35,7 +36,7 @@ export default function Home() {
             <b>Uy Tín - Chuyên nghiệp - Trách nhiệm</b>
           </p>
           <p className="text-lg">
-            Trong quá trình phát triển,Cân Điện Tử Thái Toàn đã xây dựng cho
+            Trong quá trình phát triển, Cân Điện Tử Thái Toàn đã xây dựng cho
             mình nền tảng vững chắc, cam kết cung cấp các giải pháp kỹ thuật
             hoàn chỉnh với những thiết bị chất lượng và được khách hàng tin
             tưởng đánh giá cao.
@@ -142,26 +143,50 @@ export default function Home() {
       </div>
       <div className=" px-32 py-10 flex flex-col gap-5">
         <div className="text-3xl text-sky-600 font-bold font-customTitle">
-          Giá trị cốt lõi
+          Cân phòng thí nghiệm
         </div>
-        <article className="border-2 rounded-lg p-6 flex flex-col gap-4">
-          <h3 className="text-2xl font-customDetail font-semibold">Title</h3>
-          <p className="">
-            Trong quá trình phát triển,Cân Điện Tử Thái Toàn đã xây dựng cho
-            mình nền tảng vững chắc, cam kết cung cấp các giải pháp kỹ thuật
-            hoàn chỉnh với những thiết bị chất lượng và được khách hàng tin
-            tưởng đánh giá cao.
-          </p>
+        <article className="w-full">
+          <TopSelectItem type="can phong thi nghiem" />
         </article>
-        <article className="border-2 rounded-lg p-6 text-neutral-400 flex flex-col gap-4">
-          <h3 className="text-2xl font-customDetail font-semibold">Title</h3>
-          <p className="">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci
-            totam accusantium exercitationem quasi libero illum? Tempora
-            repellendus vel odit mollitia sequi? Minus ad laborum cupiditate
-            eum! Veritatis aspernatur maxime rem.
-          </p>
+      </div>
+      <div className=" px-32 py-10 flex flex-col gap-5">
+        <div className="text-3xl text-sky-600 font-bold font-customTitle">
+          Cân kỹ thuật
+        </div>
+        <article className="w-full">
+          <TopSelectItem type="can ky thuat" />
         </article>
+      </div>
+      <div className=" px-32 py-10 flex flex-col gap-5">
+        <div className="text-3xl text-sky-600 font-bold font-customTitle">
+          Cân bàn & cân sàn
+        </div>
+        <article className="w-full">
+          <TopSelectItem type="can ban va can san" />
+        </article>
+      </div>
+      <div className="inline-flex w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+        <ul className="flex animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-8">
+          {Array.from({ length: 10 }).map((_, idx) => {
+            return (
+              <li key={idx}>
+                <Image src="./next.svg" alt="next" width={200} height={200} />
+              </li>
+            );
+          })}
+        </ul>
+        <ul
+          className="flex animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-8"
+          aria-hidden="true"
+        >
+          {Array.from({ length: 10 }).map((_, idx) => {
+            return (
+              <li key={idx}>
+                <Image src="./next.svg" alt="next" width={200} height={200} />
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );

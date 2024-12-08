@@ -101,7 +101,7 @@ const Filter: React.FC<{
         </div>
       )}
       <button
-        className="bg-sky-500 text-white text-lg self-center rounded-lg p-2"
+        className="bg-sky-700 text-white font-medium text-lg self-center rounded-lg p-2"
         onClick={handleSubmit}
       >
         Tìm kiếm
