@@ -18,6 +18,7 @@ const SwiperAd = () => {
         disableOnInteraction: false,
       }}
       modules={[Navigation, Pagination, Autoplay]}
+      style={{ paddingBottom: "30px" }}
     >
       <SwiperSlide>
         <div className="flex justify-center">

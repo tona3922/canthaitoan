@@ -56,7 +56,7 @@ export default function Page({ params }: { params: { id: string } }) {
   };
   return (
     <main className="min-h-screen pt-20 pb-10 flex justify-center items-center">
-      <div className="w-2/3 flex flex-row gap-6">
+      <div className="phone:w-4/5 lg:w-2/3 flex phone:flex-col lg:flex-row gap-6">
         <div className="flex-1 flex justify-center items-center">
           <Image
             src={
@@ -64,7 +64,7 @@ export default function Page({ params }: { params: { id: string } }) {
               "https://www.mt.com/images/WebShop/MainImage/30524635.jpg"
             }
             alt="item"
-            className="w-2/3"
+            className="lg:w-2/3 phone:w-full"
             width={100}
             height={100}
           />
