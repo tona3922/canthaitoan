@@ -4,6 +4,10 @@ export type TSelectData = {
 };
 export const NavbarLayer = [
   {
+    label: "Tất cả",
+    value: "",
+  },
+  {
     label: "Cân phòng thí nghiệm",
     value: "can phong thi nghiem",
     children: [

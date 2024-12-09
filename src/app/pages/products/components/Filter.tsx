@@ -72,11 +72,11 @@ const Filter: React.FC<{
           className="w-full h-10"
           placeholder="Các loại cân"
           optionFilterProp="label"
-          filterSort={(optionA, optionB) =>
-            (optionA?.label ?? "")
-              .toLowerCase()
-              .localeCompare((optionB?.label ?? "").toLowerCase())
-          }
+          // filterSort={(optionA, optionB) =>
+          //   (optionA?.label ?? "")
+          //     .toLowerCase()
+          //     .localeCompare((optionB?.label ?? "").toLowerCase())
+          // }
           options={data}
           onChange={handleChange}
         />

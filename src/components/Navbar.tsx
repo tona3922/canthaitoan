@@ -15,7 +15,7 @@ const Navbar = () => {
   const [cookie, setCookie] = useState(Cookies.get("session"));
 
   return (
-    <div className="flex z-10 justify-center">
+    <div className="flex top-0 z-10 justify-center">
       <div className="flex phone:flex-col md:flex-row phone:px-6 md:justify-around w-full fixed py-1 bg-white z-10 border-b">
         <div className="flex flex-row phone:justify-between w-full items-center">
           <Link
