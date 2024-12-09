@@ -48,13 +48,13 @@ export default function Page() {
   }, [type, subtype]);
   return (
     <main className="mt-20 pb-6 my-10 mx-10">
-      <div className="flex gap-4">
-        <div className="basis-1/5 min-h-screen">
+      <div className="flex gap-4 phone:flex-col xl:flex-row">
+        <div className="xl:basis-1/5 xl:min-h-screen">
           <div className="sticky top-20">
             <Filter setFetchData={setFetchData} setShowData={setShowData} />
           </div>
         </div>
-        <div className="basis-4/5">
+        <div className="xl:basis-4/5">
           {isLoading ? (
             <div className="flex">
               <div className="flex flex-row gap-2 items-center mx-auto mt-40">
@@ -66,7 +66,7 @@ export default function Page() {
             </div>
           ) : showData.length ? (
             <>
-              <div className="grid sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-5 place-items-center gap-4">
+              <div className="phone:flex phone:flex-col md:grid md:grid-cols-3 xl:grid-cols-5 place-items-center gap-4">
                 {showData.map((item: TProduct, index: any) => {
                   return <Item props={item} key={index} />;
                 })}

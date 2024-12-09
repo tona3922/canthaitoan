@@ -55,7 +55,7 @@ export default function Page() {
   return (
     <div className="h-screen flex justify-center items-center">
       <form
-        className="flex flex-col gap-6 border rounded-lg p-5 w-1/4"
+        className="flex flex-col gap-6 border rounded-lg p-5 lg:w-1/4 sm:w-1/2 phone:w-4/5"
         onSubmit={handleSubmit}
       >
         <h1 className="text-2xl font-customTitle font-bold">Login as Admin</h1>

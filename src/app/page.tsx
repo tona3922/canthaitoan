@@ -29,7 +29,10 @@ export default function Home() {
   }, []);
   return (
     <div className="mt-10 min-h-screen">
-      <div className="grid grid-cols-2 px-32 gap-10 py-8">
+      <div className="lg:grid lg:grid-cols-2 lg:px-32 lg:gap-10 py-8 phone:flex phone:flex-col phone:gap-4 phone:px-6">
+        <div className="flex pt-4 justify-center px-4">
+          <SwiperAd />
+        </div>
         <article className="flex flex-col gap-6 my-auto">
           <p className="text-lg">
             Phương châm của chúng tôi :{" "}
@@ -42,15 +45,12 @@ export default function Home() {
             tưởng đánh giá cao.
           </p>
         </article>
-        <div className="flex pt-4 justify-center px-4">
-          <SwiperAd />
-        </div>
       </div>
-      <div className="px-32 bg-gradient-to-br from-sky-900 to-sky-600 py-10">
+      <div className="lg:px-32 phone:px-6 bg-gradient-to-br from-sky-900 to-sky-600 py-10">
         <h1 className="text-3xl text-white mb-4 font-bold font-customTitle">
           Vì sao nên chọn Cân Thái Toàn
         </h1>
-        <div className="grid grid-cols-3 gap-6">
+        <div className="lg:grid lg:grid-cols-3 phone:flex phone:flex-col gap-6">
           <div className="bg-white row-span-2 rounded-lg p-4 flex flex-col gap-4">
             <div className="flex flex-row items-center gap-4">
               <FileProtectOutlined style={{ fontSize: "36px" }} />
@@ -141,7 +141,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className=" px-32 py-10 flex flex-col gap-5">
+      <div className="phone:px-6 lg:px-32 phone:py-4 py-10 flex flex-col gap-5">
         <div className="text-3xl text-sky-600 font-bold font-customTitle">
           Cân phòng thí nghiệm
         </div>
@@ -149,7 +149,7 @@ export default function Home() {
           <TopSelectItem type="can phong thi nghiem" />
         </article>
       </div>
-      <div className=" px-32 py-10 flex flex-col gap-5">
+      <div className="phone:px-6 lg:px-32 phone:py-4 py-10 flex flex-col gap-5">
         <div className="text-3xl text-sky-600 font-bold font-customTitle">
           Cân kỹ thuật
         </div>
@@ -157,7 +157,7 @@ export default function Home() {
           <TopSelectItem type="can ky thuat" />
         </article>
       </div>
-      <div className=" px-32 py-10 flex flex-col gap-5">
+      <div className="phone:px-6 lg:px-32 phone:py-4 py-10 flex flex-col gap-5">
         <div className="text-3xl text-sky-600 font-bold font-customTitle">
           Cân bàn & cân sàn
         </div>

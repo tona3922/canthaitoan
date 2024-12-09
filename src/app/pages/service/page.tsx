@@ -28,13 +28,13 @@ export default function Page() {
   });
   return (
     <main className="mt-16 my-10">
-      <div className="flex gap-16 px-40 py-10">
-        <div className="basis-1/4 min-h-screen">
+      <div className="flex phone:flex-col lg:flex-row lg:gap-16 lg:px-40 phone:gap-10 py-10">
+        <div className="lg:basis-1/4 lg:min-h-screen phone:px-6">
           <div className="sticky top-40 border p-2 rounded-md">
             <nav className="js-toc"></nav>
           </div>
         </div>
-        <div className="basis-3/4 flex flex-col gap-4">
+        <div className="lg:basis-3/4 phone:px-6 flex flex-col gap-4">
           <h1 id="1" className="text-2xl font-semibold">
             Phân Phối Nhập Khẩu Và Bán Lẻ
           </h1>
@@ -158,7 +158,7 @@ export default function Page() {
           <h2 id="NoIdea" className="text-lg font-semibold">
             Hậu mãi
           </h2>
-          <ul className="pl-8">
+          <ul>
             <li>
               - Trong các tường hợp đặc biệt,đã có sự khảo sát ,nhằm đảm bảo sự
               liên tục của quá trình sản xuất cho quý khách hàng;chúng tôi có
@@ -177,7 +177,7 @@ export default function Page() {
           </h1>
           <hr />
           <p>Công Ty sẽ giao hàng tùy theo nhu cầu khách hàng :</p>
-          <ul>
+          <ul className="pl-8">
             <li> - Giao hàng tận nơi</li>
             <li> - Giao ngay trong ngày</li>
             <li> - Giao tại nhà máy</li>
@@ -190,7 +190,7 @@ export default function Page() {
             Hiệu Chuẩn - Kiểm Định
           </h1>
           <hr />
-          <ul className="pl-8">
+          <ul>
             <li>
               - Cân điện tử Thái Toàn có thể phối hợp cùng các Trung tâm kỹ
               thuật tiêu chuẩn đo lường, giúp khách hàng kiểm định.hiệu chuẩn
