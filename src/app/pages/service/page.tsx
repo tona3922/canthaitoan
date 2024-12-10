@@ -27,7 +27,7 @@ export default function Page() {
     });
   });
   return (
-    <main className="mt-16 my-10">
+    <main className="pt-16 py-10">
       <div className="flex phone:flex-col lg:flex-row lg:gap-16 lg:px-40 phone:gap-10 py-10">
         <div className="lg:basis-1/4 lg:min-h-screen phone:px-6">
           <div className="sticky top-40 border p-2 rounded-md">
