@@ -47,7 +47,7 @@ export default function Page() {
     getAllProducts();
   }, [type, subtype]);
   return (
-    <main className="mt-20 pb-6 my-10 mx-10">
+    <main className="pt-20 pb-6 py-10 mx-10">
       <div className="flex gap-4 phone:flex-col xl:flex-row">
         <div className="xl:basis-1/5 xl:min-h-screen">
           <div className="sticky top-20">
