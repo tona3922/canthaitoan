@@ -19,7 +19,7 @@ export default function Page() {
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244.9578325343923!2d106.12926045475443!3d11.289446992501663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310b6aede6738a4b%3A0xa8da3a1ca75b06b0!2zQ8ahIFPhu58gTMO9IELhuqN5!5e0!3m2!1sen!2s!4v1731601827747!5m2!1sen!2s";
   return (
     <main>
-      <div className="mt-16 min-h-screen flex phone:flex-col xl:flex-row gap-24 pt-4 pb-12 md:px-24 phone:px-4">
+      <div className="pt-20 min-h-screen flex phone:flex-col xl:flex-row gap-24 pb-12 md:px-24 phone:px-4">
         <ContactForm />
         <div className="flex flex-col gap-4">
           <motion.div
