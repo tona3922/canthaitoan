@@ -7,6 +7,8 @@ import { Modal, notification, Select } from "antd";
 import { ImageKitProvider, IKUpload, IKImage } from "imagekitio-next";
 import { authenticator } from "../../newproduct/hooks/useAuthentication";
 import { TNote } from "../../newproduct/page";
+import { useRouter } from "next/navigation";
+import InfoChunk from "./InfoChunk";
 const publicKey = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY;
 const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_ENDPOINT;
 let token = "";
@@ -15,6 +17,7 @@ if (typeof window !== "undefined") {
   token = window.localStorage.getItem("accessToken") ?? "";
 }
 export default function Page({ params }: { params: { id: string } }) {
+  const router = useRouter();
   const [product, setProduct] = useState<TProduct>();
   const [input, setInput] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,11 +43,9 @@ export default function Page({ params }: { params: { id: string } }) {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data.product);
           setProduct(data.product);
           setInput(data.product.name);
           setType(data.product.type);
-          setCounter(data.product.information.length);
           setNote(data.product.information);
           setDescription(data.product.description);
           if (data.product.type) {
@@ -72,13 +73,11 @@ export default function Page({ params }: { params: { id: string } }) {
   const [note, setNote] = useState<TNote[]>([
     { noteName: "", noteDescription: "" },
   ]);
-  const [counter, setCounter] = useState(1);
   const [type, setType] = useState<string>("");
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
   const [result, setResult] = useState<any>();
   const [description, setDescription] = useState("");
-
   const handleChange = (value: string) => {
     setType(value);
     const findData = NavbarLayer.find((item) => item.value === value);
@@ -93,7 +92,6 @@ export default function Page({ params }: { params: { id: string } }) {
     console.log("Error in upload image");
   };
   const onSuccess = (res: any) => {
-    console.log(res);
     setResult(res);
   };
   const handleSubmit = async (event: any) => {
@@ -107,11 +105,9 @@ export default function Page({ params }: { params: { id: string } }) {
       image: result !== undefined ? result.url : product?.image,
       information: note,
     };
-    console.log(data);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND}/product/${params.id}`,
-        // "http://localhost:3001/product/newproduct",
         {
           method: "PATCH",
           body: JSON.stringify(data),
@@ -123,11 +119,13 @@ export default function Page({ params }: { params: { id: string } }) {
       );
 
       if (response.ok) {
-        console.log(response);
         successNotification();
+        setTimeout(() => {
+          router.push(`/pages/detail/${params.id}`);
+        }, 1500);
+
         // Handle success
       } else {
-        console.log("response: ", response);
         errorNotification(response.statusText);
       }
     } catch (error) {
@@ -138,19 +136,12 @@ export default function Page({ params }: { params: { id: string } }) {
   };
 
   const handleClick = () => {
-    setCounter(counter + 1);
-    note.push({ noteName: "", noteDescription: "" });
-    setNote(note);
-  };
-  const handleClickDecrease = () => {
-    setCounter(counter - 1);
-    note.pop();
-    setNote(note);
+    setNote([...note, { noteName: "", noteDescription: "" }]);
   };
   const successNotification = () => {
     api["success"]({
       message: "Success",
-      description: "Update product successfully",
+      description: "Cập nhật sản phẩm thành công",
     });
   };
   const errorNotification = (msg: string) => {
@@ -166,7 +157,7 @@ export default function Page({ params }: { params: { id: string } }) {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        okText="Delete image"
+        okText="Delete"
         cancelText="Cancel"
         centered
       >
@@ -251,46 +242,15 @@ export default function Page({ params }: { params: { id: string } }) {
           >
             Thêm thông số kỹ thuật
           </button>
-          <button
-            type="button"
-            className="bg-red-500 p-2 rounded-lg text-white"
-            onClick={handleClickDecrease}
-          >
-            Xóa thông số kỹ thuật
-          </button>
         </div>
-        {note.map((_, index) => {
+        {note.map((item, index) => {
           return (
-            <div className="flex" key={index}>
-              <input
-                className="border h-10 px-1 outline-none"
-                name="noteName"
-                type="text"
-                placeholder="name"
-                required
-                onChange={(e) => {
-                  if (index < note.length) {
-                    note[index].noteName = e.target.value;
-                  }
-                  console.log("changed : ", note);
-                }}
-                value={note[index].noteName}
-              />
-              <input
-                className="border h-10 px-1 outline-none"
-                name="noteDescription"
-                type="text"
-                placeholder="description"
-                required
-                onChange={(e) => {
-                  if (index < note.length) {
-                    note[index].noteDescription = e.target.value;
-                  }
-                  console.log("changed : ", note);
-                }}
-                value={note[index].noteDescription}
-              />
-            </div>
+            <InfoChunk
+              index={index}
+              item={item}
+              setNote={setNote}
+              key={index}
+            />
           );
         })}
         <div>
