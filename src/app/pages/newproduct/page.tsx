@@ -4,6 +4,8 @@ import { ImageKitProvider, IKUpload, IKImage } from "imagekitio-next";
 import { notification, Select } from "antd";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { authenticator } from "./hooks/useAuthentication";
+import InfoChunk from "../edit/[id]/InfoChunk";
+import { useRouter } from "next/navigation";
 const publicKey = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY;
 const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_ENDPOINT;
 let token = "";
@@ -16,12 +18,12 @@ export type TNote = {
   noteDescription: string;
 };
 export default function Page() {
+  const router = useRouter();
   const [api, contextHolder] = notification.useNotification();
   const data = NavbarLayer;
   const [note, setNote] = useState<TNote[]>([
     { noteName: "", noteDescription: "" },
   ]);
-  const [counter, setCounter] = useState(1);
   const [type, setType] = useState<string>("");
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
@@ -71,11 +73,12 @@ export default function Page() {
       );
 
       if (response.ok) {
-        console.log(response);
         successNotification();
+        setTimeout(() => {
+          router.push("/pages/products");
+        }, 1500);
         // Handle success
       } else {
-        console.log("response: ", response);
         errorNotification(response.statusText);
         // throw new Error("Failed post data");
         // Handle error
@@ -88,19 +91,13 @@ export default function Page() {
   };
 
   const handleClick = () => {
-    setCounter(counter + 1);
-    note.push({ noteName: "", noteDescription: "" });
-    setNote(note);
-  };
-  const handleClickDecrease = () => {
-    setCounter(counter - 1);
-    note.pop();
-    setNote(note);
+    // note.push({ noteName: "", noteDescription: "" });
+    setNote([...note, { noteName: "", noteDescription: "" }]);
   };
   const successNotification = () => {
     api["success"]({
       message: "Success",
-      description: "Add product successfully",
+      description: "Thêm sản phẩm mới thành công",
     });
   };
   const errorNotification = (msg: string) => {
@@ -185,44 +182,15 @@ export default function Page() {
           >
             Thêm thông số kỹ thuật
           </button>
-          <button
-            type="button"
-            className="bg-red-500 p-2 rounded-lg text-white"
-            onClick={handleClickDecrease}
-          >
-            Xóa thông số kỹ thuật
-          </button>
         </div>
-        {Array.from(Array(counter)).map((_, index) => {
+        {note.map((item, index) => {
           return (
-            <div className="flex" key={index}>
-              <input
-                className="border h-10 px-1 outline-none"
-                name="noteName"
-                type="text"
-                placeholder="name"
-                required
-                onChange={(e) => {
-                  if (index < note.length) {
-                    note[index].noteName = e.target.value;
-                  }
-                  console.log("changed : ", note);
-                }}
-              />
-              <input
-                className="border h-10 px-1 outline-none"
-                name="noteDescription"
-                type="text"
-                placeholder="description"
-                required
-                onChange={(e) => {
-                  if (index < note.length) {
-                    note[index].noteDescription = e.target.value;
-                  }
-                  console.log("changed : ", note);
-                }}
-              />
-            </div>
+            <InfoChunk
+              index={index}
+              item={item}
+              setNote={setNote}
+              key={index}
+            />
           );
         })}
         <div>

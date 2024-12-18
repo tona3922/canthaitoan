@@ -28,14 +28,6 @@ export const NavbarLayer = [
   {
     label: "Cân kỹ thuật",
     value: "can ky thuat",
-  },
-  {
-    label: "Cân đếm số lượng",
-    value: "can dem so luong",
-  },
-  {
-    label: "Cân bàn - cân sàn",
-    value: "can ban va can san",
     children: [
       {
         label: "Cân phân tích kỹ thuật",
@@ -46,6 +38,14 @@ export const NavbarLayer = [
         value: "can dia",
       },
     ],
+  },
+  {
+    label: "Cân đếm số lượng",
+    value: "can dem so luong",
+  },
+  {
+    label: "Cân bàn - cân sàn",
+    value: "can ban va can san",
   },
   {
     label: "Cân treo",
