@@ -17,6 +17,7 @@ if (typeof window !== "undefined") {
   token = window.localStorage.getItem("accessToken") ?? "";
 }
 export default function Page({ params }: { params: { id: string } }) {
+  console.log("render");
   const router = useRouter();
   const [product, setProduct] = useState<TProduct>();
   const [input, setInput] = useState("");
@@ -134,6 +135,9 @@ export default function Page({ params }: { params: { id: string } }) {
       // Handle error
     }
   };
+  useEffect(() => {
+    console.log(note);
+  }, [note]);
   const handleClick = () => {
     setNote([...note, { noteName: "", noteDescription: "" }]);
   };
