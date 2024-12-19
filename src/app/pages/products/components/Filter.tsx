@@ -1,7 +1,14 @@
 "use client";
-import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import { Select } from "antd";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
+import { useDebouncedCallback } from "use-debounce";
 
 const Filter: React.FC<{
   setFetchData: Dispatch<SetStateAction<any>>;
@@ -11,6 +18,7 @@ const Filter: React.FC<{
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
   const [type, setType] = useState<string>("");
   const [subType, setSubType] = useState<string>("");
+  const [inp, setInp] = useState("");
   const handleChange = (value: string) => {
     setType(value);
     const findData = NavbarLayer.find((item) => item.value === value);
@@ -50,7 +58,9 @@ const Filter: React.FC<{
       throw new Error("Failed post data");
     }
   };
-  const [inp, setInp] = useState("");
+  const debounced = useDebouncedCallback((value) => {
+    setInp(value);
+  }, 1000);
   return (
     <div className="flex flex-col p-4 justify-center gap-4 rounded-lg border">
       <h1 className="text-xl font-semibold text-gray-600">Bộ lọc tìm kiếm</h1>
@@ -59,8 +69,8 @@ const Filter: React.FC<{
         <input
           type="text"
           placeholder="Nhập tên sản phẩm"
-          value={inp}
-          onChange={(e) => setInp(e.target.value)}
+          defaultValue={inp}
+          onChange={(e) => debounced(e.target.value)}
           className="text-sm border rounded-md py-2.5 pl-2 outline-none w-full"
         />
       </div>

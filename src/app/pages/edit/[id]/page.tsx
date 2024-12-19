@@ -126,7 +126,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
         // Handle success
       } else {
-        errorNotification(response.statusText);
+        errorNotification("Đã có lỗi xảy ra vui lòng thử lại");
       }
     } catch (error) {
       errorNotification("Error server");
@@ -134,7 +134,6 @@ export default function Page({ params }: { params: { id: string } }) {
       // Handle error
     }
   };
-
   const handleClick = () => {
     setNote([...note, { noteName: "", noteDescription: "" }]);
   };
@@ -237,7 +236,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <div className="flex flex-row gap-2">
           <button
             type="button"
-            className="bg-gray-400 p-2 rounded-lg text-white"
+            className="bg-sky-700 p-2 rounded-lg text-white font-semibold"
             onClick={handleClick}
           >
             Thêm thông số kỹ thuật

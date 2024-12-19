@@ -7,9 +7,9 @@ const InfoChunk: React.FC<{
   index: number;
 }> = ({ item, setNote, index }) => {
   return (
-    <div className="flex">
+    <div className="flex gap-3">
       <input
-        className="border h-10 px-1 outline-none"
+        className="border h-10 px-1 outline-none rounded"
         name="noteName"
         type="text"
         placeholder="name"
@@ -26,7 +26,7 @@ const InfoChunk: React.FC<{
         value={item.noteName} // Use `value` instead of `defaultValue`
       />
       <input
-        className="border h-10 px-1 outline-none"
+        className="border h-10 px-1 outline-none rounded"
         name="noteDescription"
         type="text"
         placeholder="description"
@@ -43,6 +43,7 @@ const InfoChunk: React.FC<{
         value={item.noteDescription} // Use `value` instead of `defaultValue`
       />
       <button
+        className="bg-red-500 rounded-md p-2 text-white font-semibold"
         type="button"
         onClick={() => {
           setNote((prev) => prev.filter((_, idx) => idx !== index));
