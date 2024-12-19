@@ -1,48 +1,75 @@
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { TNote } from "../../newproduct/page";
+import { useDebouncedCallback } from "use-debounce";
 
 const InfoChunk: React.FC<{
   item: TNote;
   setNote: (value: SetStateAction<TNote[]>) => void;
   index: number;
 }> = ({ item, setNote, index }) => {
+  const [name, setName] = useState(item.noteName);
+  const [description, setDescription] = useState(item.noteDescription);
+  useEffect(() => {
+    setName(item.noteName);
+    setDescription(item.noteDescription);
+  }, [item]);
+  // Debounced callback for noteName
+  const debouncedSetName = useDebouncedCallback((value: string) => {
+    setNote((prev) =>
+      prev.map((noteItem, idx) =>
+        idx === index
+          ? { ...noteItem, noteName: value } // Update immutably
+          : noteItem
+      )
+    );
+  }, 1000);
+
+  // Debounced callback for noteDescription
+  const debouncedSetDescription = useDebouncedCallback((value: string) => {
+    setNote((prev) =>
+      prev.map((noteItem, idx) =>
+        idx === index
+          ? { ...noteItem, noteDescription: value } // Update immutably
+          : noteItem
+      )
+    );
+  }, 1000);
+
+  // Handle input changes and debounce state updates
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setName(value);
+    debouncedSetName(value); // Update state with debounce
+  };
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setDescription(value);
+    debouncedSetDescription(value); // Update state with debounce
+  };
+
   return (
-    <div className="flex">
+    <div className="flex gap-3">
       <input
-        className="border h-10 px-1 outline-none"
+        className="border h-10 px-1 outline-none rounded"
         name="noteName"
         type="text"
-        placeholder="name"
+        placeholder="thông số kỹ thuật"
         required
-        onChange={(e) => {
-          setNote((prev) =>
-            prev.map((noteItem, idx) =>
-              idx === index
-                ? { ...noteItem, noteName: e.target.value } // Update immutably
-                : noteItem
-            )
-          );
-        }}
-        value={item.noteName} // Use `value` instead of `defaultValue`
+        value={name}
+        onChange={handleNameChange}
       />
       <input
-        className="border h-10 px-1 outline-none"
+        className="border h-10 px-1 outline-none rounded"
         name="noteDescription"
         type="text"
-        placeholder="description"
+        placeholder="giá trị"
         required
-        onChange={(e) => {
-          setNote((prev) =>
-            prev.map((noteItem, idx) =>
-              idx === index
-                ? { ...noteItem, noteDescription: e.target.value } // Update immutably
-                : noteItem
-            )
-          );
-        }}
-        value={item.noteDescription} // Use `value` instead of `defaultValue`
+        value={description}
+        onChange={handleDescriptionChange}
       />
       <button
+        className="bg-red-500 p-2 rounded-lg text-white font-semibold"
         type="button"
         onClick={() => {
           setNote((prev) => prev.filter((_, idx) => idx !== index));
