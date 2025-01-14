@@ -7,7 +7,6 @@ import location from "@/asset/pin.png";
 import phone from "@/asset/phone-call.png";
 import ContactForm from "@/components/ContactForm";
 import { Tabs } from "antd";
-
 const divVariants: Variants = {
   offscreen: { y: 60 },
   onscreen: { y: 0, transition: { type: "spring", duration: 1.5 } },
