@@ -15,9 +15,32 @@ export async function GET(request) {
     .update(token + expire)
     .digest("hex");
 
-  return NextResponse.json({
-    token,
-    expire,
-    signature,
+  // Add CORS headers
+  return new NextResponse(
+    JSON.stringify({
+      token,
+      expire,
+      signature,
+    }),
+    {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+}
+
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
   });
 }

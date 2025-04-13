@@ -1,7 +1,7 @@
 export const authenticator = async () => {
   try {
-    const response = await fetch("https://canthaitoan.vercel.app/api/auth");
-    // const response = await fetch("http://localhost:3000/api/auth");
+    // Use relative URL instead of absolute URL
+    const response = await fetch("/api/auth");
 
     if (!response.ok) {
       const errorText = await response.text();
