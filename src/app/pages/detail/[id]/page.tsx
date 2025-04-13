@@ -6,8 +6,11 @@ import { deleteProduct } from "./hooks/deleteProduct";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { Modal } from "antd";
+import { usePathname } from "next/navigation";
 import { NavbarLayer } from "@/asset/NavbarLayer";
-export default function Page({ params }: { params: { id: string } }) {
+export default function Page() {
+  const pathname = usePathname();
+  const id = pathname.substring(pathname.lastIndexOf("/") + 1);
   const [detail, setDetail] = useState<TProduct>();
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,7 +20,7 @@ export default function Page({ params }: { params: { id: string } }) {
   };
 
   const handleOk = () => {
-    deleteProduct(params.id);
+    deleteProduct(id);
     router.push("/pages/products");
     setIsModalOpen(false);
   };
@@ -29,7 +32,7 @@ export default function Page({ params }: { params: { id: string } }) {
     const getAllProducts = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND}/product/${params.id}`
+          `${process.env.NEXT_PUBLIC_BACKEND}/product/${id}`
         );
         // const response = await fetch("http://localhost:3001/product/");
 
@@ -46,7 +49,7 @@ export default function Page({ params }: { params: { id: string } }) {
       }
     };
     getAllProducts();
-  }, [params.id]);
+  }, [id]);
   const showTypeLabel = (str: string | undefined) => {
     if (detail) {
       const findData = NavbarLayer.find((item) => item.value === str);
@@ -113,7 +116,7 @@ export default function Page({ params }: { params: { id: string } }) {
               <>
                 <button
                   className="bg-gray-700 text-white p-2 rounded-lg"
-                  onClick={() => router.push(`/pages/edit/${params.id}`)}
+                  onClick={() => router.push(`/pages/edit/${id}`)}
                 >
                   Chỉnh sửa sản phẩm
                 </button>
