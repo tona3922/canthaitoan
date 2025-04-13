@@ -6,11 +6,5 @@ export const metadata: Metadata = {
   description: "Your Description",
 };
 export default function PageLayout() {
-  return (
-    <Page
-      params={{
-        id: "",
-      }}
-    />
-  );
+  return <Page />;
 }
