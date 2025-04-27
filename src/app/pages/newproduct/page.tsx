@@ -61,7 +61,6 @@ export default function Page() {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND}/product/newproduct`,
-        // "http://localhost:3001/product/newproduct",
         {
           method: "POST",
           body: JSON.stringify(data),
@@ -71,7 +70,7 @@ export default function Page() {
           },
         }
       );
-
+      const responseData = await response.json(); // <- Parse JSON body
       if (response.ok) {
         successNotification();
         setTimeout(() => {
@@ -79,7 +78,7 @@ export default function Page() {
         }, 1500);
         // Handle success
       } else {
-        errorNotification(response.statusText);
+        errorNotification(responseData.message);
         // throw new Error("Failed post data");
         // Handle error
       }
