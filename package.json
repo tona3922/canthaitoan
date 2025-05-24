@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "antd": "^5.21.4",
     "crypto": "^1.0.1",
+    "firebase": "^11.8.1",
     "framer-motion": "^11.3.28",
     "imagekit": "^5.2.0",
     "imagekitio-next": "^1.0.0",
@@ -26,7 +27,8 @@
     "react-redux": "^9.1.2",
     "swiper": "^11.1.10",
     "tocbot": "^4.32.2",
-    "use-debounce": "^10.0.4"
+    "use-debounce": "^10.0.4",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",

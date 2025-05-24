@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import { Modal } from "antd";
 import { usePathname } from "next/navigation";
 import { NavbarLayer } from "@/asset/NavbarLayer";
+import UploadImageBtn from "@/components/UploadImageBtn";
 export default function Page() {
   const pathname = usePathname();
   const id = pathname.substring(pathname.lastIndexOf("/") + 1);

@@ -1,13 +1,17 @@
 "use client";
+import UploadImageBtn from "@/components/UploadImageBtn";
 import React, { useEffect, useState } from "react";
-import { notification, Select } from "antd";
+import { db } from "@/firebase/firebase";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
+import { notification, Select } from "antd";
 import InfoChunk from "../edit/[id]/InfoChunk";
-export type TNote = {
-  noteName: string;
-  noteDescription: string;
-};
+import { TNote } from "../newproduct/page";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "@/firebase/firebase";
+import { v4 } from "uuid";
 export default function Page() {
+  const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [api, contextHolder] = notification.useNotification();
   const data = NavbarLayer;
   const [note, setNote] = useState<TNote[]>([
@@ -16,7 +20,28 @@ export default function Page() {
   const [type, setType] = useState<string>("");
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const q = query(
+          collection(db, "users"),
+          where("type", "==", "can ky thuat")
+        );
+        const querySnapshot = await getDocs(q);
+        // const querySnapshot = await getDocs(collection(db, "users"));
+        const data = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        console.log("data: ", data);
+      } catch (error) {
+        console.error("Error fetching Firestore data:", error);
+      }
+    };
 
+    fetchData();
+  }, []);
   const handleChange = (value: string) => {
     setType(value);
     const findData = NavbarLayer.find((item) => item.value === value);
@@ -29,16 +54,36 @@ export default function Page() {
   };
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = {
-      name: formData.get("name"),
-      description: formData.get("description"),
-      type: type,
-      subtype: type2 ?? "",
-      image: "",
-      information: note,
-    };
-    console.log(data);
+
+    if (imageUpload == null) return;
+    setIsLoading(true);
+    try {
+      // Upload image
+      const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+      const snapshot = await uploadBytes(imageRef, imageUpload);
+      const url = await getDownloadURL(snapshot.ref);
+
+      // Prepare form data
+      const formData = new FormData(event.target);
+      const data = {
+        name: formData.get("name"),
+        description: formData.get("description"),
+        type: type,
+        subtype: type2 ?? "",
+        image: url, // ✅ Now correct
+        information: note,
+      };
+
+      console.log("Final data:", data);
+
+      await addDoc(collection(db, "users"), data); // you don't need `{ data }` unless you're nesting
+      successNotification();
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      errorNotification("Fail to add product");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleClick = () => {
@@ -143,12 +188,13 @@ export default function Page() {
             />
           );
         })}
-
+        <UploadImageBtn setImageUpload={setImageUpload} />
         <button
           className="bg-sky-600 text-white w-1/3 self-center text-lg rounded-md p-2 font-medium"
           type="submit"
+          disabled={isLoading}
         >
-          Thêm sản phẩm
+          {isLoading ? "Đang cập nhật sản phẩm" : "Thêm sản phẩm"}
         </button>
       </form>
     </div>
