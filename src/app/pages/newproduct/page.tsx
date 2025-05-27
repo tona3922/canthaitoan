@@ -1,13 +1,23 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { notification, Select } from "antd";
+import UploadImageBtn from "@/components/UploadImageBtn";
+import React, { useState } from "react";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
+import { db } from "@/firebase/firebase";
+import { collection, addDoc } from "firebase/firestore";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
+import { notification, Select } from "antd";
 import InfoChunk from "../edit/[id]/InfoChunk";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "@/firebase/firebase";
+import { v4 } from "uuid";
 export type TNote = {
   noteName: string;
   noteDescription: string;
 };
+
 export default function Page() {
+  const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [api, contextHolder] = notification.useNotification();
   const data = NavbarLayer;
   const [note, setNote] = useState<TNote[]>([
@@ -16,6 +26,7 @@ export default function Page() {
   const [type, setType] = useState<string>("");
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleChange = (value: string) => {
     setType(value);
@@ -29,16 +40,39 @@ export default function Page() {
   };
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = {
-      name: formData.get("name"),
-      description: formData.get("description"),
-      type: type,
-      subtype: type2 ?? "",
-      image: "",
-      information: note,
-    };
-    console.log(data);
+
+    if (imageUpload == null) {
+      errorNotification("Chưa thêm hình ảnh");
+      return;
+    }
+    setIsLoading(true);
+    try {
+      // Upload image
+      const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+      const snapshot = await uploadBytes(imageRef, imageUpload);
+      const url = await getDownloadURL(snapshot.ref);
+
+      // Prepare form data
+      const formData = new FormData(event.target);
+      const data = {
+        name: formData.get("name"),
+        description: formData.get("description"),
+        type: type,
+        subtype: type2 ?? "",
+        image: url, // ✅ Now correct
+        information: note,
+      };
+
+      console.log("Final data:", data);
+
+      await addDoc(collection(db, "users"), data); // you don't need `{ data }` unless you're nesting
+      successNotification();
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      errorNotification("Fail to add product");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleClick = () => {
@@ -143,12 +177,20 @@ export default function Page() {
             />
           );
         })}
-
+        <UploadImageBtn setImageUpload={setImageUpload} />
         <button
-          className="bg-sky-600 text-white w-1/3 self-center text-lg rounded-md p-2 font-medium"
+          className="bg-sky-600 text-white self-center text-lg rounded-md p-2 font-medium"
           type="submit"
+          disabled={isLoading}
         >
-          Thêm sản phẩm
+          {isLoading ? (
+            <div className="flex items-center gap-2">
+              <p>Đang cập nhật sản phẩm</p>
+              <Spin indicator={<LoadingOutlined spin />} />
+            </div>
+          ) : (
+            "Thêm sản phẩm"
+          )}
         </button>
       </form>
     </div>

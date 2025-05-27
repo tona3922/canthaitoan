@@ -3,7 +3,9 @@ import Item from "./Item";
 import { Spin } from "antd";
 import { TProduct } from "@/app/pages/products/product";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar } from "swiper/modules";
+import { Pagination, Scrollbar } from "swiper/modules";
+import { db } from "@/firebase/firebase";
+import { query, collection, where, getDocs } from "firebase/firestore";
 
 const TopSelectItem: React.FC<{ type: string }> = ({ type }) => {
   const [fetchData, setFetchData] = useState<any>([]);
@@ -13,20 +15,14 @@ const TopSelectItem: React.FC<{ type: string }> = ({ type }) => {
     const getAllProducts = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(
-          `${
-            process.env.NEXT_PUBLIC_BACKEND
-          }/product/filter?${new URLSearchParams(paramsObj).toString()}`
-        );
-        if (!response.ok) {
-          const errorText = await response.text();
-          setIsLoading(false);
-          throw new Error(
-            `Request failed with status ${response.status}: ${errorText}`
-          );
-        }
-        const data = await response.json();
-        setFetchData(data.foundProduct.slice(0, 5));
+        const q = query(collection(db, "users"), where("type", "==", type));
+
+        const snapshot = await getDocs(q);
+        const data = snapshot.docs.map((doc) => ({
+          _id: doc.id,
+          ...doc.data(),
+        }));
+        setFetchData(data.slice(0, 5));
         setIsLoading(false);
       } catch (error: any) {
         setIsLoading(false);
@@ -34,7 +30,7 @@ const TopSelectItem: React.FC<{ type: string }> = ({ type }) => {
       }
     };
     getAllProducts();
-  }, []);
+  }, [type]);
   return (
     <Suspense fallback={<>Loading</>}>
       {isLoading ? (

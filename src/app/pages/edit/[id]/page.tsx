@@ -1,36 +1,52 @@
 "use client";
 import { useEffect, useState } from "react";
-import { fetchProductById } from "./hooks/editProduct";
 import { TProduct } from "../../products/product";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
-import { Modal, notification, Select } from "antd";
-import { ImageKitProvider, IKUpload, IKImage } from "imagekitio-next";
-import { authenticator } from "../../newproduct/hooks/useAuthentication";
-import { TNote } from "../../newproduct/page";
+import { Modal, notification, Select, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import InfoChunk from "./InfoChunk";
-const publicKey = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY;
-const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_ENDPOINT;
-let token = "";
+import { db, storage } from "@/firebase/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  ref,
+  deleteObject,
+  getDownloadURL,
+  uploadBytes,
+} from "firebase/storage";
+import UploadImageBtn from "@/components/UploadImageBtn";
+import { v4 } from "uuid";
+import { TNote } from "../../newproduct/page";
+import { LoadingOutlined } from "@ant-design/icons";
 
-if (typeof window !== "undefined") {
-  token = window.localStorage.getItem("accessToken") ?? "";
-}
 export default function Page({ params }: { params: { id: string } }) {
-  console.log("render");
   const router = useRouter();
   const [product, setProduct] = useState<TProduct>();
   const [input, setInput] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hide, setHide] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
-    setHide(true);
     setIsModalOpen(false);
+    if (product) {
+      // const imageRef = ref(storage, `images/${product?.image}`);
+      const pathStart = product.image.indexOf("/o/") + 3;
+      const pathEnd = product?.image.indexOf("?", pathStart);
+      const encodedPath = product?.image.substring(pathStart, pathEnd); // e.g. images%2Ffile.jpg
+      const decodedPath = decodeURIComponent(encodedPath);
+      // Delete the file
+      const imageRef = ref(storage, decodedPath);
+      deleteObject(imageRef)
+        .then(() => {
+          console.log("Image deleted successfully.");
+        })
+        .catch((error) => {
+          console.error("Error deleting image:", error);
+        });
+    }
   };
 
   const handleCancel = () => {
@@ -39,29 +55,31 @@ export default function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchProductById = async () => {
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND}/product/${params.id}`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setProduct(data.product);
-          setInput(data.product.name);
-          setType(data.product.type);
-          setNote(data.product.information);
-          setDescription(data.product.description);
-          if (data.product.type) {
+        const docRef = doc(db, "users", params.id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = {
+            _id: docSnap.id,
+            ...docSnap.data(),
+          } as TProduct;
+          console.log(docSnap.data());
+          setProduct(data);
+          setInput(data.name);
+          setType(data.type);
+          setNote(data.information);
+          setDescription(data.description);
+          if (data.type) {
             const findData = NavbarLayer.find(
-              (item) => item.value === data.product.type
+              (item) => item.value === data.type
             );
             if (findData) {
               setSubData(findData.children);
-              setType2(data.product.subtype);
+              setType2(data.subtype);
             }
           }
         } else {
-          console.log(response);
-          throw new Error("Failed post data");
-          // Handle error
+          console.log("No such document!");
         }
       } catch (error) {
         throw new Error("Failed post data");
@@ -71,13 +89,13 @@ export default function Page({ params }: { params: { id: string } }) {
   }, [params.id]);
   const [api, contextHolder] = notification.useNotification();
   const data = NavbarLayer;
+  const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [note, setNote] = useState<TNote[]>([
     { noteName: "", noteDescription: "" },
   ]);
   const [type, setType] = useState<string>("");
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
-  const [result, setResult] = useState<any>();
   const [description, setDescription] = useState("");
   const handleChange = (value: string) => {
     setType(value);
@@ -89,55 +107,53 @@ export default function Page({ params }: { params: { id: string } }) {
   const handleChangeSub = (value: string) => {
     setType2(value);
   };
-  const onError = (err: any) => {
-    console.log("Error in upload image");
-  };
-  const onSuccess = (res: any) => {
-    setResult(res);
-  };
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const data = {
-      name: formData.get("name"),
-      description: formData.get("description"),
-      type: type,
-      subtype: type2 ?? "",
-      image: result !== undefined ? result.url : product?.image,
-      information: note,
-    };
+    setIsLoading(true);
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND}/product/${params.id}`,
-        {
-          method: "PATCH",
-          body: JSON.stringify(data),
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.ok) {
-        successNotification();
-        setTimeout(() => {
-          router.push(`/pages/detail/${params.id}`);
-        }, 1500);
-
-        // Handle success
-      } else {
-        errorNotification("Đã có lỗi xảy ra vui lòng thử lại");
+      let url = "";
+      if (imageUpload && product) {
+        const pathStart = product?.image.indexOf("/o/") + 3;
+        const pathEnd = product?.image.indexOf("?", pathStart);
+        const encodedPath = product?.image.substring(pathStart, pathEnd); // e.g. images%2Ffile.jpg
+        const decodedPath = decodeURIComponent(encodedPath);
+        // Delete the file
+        let imageRef = ref(storage, decodedPath);
+        deleteObject(imageRef)
+          .then(() => {
+            console.log("Image deleted successfully.");
+          })
+          .catch((error) => {
+            console.error("Error deleting image:", error);
+          });
+        imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+        const snapshot = await uploadBytes(imageRef, imageUpload);
+        url = await getDownloadURL(snapshot.ref);
       }
+      const data = {
+        name: formData.get("name"),
+        description: formData.get("description"),
+        type: type,
+        subtype: type2 ?? "",
+        image: url !== "" ? url : product?.image,
+        information: note,
+      };
+      // Upload image
+
+      await setDoc(doc(db, "users", params.id), data);
+      successNotification();
+      setIsLoading(false);
+      setTimeout(() => {
+        router.push(`/pages/detail/${params.id}`);
+      }, 1500);
     } catch (error) {
-      errorNotification("Error server");
+      errorNotification("Đã có lỗi xảy ra vui lòng thử lại");
       // throw new Error("Failed post data");
       // Handle error
     }
   };
-  useEffect(() => {
-    console.log(note);
-  }, [note]);
+
   const handleClick = () => {
     setNote([...note, { noteName: "", noteDescription: "" }]);
   };
@@ -256,46 +272,21 @@ export default function Page({ params }: { params: { id: string } }) {
             />
           );
         })}
-        <div>
-          <ImageKitProvider
-            publicKey={publicKey}
-            urlEndpoint={urlEndpoint}
-            authenticator={authenticator}
-          >
-            <h2 className="text-lg">File upload</h2>
-            <IKUpload
-              fileName="test-upload.png"
-              onError={onError}
-              onSuccess={onSuccess}
-            />
-            {!hide && product?.image && (
-              <IKImage
-                src={product?.image}
-                width="200"
-                height="200"
-                alt="Alt text"
-              />
-            )}
-            {!hide && (
-              <button onClick={showModal} type="button">
-                Delete image
-              </button>
-            )}
-            {result && (
-              <IKImage
-                path={result.filePath}
-                width="200"
-                height="200"
-                alt="Alt text"
-              />
-            )}
-          </ImageKitProvider>
-        </div>
+        <UploadImageBtn
+          setImageUpload={setImageUpload}
+          defaultImageLink={product?.image}
+        />
+        <button onClick={showModal} type="button">
+          Xóa hình ảnh
+        </button>
         <button
-          className="bg-sky-600 text-white w-1/3 self-center text-lg rounded-md p-2 font-medium"
+          className="bg-sky-600 text-white self-center text-lg rounded-md p-2 font-medium"
           type="submit"
         >
-          Update sản phẩm
+          <div className="flex items-center gap-2">
+            <p>Update sản phẩm</p>
+            {isLoading && <Spin indicator={<LoadingOutlined spin />} />}
+          </div>
         </button>
       </form>
     </div>

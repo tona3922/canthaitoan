@@ -6,21 +6,9 @@ import Image from "next/image";
 
 const UploadImageBtn: React.FC<{
   setImageUpload: Dispatch<SetStateAction<File | null>>;
-}> = ({ setImageUpload }) => {
-  // const [imageUpload, setImageUpload] = useState<File | null>(null);
-  // const [imageUrl, setImageUrl] = useState("");
-  const [preview, setPreview] = useState<string>("");
-
-  // const uploadFile = () => {
-  //   if (imageUpload == null) return;
-  //   const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-  //   uploadBytes(imageRef, imageUpload).then((snapshot) => {
-  //     getDownloadURL(snapshot.ref).then((url) => {
-  //       setImageUrl(url);
-  //       console.log(url);
-  //     });
-  //   });
-  // };
+  defaultImageLink?: string;
+}> = ({ setImageUpload, defaultImageLink }) => {
+  const [preview, setPreview] = useState<string>(defaultImageLink ?? "");
 
   const [selectedFile, setSelectedFile] = useState();
 
@@ -60,7 +48,11 @@ const UploadImageBtn: React.FC<{
           onSelectFile(event);
         }}
       />
-      {selectedFile && <Image alt="" src={preview} width={100} height={100} />}
+      {selectedFile ? (
+        <Image src={preview} alt="preview" width={200} height={200} />
+      ) : defaultImageLink ? (
+        <Image src={defaultImageLink} alt="default" width={200} height={200} />
+      ) : null}
     </div>
   );
 };

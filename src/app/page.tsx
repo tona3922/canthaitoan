@@ -170,7 +170,12 @@ export default function Page() {
           {Array.from({ length: 10 }).map((_, idx) => {
             return (
               <li key={idx}>
-                <Image src="./next.svg" alt="next" width={200} height={200} />
+                <Image
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTui_z0aAeDFKZVZz5MZ-QWMfgLxzGNAHAWZQ&s"
+                  alt="next"
+                  width={200}
+                  height={200}
+                />
               </li>
             );
           })}
