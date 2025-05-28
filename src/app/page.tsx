@@ -167,7 +167,7 @@ export default function Page() {
       </div>
       <div className="inline-flex w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
         <ul className="flex animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-8">
-          {Array.from({ length: 10 }).map((_, idx) => {
+          {Array.from({ length: 20 }).map((_, idx) => {
             return (
               <li key={idx}>
                 <Image
@@ -176,18 +176,6 @@ export default function Page() {
                   width={200}
                   height={200}
                 />
-              </li>
-            );
-          })}
-        </ul>
-        <ul
-          className="flex animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-8"
-          aria-hidden="true"
-        >
-          {Array.from({ length: 10 }).map((_, idx) => {
-            return (
-              <li key={idx}>
-                <Image src="./next.svg" alt="next" width={200} height={200} />
               </li>
             );
           })}

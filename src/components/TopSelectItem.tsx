@@ -10,7 +10,6 @@ import { query, collection, where, getDocs } from "firebase/firestore";
 const TopSelectItem: React.FC<{ type: string }> = ({ type }) => {
   const [fetchData, setFetchData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const paramsObj = { type: type ?? "" };
   useEffect(() => {
     const getAllProducts = async () => {
       setIsLoading(true);
@@ -45,7 +44,7 @@ const TopSelectItem: React.FC<{ type: string }> = ({ type }) => {
       ) : (
         fetchData.length > 0 && (
           <>
-            <div className="phone:hidden lg:grid grid-cols-5 place-items-center gap-4">
+            <div className="phone:hidden lg:grid lg:grid-cols-3 xl:grid-cols-5 place-items-center gap-4">
               {fetchData.map((item: TProduct, index: any) => {
                 return <Item props={item} key={index} />;
               })}

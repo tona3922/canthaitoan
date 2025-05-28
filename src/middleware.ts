@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
+import Cookies from "js-cookie";
 // 1. Specify protected and public routes
 const protectedRoutes = ["/pages/newproduct", "/pages/edit"];
 const publicRoutes = ["/pages/auth"];
@@ -15,7 +15,7 @@ export const middleware = (req: NextRequest) => {
   const isPublicRoute = publicRoutes.includes(path);
 
   // 3. Decrypt the session from the cookie
-  const cookie = req.cookies.get("session");
+  const cookie = req.cookies.get("__session")?.value;
 
   // 4. Redirect to /login if the user is not authenticated
   if (isProtectedRoute && !cookie) {

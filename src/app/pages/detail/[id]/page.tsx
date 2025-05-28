@@ -10,13 +10,14 @@ import { NavbarLayer } from "@/asset/NavbarLayer";
 import { db, storage } from "@/firebase/firebase";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
+import { deleteImage } from "@/app/hooks/deleteImage";
 export default function Page() {
   const pathname = usePathname();
   const id = pathname.substring(pathname.lastIndexOf("/") + 1);
   const [detail, setDetail] = useState<TProduct>();
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const cookie = Cookies.get("session");
+  const cookie = Cookies.get("__session");
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -24,19 +25,7 @@ export default function Page() {
   const handleOk = async () => {
     try {
       if (detail) {
-        const pathStart = detail.image.indexOf("/o/") + 3;
-        const pathEnd = detail.image.indexOf("?", pathStart);
-        const encodedPath = detail.image.substring(pathStart, pathEnd); // e.g. images%2Ffile.jpg
-        const decodedPath = decodeURIComponent(encodedPath);
-        // Delete the file
-        const imageRef = ref(storage, decodedPath);
-        deleteObject(imageRef)
-          .then(() => {
-            console.log("Image deleted successfully.");
-          })
-          .catch((error) => {
-            console.error("Error deleting image:", error);
-          });
+        deleteImage(detail.image);
         await deleteDoc(doc(db, "users", id));
       }
     } catch (error) {}
@@ -128,7 +117,7 @@ export default function Page() {
             >
               Liên hệ báo giá
             </button>
-            {cookie !== undefined && (
+            {cookie && cookie.length > 0 && (
               <>
                 <button
                   className="bg-sky-700 text-white p-2 font-semibold rounded-lg"

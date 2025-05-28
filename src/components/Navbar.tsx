@@ -5,15 +5,25 @@ import Image from "next/image";
 import rightArrow from "@/asset/right-arrow.png";
 import { NavbarLayer } from "@/asset/NavbarLayer";
 import Cookies from "js-cookie";
-import { deleteSession } from "@/app/lib/session";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
+import { signOut, getAuth } from "firebase/auth";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [isShowBar, setIsShowBar] = useState(false);
   const data = NavbarLayer;
-  const [cookie, setCookie] = useState(Cookies.get("session"));
+  const [cookie, setCookie] = useState("");
+  useEffect(() => {
+    const handleCookieUpdate = () => {
+      setCookie(Cookies.get("__session") ?? "");
+    };
+    window.addEventListener("session-updated", handleCookieUpdate);
+    handleCookieUpdate(); // on mount
 
+    return () => {
+      window.removeEventListener("session-updated", handleCookieUpdate);
+    };
+  }, []);
   return (
     <div className="flex top-0 justify-center">
       <div className="flex phone:flex-col md:flex-row phone:px-6 md:justify-around w-full fixed py-1 bg-white z-10 border-b">
@@ -122,7 +132,7 @@ const Navbar = () => {
                 Liên hệ
               </Link>
             </button>
-            {cookie !== undefined && (
+            {cookie.length > 0 && (
               <button>
                 <Link
                   href="/pages/newproduct"
@@ -133,12 +143,21 @@ const Navbar = () => {
               </button>
             )}
           </nav>
-          {cookie !== undefined ? (
+          {cookie.length > 0 ? (
             <button
               className="phone:hidden md:flex"
               onClick={() => {
-                deleteSession();
-                setCookie(undefined);
+                Cookies.remove("__session");
+                setCookie("");
+                window.dispatchEvent(new Event("session-updated"));
+                const auth = getAuth();
+                signOut(auth)
+                  .then(() => {
+                    console.log("User signed out.");
+                  })
+                  .catch((error) => {
+                    console.error("Sign out error:", error);
+                  });
               }}
             >
               <Link

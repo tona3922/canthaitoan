@@ -1,5 +1,4 @@
 "use client";
-import { createSession } from "@/app/lib/session";
 import { auth } from "@/firebase/firebase";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
@@ -20,12 +19,12 @@ export default function Page() {
       password: password,
     };
     setIsLoading(true);
-    createSession();
     try {
       console.log(data);
       const result = await signInWithEmailAndPassword(auth, email, password);
       const token = await result.user.getIdToken();
       Cookies.set("__session", token, { expires: 7, sameSite: "strict" });
+      window.dispatchEvent(new Event("session-updated"));
       router.push("/");
     } catch (error) {
       setIsLoading(false);

@@ -1,6 +1,6 @@
 "use client";
 import Item from "@/components/Item";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Filter from "./components/Filter";
 import { TProduct } from "./product";
 import { useSearchParams } from "next/navigation";
@@ -31,7 +31,7 @@ export default function Page() {
         }));
         console.log("data: ", data);
         setFetchData(data);
-        setShowData(data.slice(0, 15));
+        setShowData(data.slice(0, 12));
       } catch (error) {
         console.error("Error fetching Firestore data:", error);
       } finally {
@@ -61,7 +61,7 @@ export default function Page() {
             </div>
           ) : showData.length ? (
             <>
-              <div className="phone:flex phone:flex-col md:grid md:grid-cols-3 xl:grid-cols-4 place-items-start gap-4">
+              <div className="phone:flex phone:flex-col md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3 xl:grid-cols-4 place-items-start gap-4">
                 {showData.map((item: TProduct, index: any) => {
                   return <Item props={item} key={index} />;
                 })}
@@ -71,7 +71,7 @@ export default function Page() {
                   defaultCurrent={page}
                   total={fetchData.length}
                   onChange={setChange}
-                  pageSize={15}
+                  pageSize={12}
                   className="mx-auto"
                 />
               </div>

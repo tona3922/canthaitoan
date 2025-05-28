@@ -4,19 +4,15 @@ import { TProduct } from "../../products/product";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { Modal, notification, Select, Spin } from "antd";
 import { useRouter } from "next/navigation";
-import InfoChunk from "./InfoChunk";
+import InfoChunk from "@/components/InfoChunk";
 import { db, storage } from "@/firebase/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import {
-  ref,
-  deleteObject,
-  getDownloadURL,
-  uploadBytes,
-} from "firebase/storage";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import UploadImageBtn from "@/components/UploadImageBtn";
 import { v4 } from "uuid";
 import { TNote } from "../../newproduct/page";
 import { LoadingOutlined } from "@ant-design/icons";
+import { deleteImage } from "@/app/hooks/deleteImage";
 
 export default function Page({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -32,20 +28,7 @@ export default function Page({ params }: { params: { id: string } }) {
   const handleOk = () => {
     setIsModalOpen(false);
     if (product) {
-      // const imageRef = ref(storage, `images/${product?.image}`);
-      const pathStart = product.image.indexOf("/o/") + 3;
-      const pathEnd = product?.image.indexOf("?", pathStart);
-      const encodedPath = product?.image.substring(pathStart, pathEnd); // e.g. images%2Ffile.jpg
-      const decodedPath = decodeURIComponent(encodedPath);
-      // Delete the file
-      const imageRef = ref(storage, decodedPath);
-      deleteObject(imageRef)
-        .then(() => {
-          console.log("Image deleted successfully.");
-        })
-        .catch((error) => {
-          console.error("Error deleting image:", error);
-        });
+      deleteImage(product.image);
     }
   };
 
@@ -114,20 +97,8 @@ export default function Page({ params }: { params: { id: string } }) {
     try {
       let url = "";
       if (imageUpload && product) {
-        const pathStart = product?.image.indexOf("/o/") + 3;
-        const pathEnd = product?.image.indexOf("?", pathStart);
-        const encodedPath = product?.image.substring(pathStart, pathEnd); // e.g. images%2Ffile.jpg
-        const decodedPath = decodeURIComponent(encodedPath);
-        // Delete the file
-        let imageRef = ref(storage, decodedPath);
-        deleteObject(imageRef)
-          .then(() => {
-            console.log("Image deleted successfully.");
-          })
-          .catch((error) => {
-            console.error("Error deleting image:", error);
-          });
-        imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+        deleteImage(product.image);
+        const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
         const snapshot = await uploadBytes(imageRef, imageUpload);
         url = await getDownloadURL(snapshot.ref);
       }

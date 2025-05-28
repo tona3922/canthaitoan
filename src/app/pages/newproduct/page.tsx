@@ -7,7 +7,7 @@ import { db } from "@/firebase/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { notification, Select } from "antd";
-import InfoChunk from "../edit/[id]/InfoChunk";
+import InfoChunk from "@/components/InfoChunk";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "@/firebase/firebase";
 import { v4 } from "uuid";
