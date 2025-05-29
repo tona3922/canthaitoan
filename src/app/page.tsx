@@ -9,24 +9,8 @@ import {
 } from "@ant-design/icons";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
 
 export default function Page() {
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}`);
-        if (response.ok) {
-          // console.log("Data fetched");
-        } else {
-          throw new Error("Failed to load data");
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
   return (
     <div className="pt-10 min-h-screen">
       <div className="lg:grid lg:grid-cols-2 lg:px-32 lg:gap-10 py-8 phone:flex phone:flex-col phone:gap-4 phone:px-6">

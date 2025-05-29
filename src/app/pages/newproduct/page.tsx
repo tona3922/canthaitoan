@@ -161,7 +161,7 @@ export default function Page() {
         <div className="flex flex-row gap-2">
           <button
             type="button"
-            className="bg-gray-400 p-2 rounded-lg text-white"
+            className="bg-neutral-800 p-2 rounded-lg text-white"
             onClick={handleClick}
           >
             Thêm thông số kỹ thuật

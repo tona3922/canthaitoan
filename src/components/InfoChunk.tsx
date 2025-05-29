@@ -51,7 +51,7 @@ const InfoChunk: React.FC<{
   return (
     <div className="flex gap-3">
       <input
-        className="border h-10 px-1 outline-none rounded"
+        className="flex-1 border h-10 px-1 outline-none rounded"
         name="noteName"
         type="text"
         placeholder="thông số kỹ thuật"
@@ -60,7 +60,7 @@ const InfoChunk: React.FC<{
         onChange={handleNameChange}
       />
       <input
-        className="border h-10 px-1 outline-none rounded"
+        className="flex-1 border h-10 px-1 outline-none rounded"
         name="noteDescription"
         type="text"
         placeholder="giá trị"
@@ -69,7 +69,7 @@ const InfoChunk: React.FC<{
         onChange={handleDescriptionChange}
       />
       <button
-        className="bg-red-500 p-2 rounded-lg text-white font-semibold"
+        className="flex-none bg-red-500 p-2 rounded-lg text-white font-semibold"
         type="button"
         onClick={() => {
           setNote((prev) => prev.filter((_, idx) => idx !== index));
