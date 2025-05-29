@@ -11,13 +11,13 @@ const Footer = () => {
     "Hiệu Chuẩn - Kiểm Định",
   ];
   return (
-    <div className="py-4 bg-gradient-to-b from-sky-700 to-sky-900 lg:px-32 phone:px-4">
+    <div className="py-4 bg-gradient-to-b from-sky-600 to-sky-900 lg:px-32 phone:px-4">
       <div className="font-customTitle text-white  font-bold text-3xl mb-4">
         Can Thai Toan
       </div>
       <div className="flex lg:flex-row lg:gap-20 phone:flex-col phone:gap-4">
         <div className="flex-[2_2_0%]">
-          <div className="text-xl text-neutral-400 font-customCardTitle font-bold mb-4">
+          <div className="text-xl text-neutral-900 font-customCardTitle font-bold mb-4">
             Giới thiệu
           </div>
           <p className="text-white text-lg">
@@ -28,7 +28,7 @@ const Footer = () => {
           </p>
         </div>
         <div className="flex-[2_2_0%]">
-          <div className="text-xl text-neutral-400 font-customCardTitle font-bold mb-4">
+          <div className="text-xl text-neutral-900 font-customCardTitle font-bold mb-4">
             Sản phẩm nổi bật
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -51,7 +51,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex-1">
-          <div className="text-xl text-neutral-400 font-customCardTitle font-bold mb-4">
+          <div className="text-xl text-neutral-900 font-customCardTitle font-bold mb-4">
             Hỗ trợ kỹ thuật
           </div>
           <div className="flex flex-col gap-3">

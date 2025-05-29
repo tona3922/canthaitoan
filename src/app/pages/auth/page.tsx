@@ -1,9 +1,11 @@
 "use client";
-import { createSession } from "@/app/lib/session";
+import { auth } from "@/firebase/firebase";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -15,37 +17,15 @@ export default function Page() {
     const data = {
       email: email,
       password: password,
-      username: "admin123",
     };
     setIsLoading(true);
-    createSession();
     try {
       console.log(data);
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND}/user/login`,
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response.ok) {
-        setIsLoading(false);
-        console.log(response);
-        const data = await response.json();
-        localStorage.setItem("accessToken", data.accessToken);
-        createSession();
-        window.location.reload();
-        router.push("/");
-        return;
-      } else {
-        setIsLoading(false);
-        console.log(response);
-        throw new Error("Failed post data");
-        // Handle error
-      }
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      const token = await result.user.getIdToken();
+      Cookies.set("__session", token, { expires: 7, sameSite: "strict" });
+      window.dispatchEvent(new Event("session-updated"));
+      router.push("/");
     } catch (error) {
       setIsLoading(false);
       console.log(error);

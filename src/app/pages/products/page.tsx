@@ -1,10 +1,12 @@
 "use client";
 import Item from "@/components/Item";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Filter from "./components/Filter";
 import { TProduct } from "./product";
 import { useSearchParams } from "next/navigation";
 import { Empty, Pagination, Spin } from "antd";
+import { db } from "@/firebase/firebase";
+import { getDocs, collection } from "firebase/firestore";
 
 export default function Page() {
   const [fetchData, setFetchData] = useState<any>([]);
@@ -12,39 +14,31 @@ export default function Page() {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
   const subtype = searchParams.get("subtype");
-  const paramsObj = { type: type ?? "", subtype: subtype ?? "" };
   const [page, setPage] = useState(1);
-  const [showData, setShowData] = useState([]);
+  const [showData, setShowData] = useState<any>([]);
   const setChange = (page: number, pageSize: number) => {
     setPage(page);
     setShowData(fetchData.slice((page - 1) * pageSize, page * pageSize));
   };
   useEffect(() => {
-    const getAllProducts = async () => {
+    const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(
-          `${
-            process.env.NEXT_PUBLIC_BACKEND
-          }/product/filter?${new URLSearchParams(paramsObj).toString()}`
-        );
-        if (!response.ok) {
-          const errorText = await response.text();
-          setIsLoading(false);
-          throw new Error(
-            `Request failed with status ${response.status}: ${errorText}`
-          );
-        }
-        const data = await response.json();
+        const querySnapshot = await getDocs(collection(db, "users"));
+        const data = querySnapshot.docs.map((doc) => ({
+          _id: doc.id,
+          ...doc.data(),
+        }));
+        setFetchData(data);
+        setShowData(data.slice(0, 12));
+      } catch (error) {
+        console.error("Error fetching Firestore data:", error);
+      } finally {
         setIsLoading(false);
-        setFetchData(data.foundProduct);
-        setShowData(data.foundProduct.slice(0, 15));
-      } catch (error: any) {
-        setIsLoading(false);
-        throw new Error(`Data failed: ${error.message}`);
       }
     };
-    getAllProducts();
+
+    fetchData();
   }, [type, subtype]);
   return (
     <main className="pt-20 pb-6 py-10 mx-10">
@@ -66,7 +60,7 @@ export default function Page() {
             </div>
           ) : showData.length ? (
             <>
-              <div className="phone:flex phone:flex-col md:grid md:grid-cols-3 xl:grid-cols-5 place-items-center gap-4">
+              <div className="phone:flex phone:flex-col md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3 xl:grid-cols-4 place-items-start gap-4">
                 {showData.map((item: TProduct, index: any) => {
                   return <Item props={item} key={index} />;
                 })}
@@ -76,7 +70,7 @@ export default function Page() {
                   defaultCurrent={page}
                   total={fetchData.length}
                   onChange={setChange}
-                  pageSize={15}
+                  pageSize={12}
                   className="mx-auto"
                 />
               </div>

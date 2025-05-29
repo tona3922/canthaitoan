@@ -9,24 +9,8 @@ import {
 } from "@ant-design/icons";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
 
 export default function Page() {
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}`);
-        if (response.ok) {
-          // console.log("Data fetched");
-        } else {
-          throw new Error("Failed to load data");
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
   return (
     <div className="pt-10 min-h-screen">
       <div className="lg:grid lg:grid-cols-2 lg:px-32 lg:gap-10 py-8 phone:flex phone:flex-col phone:gap-4 phone:px-6">
@@ -167,22 +151,15 @@ export default function Page() {
       </div>
       <div className="inline-flex w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
         <ul className="flex animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-8">
-          {Array.from({ length: 10 }).map((_, idx) => {
+          {Array.from({ length: 20 }).map((_, idx) => {
             return (
               <li key={idx}>
-                <Image src="./next.svg" alt="next" width={200} height={200} />
-              </li>
-            );
-          })}
-        </ul>
-        <ul
-          className="flex animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-8"
-          aria-hidden="true"
-        >
-          {Array.from({ length: 10 }).map((_, idx) => {
-            return (
-              <li key={idx}>
-                <Image src="./next.svg" alt="next" width={200} height={200} />
+                <Image
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTui_z0aAeDFKZVZz5MZ-QWMfgLxzGNAHAWZQ&s"
+                  alt="next"
+                  width={200}
+                  height={200}
+                />
               </li>
             );
           })}

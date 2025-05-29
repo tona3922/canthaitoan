@@ -1,24 +1,23 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { ImageKitProvider, IKUpload, IKImage } from "imagekitio-next";
-import { notification, Select } from "antd";
+import UploadImageBtn from "@/components/UploadImageBtn";
+import React, { useState } from "react";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
+import { db } from "@/firebase/firebase";
+import { collection, addDoc } from "firebase/firestore";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
-import InfoChunk from "../edit/[id]/InfoChunk";
-import { authenticator } from "./hooks/useAuthentication";
-import { useRouter } from "next/navigation";
-const publicKey = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY;
-const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_ENDPOINT;
-let token = "";
-
-if (typeof window !== "undefined") {
-  token = window.localStorage.getItem("accessToken") ?? "";
-}
+import { notification, Select } from "antd";
+import InfoChunk from "@/components/InfoChunk";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "@/firebase/firebase";
+import { v4 } from "uuid";
 export type TNote = {
   noteName: string;
   noteDescription: string;
 };
+
 export default function Page() {
-  const router = useRouter();
+  const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [api, contextHolder] = notification.useNotification();
   const data = NavbarLayer;
   const [note, setNote] = useState<TNote[]>([
@@ -27,7 +26,7 @@ export default function Page() {
   const [type, setType] = useState<string>("");
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
-  const [result, setResult] = useState<any>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleChange = (value: string) => {
     setType(value);
@@ -39,58 +38,42 @@ export default function Page() {
   const handleChangeSub = (value: string) => {
     setType2(value);
   };
-  const onError = (err: any) => {
-    console.log("Error in upload image");
-  };
-  const onSuccess = (res: any) => {
-    console.log(res);
-    setResult(res);
-  };
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = {
-      name: formData.get("name"),
-      description: formData.get("description"),
-      type: type,
-      subtype: type2 ?? "",
-      image: result.url,
-      information: note,
-    };
-    console.log(data);
+
+    if (imageUpload == null) {
+      errorNotification("Chưa thêm hình ảnh");
+      return;
+    }
+    setIsLoading(true);
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND}/product/newproduct`,
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const responseData = await response.json(); // <- Parse JSON body
-      if (response.ok) {
-        successNotification();
-        setTimeout(() => {
-          router.push("/pages/products");
-        }, 1500);
-        // Handle success
-      } else {
-        errorNotification(responseData.message);
-        // throw new Error("Failed post data");
-        // Handle error
-      }
+      // Upload image
+      const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+      const snapshot = await uploadBytes(imageRef, imageUpload);
+      const url = await getDownloadURL(snapshot.ref);
+
+      // Prepare form data
+      const formData = new FormData(event.target);
+      const data = {
+        name: formData.get("name"),
+        description: formData.get("description"),
+        type: type,
+        subtype: type2 ?? "",
+        image: url, // ✅ Now correct
+        information: note,
+      };
+
+      await addDoc(collection(db, "users"), data); // you don't need `{ data }` unless you're nesting
+      successNotification();
     } catch (error) {
-      errorNotification("Error server");
-      // throw new Error("Failed post data");
-      // Handle error
+      console.error("Error adding document: ", error);
+      errorNotification("Fail to add product");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleClick = () => {
-    // note.push({ noteName: "", noteDescription: "" });
     setNote([...note, { noteName: "", noteDescription: "" }]);
   };
   const successNotification = () => {
@@ -176,7 +159,7 @@ export default function Page() {
         <div className="flex flex-row gap-2">
           <button
             type="button"
-            className="bg-gray-400 p-2 rounded-lg text-white"
+            className="bg-neutral-800 p-2 rounded-lg text-white"
             onClick={handleClick}
           >
             Thêm thông số kỹ thuật
@@ -192,35 +175,20 @@ export default function Page() {
             />
           );
         })}
-        <div>
-          <ImageKitProvider
-            publicKey={publicKey}
-            urlEndpoint={urlEndpoint}
-            authenticator={authenticator}
-          >
-            <>
-              <h2 className="text-lg">File upload</h2>
-              <IKUpload
-                fileName="test-upload.png"
-                onError={onError}
-                onSuccess={onSuccess}
-              />
-            </>
-            {result && (
-              <IKImage
-                path={result.filePath}
-                width="200"
-                height="200"
-                alt="Alt text"
-              />
-            )}
-          </ImageKitProvider>
-        </div>
+        <UploadImageBtn setImageUpload={setImageUpload} />
         <button
-          className="bg-sky-600 text-white w-1/3 self-center text-lg rounded-md p-2 font-medium"
+          className="bg-sky-600 text-white self-center text-lg rounded-md p-2 font-medium"
           type="submit"
+          disabled={isLoading}
         >
-          Thêm sản phẩm
+          {isLoading ? (
+            <div className="flex items-center gap-2">
+              <p>Đang cập nhật sản phẩm</p>
+              <Spin indicator={<LoadingOutlined spin />} />
+            </div>
+          ) : (
+            "Thêm sản phẩm"
+          )}
         </button>
       </form>
     </div>

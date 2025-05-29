@@ -9,6 +9,15 @@ import React, {
 import { Select } from "antd";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { useDebouncedCallback } from "use-debounce";
+import {
+  collection,
+  getDocs,
+  or,
+  query,
+  QueryConstraint,
+  where,
+} from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 
 const Filter: React.FC<{
   setFetchData: Dispatch<SetStateAction<any>>;
@@ -25,10 +34,10 @@ const Filter: React.FC<{
     if (findData) {
       setSubData(findData.children);
     }
+    setSubType("");
   };
   const handleChangeSub = (value: string) => {
     setSubType(value);
-    console.log(value);
   };
   const handleSubmit = async () => {
     const paramsObj = {
@@ -37,23 +46,31 @@ const Filter: React.FC<{
       name: inp ?? "",
     };
     try {
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_BACKEND
-        }/product/filter?${new URLSearchParams(paramsObj).toString()}`
-      );
-      if (response.ok) {
-        console.log(response);
-        const data = await response.json();
-        // console.log(data.foundProduct);
-        setFetchData(data.foundProduct);
-        setShowData(data.foundProduct.slice(0, 10));
-        // Handle success
-      } else {
-        console.log(response);
-        throw new Error("Failed post data");
-        // Handle error
+      const conditions: QueryConstraint[] = [];
+
+      // If you want to do a prefix match on `type` with `name`
+      if (paramsObj.name) {
+        conditions.push(
+          where("type", ">=", paramsObj.name),
+          where("type", "<=", paramsObj.name + "~")
+        );
       }
+
+      if (paramsObj.type) {
+        conditions.push(where("type", "==", paramsObj.type));
+      }
+
+      if (paramsObj.subtype) {
+        conditions.push(where("subtype", "==", paramsObj.subtype));
+      }
+      // Build the query dynamically
+      const q = query(collection(db, "users"), ...conditions);
+
+      const snapshot = await getDocs(q);
+      const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setFetchData(data);
+      setShowData(data.slice(0, 10));
+      // // Handle success
     } catch (error) {
       throw new Error("Failed post data");
     }
@@ -82,11 +99,6 @@ const Filter: React.FC<{
           className="w-full h-10"
           placeholder="Các loại cân"
           optionFilterProp="label"
-          // filterSort={(optionA, optionB) =>
-          //   (optionA?.label ?? "")
-          //     .toLowerCase()
-          //     .localeCompare((optionB?.label ?? "").toLowerCase())
-          // }
           options={data}
           onChange={handleChange}
         />

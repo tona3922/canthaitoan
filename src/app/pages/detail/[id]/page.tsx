@@ -2,25 +2,33 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { TProduct } from "../../products/product";
-import { deleteProduct } from "./hooks/deleteProduct";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { Modal } from "antd";
 import { usePathname } from "next/navigation";
 import { NavbarLayer } from "@/asset/NavbarLayer";
+import { db, storage } from "@/firebase/firebase";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import { ref, deleteObject } from "firebase/storage";
+import { deleteImage } from "@/app/hooks/deleteImage";
 export default function Page() {
   const pathname = usePathname();
   const id = pathname.substring(pathname.lastIndexOf("/") + 1);
   const [detail, setDetail] = useState<TProduct>();
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [cookie, setCookie] = useState(Cookies.get("session"));
+  const cookie = Cookies.get("__session");
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    deleteProduct(id);
+  const handleOk = async () => {
+    try {
+      if (detail) {
+        deleteImage(detail.image);
+        await deleteDoc(doc(db, "users", id));
+      }
+    } catch (error) {}
     router.push("/pages/products");
     setIsModalOpen(false);
   };
@@ -29,26 +37,22 @@ export default function Page() {
     setIsModalOpen(false);
   };
   useEffect(() => {
-    const getAllProducts = async () => {
+    const getDetailProduct = async () => {
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND}/product/${id}`
-        );
-        // const response = await fetch("http://localhost:3001/product/");
+        const docRef = doc(db, "users", id);
+        const docSnap = await getDoc(docRef);
 
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(
-            `Request failed with status ${response.status}: ${errorText}`
-          );
+        if (docSnap.exists()) {
+          setDetail(docSnap.data() as TProduct);
+          // console.log(docSnap.data());
+        } else {
+          console.log("No such document!");
         }
-        const data = await response.json();
-        setDetail(data.product);
       } catch (error: any) {
         throw new Error(`Data failed: ${error.message}`);
       }
     };
-    getAllProducts();
+    getDetailProduct();
   }, [id]);
   const showTypeLabel = (str: string | undefined) => {
     if (detail) {
@@ -70,6 +74,7 @@ export default function Page() {
             className="lg:w-2/3 phone:w-full"
             width={100}
             height={100}
+            unoptimized={true}
           />
         </div>
         <div className="flex-1">
@@ -112,10 +117,10 @@ export default function Page() {
             >
               Liên hệ báo giá
             </button>
-            {cookie !== undefined && (
+            {cookie && cookie.length > 0 && (
               <>
                 <button
-                  className="bg-gray-700 text-white p-2 rounded-lg"
+                  className="bg-sky-700 text-white p-2 font-semibold rounded-lg"
                   onClick={() => router.push(`/pages/edit/${id}`)}
                 >
                   Chỉnh sửa sản phẩm
