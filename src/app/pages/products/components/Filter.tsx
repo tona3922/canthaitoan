@@ -50,7 +50,6 @@ const Filter: React.FC<{
 
       // If you want to do a prefix match on `type` with `name`
       if (paramsObj.name) {
-        console.log(paramsObj.name);
         conditions.push(
           where("type", ">=", paramsObj.name),
           where("type", "<=", paramsObj.name + "~")
@@ -58,12 +57,10 @@ const Filter: React.FC<{
       }
 
       if (paramsObj.type) {
-        console.log(type);
         conditions.push(where("type", "==", paramsObj.type));
       }
 
       if (paramsObj.subtype) {
-        console.log(subType);
         conditions.push(where("subtype", "==", paramsObj.subtype));
       }
       // Build the query dynamically

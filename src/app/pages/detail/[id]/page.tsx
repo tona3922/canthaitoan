@@ -44,7 +44,7 @@ export default function Page() {
 
         if (docSnap.exists()) {
           setDetail(docSnap.data() as TProduct);
-          console.log(docSnap.data());
+          // console.log(docSnap.data());
         } else {
           console.log("No such document!");
         }

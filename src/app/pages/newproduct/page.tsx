@@ -63,8 +63,6 @@ export default function Page() {
         information: note,
       };
 
-      console.log("Final data:", data);
-
       await addDoc(collection(db, "users"), data); // you don't need `{ data }` unless you're nesting
       successNotification();
     } catch (error) {

@@ -29,7 +29,6 @@ export default function Page() {
           _id: doc.id,
           ...doc.data(),
         }));
-        console.log("data: ", data);
         setFetchData(data);
         setShowData(data.slice(0, 12));
       } catch (error) {

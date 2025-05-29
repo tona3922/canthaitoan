@@ -46,7 +46,7 @@ export default function Page({ params }: { params: { id: string } }) {
             _id: docSnap.id,
             ...docSnap.data(),
           } as TProduct;
-          console.log(docSnap.data());
+          // console.log(docSnap.data());
           setProduct(data);
           setInput(data.name);
           setType(data.type);
