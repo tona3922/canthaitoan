@@ -25,7 +25,7 @@ export default function Page() {
       // Smooth scroll offset.
       scrollSmoothOffset: -60,
     });
-  });
+  }, []);
   return (
     <main className="pt-16 py-10">
       <div className="flex phone:flex-col lg:flex-row lg:gap-16 lg:px-40 phone:gap-10 py-10">

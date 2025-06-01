@@ -6,7 +6,13 @@ import { TProduct } from "./product";
 import { useSearchParams } from "next/navigation";
 import { Empty, Pagination, Spin } from "antd";
 import { db } from "@/firebase/firebase";
-import { getDocs, collection } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  QueryConstraint,
+  where,
+  query,
+} from "firebase/firestore";
 
 export default function Page() {
   const [fetchData, setFetchData] = useState<any>([]);
@@ -22,10 +28,20 @@ export default function Page() {
   };
   useEffect(() => {
     const fetchData = async () => {
+      const conditions: QueryConstraint[] = [];
+      if (type) {
+        conditions.push(where("type", "==", type));
+      }
+
+      if (subtype) {
+        conditions.push(where("subtype", "==", subtype));
+      }
       setIsLoading(true);
       try {
-        const querySnapshot = await getDocs(collection(db, "users"));
-        const data = querySnapshot.docs.map((doc) => ({
+        const q = query(collection(db, "users"), ...conditions);
+
+        const snapshot = await getDocs(q);
+        const data = snapshot.docs.map((doc) => ({
           _id: doc.id,
           ...doc.data(),
         }));
@@ -60,7 +76,7 @@ export default function Page() {
             </div>
           ) : showData.length ? (
             <>
-              <div className="phone:flex phone:flex-col md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3 xl:grid-cols-4 place-items-start gap-4">
+              <div className="phone:flex phone:flex-col phone:items-center md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3 xl:grid-cols-4 xl:place-items-start gap-4">
                 {showData.map((item: TProduct, index: any) => {
                   return <Item props={item} key={index} />;
                 })}
