@@ -14,13 +14,8 @@ export default function Page() {
   const router = useRouter();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const data = {
-      email: email,
-      password: password,
-    };
     setIsLoading(true);
     try {
-      console.log(data);
       const result = await signInWithEmailAndPassword(auth, email, password);
       const token = await result.user.getIdToken();
       Cookies.set("__session", token, { expires: 7, sameSite: "strict" });

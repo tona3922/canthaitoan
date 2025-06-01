@@ -1,14 +1,18 @@
 "use client";
 import SwiperAd from "@/components/SwiperAd";
-import TopSelectItem from "@/components/TopSelectItem";
 import {
   CustomerServiceOutlined,
   DollarOutlined,
   FileProtectOutlined,
   TruckOutlined,
 } from "@ant-design/icons";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
+const TopSelectItem = dynamic(() => import("@/components/TopSelectItem"), {
+  ssr: false,
+});
 
 export default function Page() {
   return (
@@ -130,7 +134,9 @@ export default function Page() {
           Cân phòng thí nghiệm
         </div>
         <article className="w-full">
-          <TopSelectItem type="can phong thi nghiem" />
+          <Suspense>
+            <TopSelectItem type="can phong thi nghiem" />
+          </Suspense>
         </article>
       </div>
       <div className="phone:px-6 lg:px-32 phone:py-4 py-10 flex flex-col gap-5">
@@ -138,7 +144,9 @@ export default function Page() {
           Cân kỹ thuật
         </div>
         <article className="w-full">
-          <TopSelectItem type="can ky thuat" />
+          <Suspense>
+            <TopSelectItem type="can ky thuat" />
+          </Suspense>
         </article>
       </div>
       <div className="phone:px-6 lg:px-32 phone:py-4 py-10 flex flex-col gap-5">
@@ -146,7 +154,9 @@ export default function Page() {
           Cân bàn & cân sàn
         </div>
         <article className="w-full">
-          <TopSelectItem type="can ban va can san" />
+          <Suspense>
+            <TopSelectItem type="can ban va can san" />
+          </Suspense>
         </article>
       </div>
       <div className="inline-flex w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">

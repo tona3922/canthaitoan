@@ -67,7 +67,7 @@ const Filter: React.FC<{
       const q = query(collection(db, "users"), ...conditions);
 
       const snapshot = await getDocs(q);
-      const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      const data = snapshot.docs.map((doc) => ({ _id: doc.id, ...doc.data() }));
       setFetchData(data);
       setShowData(data.slice(0, 10));
       // // Handle success
