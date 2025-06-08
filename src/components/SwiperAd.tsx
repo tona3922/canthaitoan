@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import SwiperImg from "@/asset/swiper-img.webp";
 
 const SwiperAd = () => {
+  const slideImages = [SwiperImg, SwiperImg, SwiperImg, SwiperImg];
   return (
     <Swiper
       navigation
@@ -21,26 +22,19 @@ const SwiperAd = () => {
       modules={[Navigation, Pagination, Autoplay]}
       style={{ paddingBottom: "30px" }}
     >
-      <SwiperSlide>
-        <div className="flex justify-center">
-          <Image alt="first house" width={400} height={300} src={SwiperImg} />
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="flex justify-center">
-          <Image alt="first house" width={400} height={300} src={SwiperImg} />
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="flex justify-center">
-          <Image alt="first house" width={400} height={300} src={SwiperImg} />
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="flex justify-center">
-          <Image alt="first house" width={400} height={300} src={SwiperImg} />
-        </div>
-      </SwiperSlide>
+      {slideImages.map((imgSrc, index) => (
+        <SwiperSlide key={index}>
+          <div className="flex justify-center">
+            <Image
+              alt={`slide-${index + 1}`}
+              width={400}
+              height={300}
+              priority
+              src={imgSrc}
+            />
+          </div>
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 };

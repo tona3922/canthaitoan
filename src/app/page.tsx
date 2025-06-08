@@ -6,6 +6,7 @@ import {
   FileProtectOutlined,
   TruckOutlined,
 } from "@ant-design/icons";
+import { Spin } from "antd";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,7 +20,7 @@ export default function Page() {
     <div className="pt-10 min-h-screen">
       <div className="lg:grid lg:grid-cols-2 lg:px-32 lg:gap-10 py-8 phone:flex phone:flex-col phone:gap-4 phone:px-6">
         <div className="flex pt-4 justify-center px-4">
-          <Suspense>
+          <Suspense fallback={<Spin size="large" />}>
             <SwiperAd />
           </Suspense>
         </div>
