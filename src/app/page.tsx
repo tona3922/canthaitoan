@@ -19,7 +19,9 @@ export default function Page() {
     <div className="pt-10 min-h-screen">
       <div className="lg:grid lg:grid-cols-2 lg:px-32 lg:gap-10 py-8 phone:flex phone:flex-col phone:gap-4 phone:px-6">
         <div className="flex pt-4 justify-center px-4">
-          <SwiperAd />
+          <Suspense>
+            <SwiperAd />
+          </Suspense>
         </div>
         <article className="flex flex-col gap-6 my-auto">
           <p className="text-lg">
