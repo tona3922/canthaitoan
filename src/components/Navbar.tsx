@@ -30,7 +30,7 @@ const Navbar = () => {
         <div className="flex flex-row phone:justify-between w-full items-center">
           <Link
             href="/"
-            className="flex flex-row text-2xl font-customTitle items-center justify-center gap-2 text-sky-600"
+            className="flex flex-row text-2xl font-bold font-customTitle items-center justify-center gap-2 text-sky-600"
           >
             Cân Thái Toàn
           </Link>

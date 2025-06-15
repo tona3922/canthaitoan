@@ -5,10 +5,9 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import SwiperImg from "@/asset/swiper-img.webp";
-
+import { ACH3, CB, LN, PX, HT } from "@/asset/carousel";
 const SwiperAd = () => {
-  const slideImages = [SwiperImg, SwiperImg, SwiperImg, SwiperImg];
+  const slideImages = [ACH3, CB, LN, PX, HT];
   return (
     <Swiper
       navigation
@@ -23,7 +22,7 @@ const SwiperAd = () => {
       style={{ paddingBottom: "30px" }}
     >
       {slideImages.map((imgSrc, index) => (
-        <SwiperSlide key={index}>
+        <SwiperSlide key={index} className="flex place-content-center">
           <div className="flex justify-center">
             <Image
               alt={`slide-${index + 1}`}
