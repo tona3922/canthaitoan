@@ -1,4 +1,5 @@
 "use client";
+import BrandName from "@/components/BrandName";
 import SwiperAd from "@/components/SwiperAd";
 import {
   CustomerServiceOutlined,
@@ -18,6 +19,7 @@ const TopSelectItem = dynamic(() => import("@/components/TopSelectItem"), {
 export default function Page() {
   return (
     <div className="pt-10 min-h-screen">
+      <BrandName />
       <div className="lg:grid lg:grid-cols-2 lg:px-32 lg:gap-10 py-8 phone:flex phone:flex-col phone:gap-4 phone:px-6">
         <div className="flex pt-4 justify-center px-4">
           <Suspense fallback={<Spin size="large" />}>
@@ -161,22 +163,6 @@ export default function Page() {
             <TopSelectItem type="can ban va can san" />
           </Suspense>
         </article>
-      </div>
-      <div className="inline-flex w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-        <ul className="flex animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-8">
-          {Array.from({ length: 20 }).map((_, idx) => {
-            return (
-              <li key={idx}>
-                <Image
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTui_z0aAeDFKZVZz5MZ-QWMfgLxzGNAHAWZQ&s"
-                  alt="next"
-                  width={200}
-                  height={200}
-                />
-              </li>
-            );
-          })}
-        </ul>
       </div>
     </div>
   );
