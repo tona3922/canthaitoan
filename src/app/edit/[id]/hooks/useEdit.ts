@@ -1,6 +1,6 @@
-import { deleteImage } from "@/app/hooks/deleteImage";
-import { TNote } from "@/app/pages/newproduct/page";
-import { TProduct } from "@/app/pages/products/product";
+import { deleteImage } from "@/hooks/deleteImage";
+import { TNote } from "@/app/newproduct/page";
+import { TProduct } from "@/app/products/product";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { db, storage } from "@/firebase/firebase";
 import { notification } from "antd";
@@ -73,7 +73,7 @@ export const useEdit = (id: string) => {
       successNotification();
       setIsLoading(false);
       setTimeout(() => {
-        router.push(`/pages/detail/${id}`);
+        router.push(`/detail/${id}`);
       }, 1500);
     } catch (error) {
       errorNotification("Đã có lỗi xảy ra vui lòng thử lại");

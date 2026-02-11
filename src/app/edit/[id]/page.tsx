@@ -12,7 +12,7 @@ import UploadImageBtn from "@/components/UploadImageBtn";
 import { v4 } from "uuid";
 import { TNote } from "../../newproduct/page";
 import { LoadingOutlined } from "@ant-design/icons";
-import { deleteImage } from "@/app/hooks/deleteImage";
+import { deleteImage } from "@/hooks/deleteImage";
 
 export default function Page({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -116,7 +116,7 @@ export default function Page({ params }: { params: { id: string } }) {
       successNotification();
       setIsLoading(false);
       setTimeout(() => {
-        router.push(`/pages/detail/${params.id}`);
+        router.push(`/detail/${params.id}`);
       }, 1500);
     } catch (error) {
       errorNotification("Đã có lỗi xảy ra vui lòng thử lại");

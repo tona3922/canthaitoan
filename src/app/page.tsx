@@ -126,7 +126,7 @@ export default function Page() {
           </div>
           <div className="rounded-lg p-4 flex justify-end items-center">
             <Link
-              href="/pages/products"
+              href="/products"
               className="text-2xl text-white font-semibold hover:underline"
             >
               &#x2192; Tìm kiếm sản phẩm tại đây

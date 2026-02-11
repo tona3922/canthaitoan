@@ -37,7 +37,7 @@ const Footer = () => {
                 <Link
                   className="py-2"
                   href={{
-                    pathname: "/pages/products",
+                    pathname: "/products",
                     query: { type: item.value },
                   }}
                   key={idx}
@@ -60,7 +60,7 @@ const Footer = () => {
                 <Link
                   className="py-2"
                   href={{
-                    pathname: `/pages/service`,
+                    pathname: `/service`,
                   }}
                   key={idx}
                 >

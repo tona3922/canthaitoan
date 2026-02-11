@@ -1,5 +1,5 @@
 import React, { SetStateAction, useEffect, useState } from "react";
-import { TNote } from "../app/pages/newproduct/page";
+import { TNote } from "../app/newproduct/page";
 import { useDebouncedCallback } from "use-debounce";
 
 const InfoChunk: React.FC<{

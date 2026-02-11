@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import Item from "./Item";
 import { Spin } from "antd";
-import { TProduct } from "@/app/pages/products/product";
+import { TProduct } from "@/app/products/product";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Scrollbar } from "swiper/modules";
 import { db } from "@/firebase/firebase";

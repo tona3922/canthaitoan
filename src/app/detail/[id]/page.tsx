@@ -10,7 +10,7 @@ import { NavbarLayer } from "@/asset/NavbarLayer";
 import { db, storage } from "@/firebase/firebase";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
-import { deleteImage } from "@/app/hooks/deleteImage";
+import { deleteImage } from "@/hooks/deleteImage";
 export default function Page() {
   const pathname = usePathname();
   const id = pathname.substring(pathname.lastIndexOf("/") + 1);
@@ -29,7 +29,7 @@ export default function Page() {
         await deleteDoc(doc(db, "users", id));
       }
     } catch (error) {}
-    router.push("/pages/products");
+    router.push("/products");
     setIsModalOpen(false);
   };
 
@@ -113,7 +113,7 @@ export default function Page() {
           <div className="mt-6 flex gap-3">
             <button
               className="p-2 bg-gray-700 rounded-lg text-white font-semibold"
-              onClick={() => router.push("/pages/about")}
+              onClick={() => router.push("/about")}
             >
               Liên hệ báo giá
             </button>
@@ -121,7 +121,7 @@ export default function Page() {
               <>
                 <button
                   className="bg-sky-700 text-white p-2 font-semibold rounded-lg"
-                  onClick={() => router.push(`/pages/edit/${id}`)}
+                  onClick={() => router.push(`/edit/${id}`)}
                 >
                   Chỉnh sửa sản phẩm
                 </button>

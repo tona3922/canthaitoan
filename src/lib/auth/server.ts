@@ -1,4 +1,4 @@
-// lib/auth/server.ts
+// @/lib/auth/server.ts
 import { cookies } from "next/headers";
 import { getAuth } from "firebase-admin/auth";
 import { cert, getApps, initializeApp } from "firebase-admin/app";

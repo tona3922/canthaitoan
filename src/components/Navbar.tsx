@@ -53,7 +53,7 @@ const Navbar = () => {
               }}
             >
               <Link
-                href="/pages/products"
+                href="/products"
                 className="font-customDetail font-semibold text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
               >
                 <span aria-expanded={open}>Sản phẩm</span>
@@ -68,7 +68,7 @@ const Navbar = () => {
                           <Link
                             className="text-slate-800 hover:bg-slate-50 flex items-center justify-between rounded text-md p-2"
                             href={{
-                              pathname: "/pages/products",
+                              pathname: "/products",
                               query: { type: item.value },
                             }}
                           >
@@ -92,7 +92,7 @@ const Navbar = () => {
                                       <Link
                                         className="text-slate-800 hover:bg-slate-50 flex rounded text-md p-2"
                                         href={{
-                                          pathname: "/pages/products",
+                                          pathname: "/products",
                                           query: {
                                             type: item.value,
                                             subtype: child.value,
@@ -118,7 +118,7 @@ const Navbar = () => {
             </button>
             <button>
               <Link
-                href="/pages/service"
+                href="/service"
                 className="font-customDetail font-semibold text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
               >
                 Dịch vụ
@@ -126,7 +126,7 @@ const Navbar = () => {
             </button>
             <button>
               <Link
-                href="/pages/about"
+                href="/about"
                 className="font-customDetail font-semibold text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
               >
                 Liên hệ
@@ -135,7 +135,7 @@ const Navbar = () => {
             {cookie.length > 0 && (
               <button>
                 <Link
-                  href="/pages/newproduct"
+                  href="/newproduct"
                   className="font-customDetail font-semibold text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
                 >
                   Thêm sản phẩm
@@ -161,7 +161,7 @@ const Navbar = () => {
               }}
             >
               <Link
-                href="/pages/auth"
+                href="/auth"
                 className="font-customDetail font-semibold text-xl "
               >
                 Log out
@@ -170,7 +170,7 @@ const Navbar = () => {
           ) : (
             <button className="phone:hidden md:flex">
               <Link
-                href="/pages/auth"
+                href="/auth"
                 className="font-customDetail font-semibold text-xl hover:text-sky-600"
               >
                 Login
@@ -201,7 +201,7 @@ const Navbar = () => {
               </button>
               <button onClick={() => setIsShowBar(!isShowBar)}>
                 <Link
-                  href="/pages/products"
+                  href="/products"
                   className="font-customDetail font-semibold text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
                 >
                   Sản phẩm
@@ -209,7 +209,7 @@ const Navbar = () => {
               </button>
               <button onClick={() => setIsShowBar(!isShowBar)}>
                 <Link
-                  href="/pages/service"
+                  href="/service"
                   className="font-customDetail font-semibold text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
                 >
                   Dịch vụ
@@ -217,7 +217,7 @@ const Navbar = () => {
               </button>
               <button onClick={() => setIsShowBar(!isShowBar)}>
                 <Link
-                  href="/pages/about"
+                  href="/about"
                   className="font-customDetail font-semibold text-neutral-500 text-xl hover:text-sky-600 relative after:w-0 after:absolute after:h-0.5 after:left-0 after:right-0 after:-bottom-0.5 after:hover:w-full after:bg-sky-600 after:duration-500"
                 >
                   Liên hệ
