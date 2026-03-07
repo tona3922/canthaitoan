@@ -2,27 +2,19 @@
 import UploadImageBtn from "@/components/UploadImageBtn";
 import React, { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Spin } from "antd";
-import { db } from "@/firebase/firebase";
+import { Spin, notification, Select } from "antd";
+import { db, storage } from "@/firebase/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
-import { notification, Select } from "antd";
-import InfoChunk from "@/components/InfoChunk";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "@/firebase/firebase";
 import { v4 } from "uuid";
-export type TNote = {
-  noteName: string;
-  noteDescription: string;
-};
+import InfoChunk from "@/components/InfoChunk";
+import { TNote } from "@/app/products/product";
 
 export default function Page() {
   const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [api, contextHolder] = notification.useNotification();
-  const data = NavbarLayer;
-  const [note, setNote] = useState<TNote[]>([
-    { noteName: "", noteDescription: "" },
-  ]);
+  const [note, setNote] = useState<TNote[]>([{ noteName: "", noteDescription: "" }]);
   const [type, setType] = useState<string>("");
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
@@ -31,71 +23,47 @@ export default function Page() {
   const handleChange = (value: string) => {
     setType(value);
     const findData = NavbarLayer.find((item) => item.value === value);
-    if (findData) {
-      setSubData(findData.children);
-    }
+    setSubData(findData?.children);
   };
-  const handleChangeSub = (value: string) => {
-    setType2(value);
-  };
-  const handleSubmit = async (event: any) => {
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (imageUpload == null) {
-      errorNotification("Chưa thêm hình ảnh");
+      api.error({ message: "Error", description: "Chưa thêm hình ảnh" });
       return;
     }
+
     setIsLoading(true);
     try {
-      // Upload image
       const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
       const snapshot = await uploadBytes(imageRef, imageUpload);
       const url = await getDownloadURL(snapshot.ref);
 
-      // Prepare form data
-      const formData = new FormData(event.target);
-      const data = {
+      const formData = new FormData(event.target as HTMLFormElement);
+      const productData = {
         name: formData.get("name"),
         description: formData.get("description"),
-        type: type,
-        subtype: type2 ?? "",
-        image: url, // ✅ Now correct
+        type,
+        subtype: type2,
+        image: url,
         information: note,
       };
 
-      await addDoc(collection(db, "users"), data); // you don't need `{ data }` unless you're nesting
-      successNotification();
+      await addDoc(collection(db, "users"), productData);
+      api.success({ message: "Success", description: "Thêm sản phẩm mới thành công" });
     } catch (error) {
       console.error("Error adding document: ", error);
-      errorNotification("Fail to add product");
+      api.error({ message: "Error", description: "Fail to add product" });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleClick = () => {
-    setNote([...note, { noteName: "", noteDescription: "" }]);
-  };
-  const successNotification = () => {
-    api["success"]({
-      message: "Success",
-      description: "Thêm sản phẩm mới thành công",
-    });
-  };
-  const errorNotification = (msg: string) => {
-    api["error"]({
-      message: "Error",
-      description: msg,
-    });
-  };
   return (
     <div className="py-20 min-h-screen flex justify-center">
       {contextHolder}
-      <form
-        action=""
-        onSubmit={handleSubmit}
-        className="w-1/2 flex flex-col gap-3"
-      >
+      <form onSubmit={handleSubmit} className="w-1/2 flex flex-col gap-3">
         <div className="flex flex-col gap-1">
           <label htmlFor="name" className="text-lg">
             Tên cân
@@ -112,7 +80,7 @@ export default function Page() {
           <h3 className="text-lg">Phân loại</h3>
           <Select
             showSearch
-            allowClear={true}
+            allowClear
             className="w-full h-10"
             placeholder="Các loại cân"
             optionFilterProp="label"
@@ -121,16 +89,16 @@ export default function Page() {
                 .toLowerCase()
                 .localeCompare((optionB?.label ?? "").toLowerCase())
             }
-            options={data}
+            options={NavbarLayer}
             onChange={handleChange}
           />
         </div>
-        {subData !== undefined && subData.length > 0 && (
+        {subData && subData.length > 0 && (
           <div className="flex flex-col gap-1">
             <h3 className="text-lg">Chi tiết</h3>
             <Select
               showSearch
-              allowClear={true}
+              allowClear
               className="w-full h-10"
               placeholder="Các loại cân"
               optionFilterProp="label"
@@ -140,7 +108,7 @@ export default function Page() {
                   .localeCompare((optionB?.label ?? "").toLowerCase())
               }
               options={subData}
-              onChange={handleChangeSub}
+              onChange={setType2}
             />
           </div>
         )}
@@ -150,31 +118,23 @@ export default function Page() {
           </label>
           <textarea
             name="description"
-            id=""
             required
             placeholder="Mô tả"
             className="border p-2 w-full h-52 rounded-md"
-          ></textarea>
+          />
         </div>
         <div className="flex flex-row gap-2">
           <button
             type="button"
             className="bg-neutral-800 p-2 rounded-lg text-white"
-            onClick={handleClick}
+            onClick={() => setNote((prev) => [...prev, { noteName: "", noteDescription: "" }])}
           >
             Thêm thông số kỹ thuật
           </button>
         </div>
-        {note.map((item, index) => {
-          return (
-            <InfoChunk
-              index={index}
-              item={item}
-              setNote={setNote}
-              key={index}
-            />
-          );
-        })}
+        {note.map((item, index) => (
+          <InfoChunk key={index} index={index} item={item} setNote={setNote} />
+        ))}
         <UploadImageBtn setImageUpload={setImageUpload} />
         <button
           className="bg-sky-600 text-white self-center text-lg rounded-md p-2 font-medium"
