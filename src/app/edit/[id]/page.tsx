@@ -5,12 +5,10 @@ import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { Modal, notification, Select, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import InfoChunk from "@/components/InfoChunk";
-import { db, storage } from "@/firebase/firebase";
+import { db } from "@/firebase/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import UploadImageBtn from "@/components/UploadImageBtn";
-import { v4 } from "uuid";
-import { TNote } from "../../newproduct/page";
+import { TNote } from "@/app/products/product";
 import { LoadingOutlined } from "@ant-design/icons";
 import { deleteImage } from "@/hooks/deleteImage";
 
@@ -72,7 +70,7 @@ export default function Page({ params }: { params: { id: string } }) {
   }, [params.id]);
   const [api, contextHolder] = notification.useNotification();
   const data = NavbarLayer;
-  const [imageUpload, setImageUpload] = useState<File | null>(null);
+  const [newImageUrl, setNewImageUrl] = useState<string>("");
   const [note, setNote] = useState<TNote[]>([
     { noteName: "", noteDescription: "" },
   ]);
@@ -95,22 +93,14 @@ export default function Page({ params }: { params: { id: string } }) {
     const formData = new FormData(event.target);
     setIsLoading(true);
     try {
-      let url = "";
-      if (imageUpload && product) {
-        deleteImage(product.image);
-        const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-        const snapshot = await uploadBytes(imageRef, imageUpload);
-        url = await getDownloadURL(snapshot.ref);
-      }
       const data = {
         name: formData.get("name"),
         description: formData.get("description"),
         type: type,
-        subtype: type2 ?? "",
-        image: url !== "" ? url : product?.image,
+        subtype: type2,
+        image: newImageUrl !== "" ? newImageUrl : product?.image,
         information: note,
       };
-      // Upload image
 
       await setDoc(doc(db, "users", params.id), data);
       successNotification();
@@ -244,7 +234,7 @@ export default function Page({ params }: { params: { id: string } }) {
           );
         })}
         <UploadImageBtn
-          setImageUpload={setImageUpload}
+          onUploadComplete={setNewImageUrl}
           defaultImageLink={product?.image}
         />
         <button onClick={showModal} type="button">

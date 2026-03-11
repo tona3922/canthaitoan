@@ -3,16 +3,14 @@ import UploadImageBtn from "@/components/UploadImageBtn";
 import React, { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin, notification, Select } from "antd";
-import { db, storage } from "@/firebase/firebase";
+import { db } from "@/firebase/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { v4 } from "uuid";
 import InfoChunk from "@/components/InfoChunk";
 import { TNote } from "@/app/products/product";
 
 export default function Page() {
-  const [imageUpload, setImageUpload] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>("");
   const [api, contextHolder] = notification.useNotification();
   const [note, setNote] = useState<TNote[]>([{ noteName: "", noteDescription: "" }]);
   const [type, setType] = useState<string>("");
@@ -29,24 +27,20 @@ export default function Page() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (imageUpload == null) {
+    if (!imageUrl) {
       api.error({ message: "Error", description: "Chưa thêm hình ảnh" });
       return;
     }
 
     setIsLoading(true);
     try {
-      const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-      const snapshot = await uploadBytes(imageRef, imageUpload);
-      const url = await getDownloadURL(snapshot.ref);
-
       const formData = new FormData(event.target as HTMLFormElement);
       const productData = {
         name: formData.get("name"),
         description: formData.get("description"),
         type,
         subtype: type2,
-        image: url,
+        image: imageUrl,
         information: note,
       };
 
@@ -135,7 +129,7 @@ export default function Page() {
         {note.map((item, index) => (
           <InfoChunk key={index} index={index} item={item} setNote={setNote} />
         ))}
-        <UploadImageBtn setImageUpload={setImageUpload} />
+        <UploadImageBtn onUploadComplete={setImageUrl} />
         <button
           className="bg-sky-600 text-white self-center text-lg rounded-md p-2 font-medium"
           type="submit"
