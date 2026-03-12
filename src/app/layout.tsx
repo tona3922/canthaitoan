@@ -30,6 +30,7 @@ export default function RootLayout({
         <Navbar />
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
         <Footer />
+        <div className="bg-gradient-to-b from-sky-700 to-sky-600 h-6"></div>
       </body>
     </html>
   );
