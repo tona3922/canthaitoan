@@ -13,6 +13,7 @@ import { v4 } from "uuid";
 import { TNote } from "../../newproduct/page";
 import { LoadingOutlined } from "@ant-design/icons";
 import { deleteImage } from "@/hooks/deleteImage";
+import QuillEditor from "@/components/QuillEditor";
 
 export default function Page({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -104,7 +105,7 @@ export default function Page({ params }: { params: { id: string } }) {
       }
       const data = {
         name: formData.get("name"),
-        description: formData.get("description"),
+        description: description,
         type: type,
         subtype: type2 ?? "",
         image: url !== "" ? url : product?.image,
@@ -210,19 +211,13 @@ export default function Page({ params }: { params: { id: string } }) {
             />
           </div>
         )}
-        <div>
-          <label htmlFor="description" className="text-lg">
-            Mô tả
-          </label>
-          <textarea
-            name="description"
-            id=""
-            required
-            placeholder="Mô tả"
-            className="border p-2 w-full h-52 rounded-md"
-            onChange={(e) => setDescription(e.target.value)}
+        <div className="flex flex-col gap-1">
+          <label className="text-lg">Mô tả</label>
+          <QuillEditor
             value={description}
-          ></textarea>
+            onChange={setDescription}
+            placeholder="Mô tả"
+          />
         </div>
         <div className="flex flex-row gap-2">
           <button

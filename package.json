@@ -24,6 +24,7 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-quill": "^2.0.0",
     "react-redux": "^9.1.2",
     "swiper": "^11.1.10",
     "tocbot": "^4.32.2",

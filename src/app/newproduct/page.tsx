@@ -11,6 +11,7 @@ import InfoChunk from "@/components/InfoChunk";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "@/firebase/firebase";
 import { v4 } from "uuid";
+import QuillEditor from "@/components/QuillEditor";
 export type TNote = {
   noteName: string;
   noteDescription: string;
@@ -27,6 +28,7 @@ export default function Page() {
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [description, setDescription] = useState<string>("");
 
   const handleChange = (value: string) => {
     setType(value);
@@ -56,7 +58,7 @@ export default function Page() {
       const formData = new FormData(event.target);
       const data = {
         name: formData.get("name"),
-        description: formData.get("description"),
+        description: description,
         type: type,
         subtype: type2 ?? "",
         image: url, // ✅ Now correct
@@ -144,17 +146,13 @@ export default function Page() {
             />
           </div>
         )}
-        <div>
-          <label htmlFor="description" className="text-lg">
-            Mô tả
-          </label>
-          <textarea
-            name="description"
-            id=""
-            required
+        <div className="flex flex-col gap-1">
+          <label className="text-lg">Mô tả</label>
+          <QuillEditor
+            value={description}
+            onChange={setDescription}
             placeholder="Mô tả"
-            className="border p-2 w-full h-52 rounded-md"
-          ></textarea>
+          />
         </div>
         <div className="flex flex-row gap-2">
           <button
