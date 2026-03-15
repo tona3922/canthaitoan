@@ -7,7 +7,7 @@ import { TProduct } from "@/app/products/product";
 const Item: React.FC<{ props: TProduct }> = ({ props }) => {
   return (
     <Link href={`/detail/${props._id}`}>
-      <article className="border-gray-300 border flex flex-col gap-2 cursor-pointer hover:border-sky-700 lg:w-52 lg:h-80 phone:w-72 phone:h-auto hover:scale-105 transition-all hover:duration-200 ease-in">
+      <article className="flex flex-col gap-2 cursor-pointer hover:border-sky-700 lg:w-52 lg:h-80 phone:w-72 phone:h-auto hover:scale-105 transition-all hover:duration-200 ease-in">
         <Image
           src={props.image}
           alt="item"

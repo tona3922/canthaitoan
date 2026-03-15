@@ -7,16 +7,26 @@ import { db } from "@/firebase/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import InfoChunk from "@/components/InfoChunk";
-import { TNote } from "@/app/products/product";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "@/firebase/firebase";
+import { v4 } from "uuid";
+import QuillEditor from "@/components/QuillEditor";
+export type TNote = {
+  noteName: string;
+  noteDescription: string;
+};
 
 export default function Page() {
   const [imageUrl, setImageUrl] = useState<string>("");
   const [api, contextHolder] = notification.useNotification();
-  const [note, setNote] = useState<TNote[]>([{ noteName: "", noteDescription: "" }]);
+  const [note, setNote] = useState<TNote[]>([
+    { noteName: "", noteDescription: "" },
+  ]);
   const [type, setType] = useState<string>("");
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [description, setDescription] = useState<string>("");
 
   const handleChange = (value: string) => {
     setType(value);
@@ -45,7 +55,10 @@ export default function Page() {
       };
 
       await addDoc(collection(db, "users"), productData);
-      api.success({ message: "Success", description: "Thêm sản phẩm mới thành công" });
+      api.success({
+        message: "Success",
+        description: "Thêm sản phẩm mới thành công",
+      });
     } catch (error) {
       console.error("Error adding document: ", error);
       api.error({ message: "Error", description: "Fail to add product" });
@@ -106,22 +119,24 @@ export default function Page() {
             />
           </div>
         )}
-        <div>
-          <label htmlFor="description" className="text-lg">
-            Mô tả
-          </label>
-          <textarea
-            name="description"
-            required
+        <div className="flex flex-col gap-1">
+          <label className="text-lg">Mô tả</label>
+          <QuillEditor
+            value={description}
+            onChange={setDescription}
             placeholder="Mô tả"
-            className="border p-2 w-full h-52 rounded-md"
           />
         </div>
         <div className="flex flex-row gap-2">
           <button
             type="button"
             className="bg-neutral-800 p-2 rounded-lg text-white"
-            onClick={() => setNote((prev) => [...prev, { noteName: "", noteDescription: "" }])}
+            onClick={() =>
+              setNote((prev) => [
+                ...prev,
+                { noteName: "", noteDescription: "" },
+              ])
+            }
           >
             Thêm thông số kỹ thuật
           </button>

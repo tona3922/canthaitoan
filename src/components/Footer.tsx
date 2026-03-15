@@ -11,27 +11,46 @@ const Footer = () => {
     "Hiệu Chuẩn - Kiểm Định",
   ];
   return (
-    <div className="py-4 bg-sky-800 lg:px-32 phone:px-4">
-      <div className="font-customTitle text-white  font-bold text-3xl mb-4">
-        Can Thai Toan
-      </div>
+    <div className="py-6 lg:px-32 phone:px-4 border-t-2 border-sky-700">
       <div className="flex lg:flex-row lg:gap-20 phone:flex-col phone:gap-4">
-        <div className="flex-[2_2_0%]">
-          <div className="text-xl text-neutral-400 font-customCardTitle font-bold mb-4">
-            Giới thiệu
+        <div className="flex-[2_2_0%] flex flex-col gap-2.5">
+          <div className="font-customTitle text-sky-700 font-bold text-3xl mb-4">
+            Cân Điện tử Thái Toàn
           </div>
-          <p className="text-white text-lg">
-            <b>Công ty TNHH Sản xuất TMDV Thái Toàn</b> được thành lập năm 2003.
-            Chúng tôi tự hào là một trong những đơn vị hàng đầu trong lĩnh vực
-            Cân Điện Tử, chuyên phân phối và bán lẻ các dòng sản phẩm Cân Điện
-            Tử của các thương hiệu hàng đầu thế giới.
+          <p>
+            <span className="font-semibold">Địa chỉ : </span>{" "}
+            <a href="https://maps.app.goo.gl/EukQZtq8d9RXXFen8" target="_blank">
+              183/14A Hoàng Hoa Thám, Phường 6, Quận Bình Thạnh, TP Hồ Chí Minh
+            </a>
+          </p>
+          <p>
+            <span className="font-semibold">Địa chỉ 2 : </span>
+            <a href="https://maps.app.goo.gl/w3SeThkZz96vud5L7" target="_blank">
+              108 Hùng Vương, TT. Hoà Thành, Hoà Thành, Tây Ninh, Vietnam
+            </a>
+          </p>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold">Điện thoại : </span>
+            <a className="text-sky-600" href="tel:0908699996">
+              0908699986
+            </a>
+            -
+            <a className="text-sky-600" href="tel:0903638421">
+              0903638421
+            </a>
+          </div>
+          <p>
+            <span className="font-semibold">Email : </span>
+            <a href="mailto:nguyetthu@canthaitoan.com">
+              nguyetthu@canthaitoan.com
+            </a>
           </p>
         </div>
         <div className="flex-[2_2_0%]">
-          <div className="text-xl text-neutral-400 font-customCardTitle font-bold mb-4">
+          <div className="text-2xl text-sky-700 font-customCardTitle font-bold mb-4">
             Sản phẩm nổi bật
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-1">
             {data.map((item, idx) => {
               return (
                 <Link
@@ -42,7 +61,7 @@ const Footer = () => {
                   }}
                   key={idx}
                 >
-                  <span className="hover:underline font-medium text-neutral-200 whitespace-now text-md">
+                  <span className="hover:underline font-medium text-neutral-800 whitespace-now text-md">
                     {item.label}
                   </span>
                 </Link>
@@ -51,10 +70,10 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex-1">
-          <div className="text-xl text-neutral-400 font-customCardTitle font-bold mb-4">
+          <div className="text-2xl text-sky-700 font-customCardTitle font-bold mb-4">
             Hỗ trợ kỹ thuật
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1">
             {service.map((item, idx) => {
               return (
                 <Link
@@ -64,7 +83,7 @@ const Footer = () => {
                   }}
                   key={idx}
                 >
-                  <span className="hover:underline font-medium text-neutral-200 whitespace-now text-md">
+                  <span className="hover:underline font-medium text-neutral-800 whitespace-now text-md">
                     {item}
                   </span>
                 </Link>
