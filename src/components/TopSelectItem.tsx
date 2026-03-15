@@ -4,8 +4,7 @@ import { Spin } from "antd";
 import { TProduct } from "@/app/products/product";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Scrollbar } from "swiper/modules";
-import { db } from "@/firebase/firebase";
-import { query, collection, where, getDocs } from "firebase/firestore";
+const API_BASE = "https://canthaitoan-be.click/api";
 
 const TopSelectItem: React.FC<{ type: string }> = ({ type }) => {
   const [fetchData, setFetchData] = useState<any>([]);
@@ -14,18 +13,15 @@ const TopSelectItem: React.FC<{ type: string }> = ({ type }) => {
     const getAllProducts = async () => {
       setIsLoading(true);
       try {
-        const q = query(collection(db, "users"), where("type", "==", type));
-
-        const snapshot = await getDocs(q);
-        const data = snapshot.docs.map((doc) => ({
-          _id: doc.id,
-          ...doc.data(),
-        }));
-        setFetchData(data.slice(0, 5));
-        setIsLoading(false);
+        const res = await fetch(
+          `${API_BASE}/product/filter?type=${encodeURIComponent(type)}`,
+        );
+        const data = await res.json();
+        setFetchData((data.foundProduct ?? data).slice(0, 5));
       } catch (error: any) {
-        setIsLoading(false);
         throw new Error(`Data failed: ${error.message}`);
+      } finally {
+        setIsLoading(false);
       }
     };
     getAllProducts();

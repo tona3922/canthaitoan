@@ -2,83 +2,56 @@
 import { useEffect, useState } from "react";
 import { TProduct } from "../../products/product";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
-import { Modal, notification, Select, Spin } from "antd";
+import { notification, Select, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import InfoChunk from "@/components/InfoChunk";
-import { db } from "@/firebase/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
 import UploadImageBtn from "@/components/UploadImageBtn";
 import { TNote } from "@/app/products/product";
 import { LoadingOutlined } from "@ant-design/icons";
-import { deleteImage } from "@/hooks/deleteImage";
 import QuillEditor from "@/components/QuillEditor";
+
+const API_BASE = "https://canthaitoan-be.click/api";
 
 export default function Page({ params }: { params: { id: string } }) {
   const router = useRouter();
   const [product, setProduct] = useState<TProduct>();
   const [input, setInput] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-    if (product) {
-      deleteImage(product.image);
-    }
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   useEffect(() => {
     const fetchProductById = async () => {
       try {
-        const docRef = doc(db, "users", params.id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          const data = {
-            _id: docSnap.id,
-            ...docSnap.data(),
-          } as TProduct;
-          // console.log(docSnap.data());
-          setProduct(data);
-          setInput(data.name);
-          setType(data.type);
-          setNote(data.information);
-          setDescription(data.description);
-          if (data.type) {
-            const findData = NavbarLayer.find(
-              (item) => item.value === data.type
-            );
-            if (findData) {
-              setSubData(findData.children);
-              setType2(data.subtype);
-            }
+        const res = await fetch(`${API_BASE}/product/${params.id}`);
+        const data = await res.json();
+        const p = data.product as TProduct;
+        setProduct(p);
+        setInput(p.name);
+        setType(p.type);
+        setNote(p.information);
+        setDescription(p.description);
+        if (p.type) {
+          const findData = NavbarLayer.find((item) => item.value === p.type);
+          if (findData) {
+            setSubData(findData.children);
+            setType2(p.subtype);
           }
-        } else {
-          console.log("No such document!");
         }
       } catch (error) {
-        throw new Error("Failed post data");
+        throw new Error("Failed to fetch product");
       }
     };
     fetchProductById();
   }, [params.id]);
+
   const [api, contextHolder] = notification.useNotification();
   const data = NavbarLayer;
   const [newImageUrl, setNewImageUrl] = useState<string>("");
-  const [note, setNote] = useState<TNote[]>([
-    { noteName: "", noteDescription: "" },
-  ]);
+  const [note, setNote] = useState<TNote[]>([{ noteName: "", noteDescription: "" }]);
   const [type, setType] = useState<string>("");
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
   const [description, setDescription] = useState("");
+
   const handleChange = (value: string) => {
     setType(value);
     const findData = NavbarLayer.find((item) => item.value === value);
@@ -94,7 +67,7 @@ export default function Page({ params }: { params: { id: string } }) {
     const formData = new FormData(event.target);
     setIsLoading(true);
     try {
-      const data = {
+      const body = {
         name: formData.get("name"),
         description: description,
         type: type,
@@ -102,48 +75,30 @@ export default function Page({ params }: { params: { id: string } }) {
         image: newImageUrl !== "" ? newImageUrl : product?.image,
         information: note,
       };
-
-      await setDoc(doc(db, "users", params.id), data);
-      successNotification();
+      const res = await fetch(`${API_BASE}/product/${params.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error("Failed to update product");
+      api["success"]({ message: "Success", description: "Cập nhật sản phẩm thành công" });
       setIsLoading(false);
       setTimeout(() => {
         router.push(`/detail/${params.id}`);
       }, 1500);
     } catch (error) {
-      errorNotification("Đã có lỗi xảy ra vui lòng thử lại");
-      // throw new Error("Failed post data");
-      // Handle error
+      api["error"]({ message: "Error", description: "Đã có lỗi xảy ra vui lòng thử lại" });
+      setIsLoading(false);
     }
   };
 
   const handleClick = () => {
     setNote([...note, { noteName: "", noteDescription: "" }]);
   };
-  const successNotification = () => {
-    api["success"]({
-      message: "Success",
-      description: "Cập nhật sản phẩm thành công",
-    });
-  };
-  const errorNotification = (msg: string) => {
-    api["error"]({
-      message: "Error",
-      description: msg,
-    });
-  };
+
   return (
     <div className="py-20 min-h-screen flex justify-center">
       {contextHolder}
-      <Modal
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        okText="Delete"
-        cancelText="Cancel"
-        centered
-      >
-        <p>Bạn chắc chắn muốn xóa hình ảnh này</p>
-      </Modal>
       <form
         action=""
         onSubmit={handleSubmit}
@@ -218,23 +173,13 @@ export default function Page({ params }: { params: { id: string } }) {
             Thêm thông số kỹ thuật
           </button>
         </div>
-        {note.map((item, index) => {
-          return (
-            <InfoChunk
-              index={index}
-              item={item}
-              setNote={setNote}
-              key={index}
-            />
-          );
-        })}
+        {note.map((item, index) => (
+          <InfoChunk index={index} item={item} setNote={setNote} key={index} />
+        ))}
         <UploadImageBtn
           onUploadComplete={setNewImageUrl}
           defaultImageLink={product?.image}
         />
-        <button onClick={showModal} type="button">
-          Xóa hình ảnh
-        </button>
         <button
           className="bg-sky-600 text-white self-center text-lg rounded-md p-2 font-medium"
           type="submit"

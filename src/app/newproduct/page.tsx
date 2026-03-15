@@ -3,14 +3,11 @@ import UploadImageBtn from "@/components/UploadImageBtn";
 import React, { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin, notification, Select } from "antd";
-import { db } from "@/firebase/firebase";
-import { collection, addDoc } from "firebase/firestore";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import InfoChunk from "@/components/InfoChunk";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "@/firebase/firebase";
-import { v4 } from "uuid";
 import QuillEditor from "@/components/QuillEditor";
+
+const API_BASE = "https://canthaitoan-be.click/api";
 export type TNote = {
   noteName: string;
   noteDescription: string;
@@ -54,7 +51,12 @@ export default function Page() {
         information: note,
       };
 
-      await addDoc(collection(db, "users"), productData);
+      const res = await fetch(`${API_BASE}/product`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(productData),
+      });
+      if (!res.ok) throw new Error("Failed to add product");
       api.success({
         message: "Success",
         description: "Thêm sản phẩm mới thành công",
