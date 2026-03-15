@@ -8,7 +8,7 @@ import { Modal } from "antd";
 import { usePathname } from "next/navigation";
 import { NavbarLayer } from "@/asset/NavbarLayer";
 
-const API_BASE = "https://canthaitoan-be.click";
+const API_BASE = "https://canthaitoan-be.click/api";
 export default function Page() {
   const pathname = usePathname();
   const id = pathname.substring(pathname.lastIndexOf("/") + 1);

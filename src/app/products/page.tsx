@@ -6,7 +6,7 @@ import { TProduct } from "./product";
 import { useSearchParams } from "next/navigation";
 import { Empty, Pagination, Spin } from "antd";
 
-const API_BASE = "https://canthaitoan-be.click";
+const API_BASE = "https://canthaitoan-be.click/api";
 
 export default function Page() {
   const [fetchData, setFetchData] = useState<any>([]);

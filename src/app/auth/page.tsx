@@ -1,11 +1,11 @@
 "use client";
-import { auth } from "@/firebase/firebase";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Cookies from "js-cookie";
+
+const API_BASE = "https://canthaitoan-be.click/api";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -16,8 +16,13 @@ export default function Page() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const result = await signInWithEmailAndPassword(auth, email, password);
-      const token = await result.user.getIdToken();
+      const res = await fetch(`${API_BASE}/user/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) throw new Error("Invalid credentials");
+      const { token } = await res.json();
       Cookies.set("__session", token, { expires: 7, sameSite: "strict" });
       window.dispatchEvent(new Event("session-updated"));
       router.push("/");

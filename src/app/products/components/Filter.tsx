@@ -1,14 +1,10 @@
 "use client";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useState,
-} from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Select } from "antd";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { useDebouncedCallback } from "use-debounce";
 
-const API_BASE = "https://canthaitoan-be.click";
+const API_BASE = "https://canthaitoan-be.click/api";
 
 const Filter: React.FC<{
   setFetchData: Dispatch<SetStateAction<any>>;
@@ -37,9 +33,11 @@ const Filter: React.FC<{
     if (inp) params.set("name", inp);
 
     try {
-      const res = await fetch(`${API_BASE}/product?${params.toString()}`);
+      const res = await fetch(
+        `${API_BASE}/product/filter?${params.toString()}`,
+      );
       const data = await res.json();
-      const products = data.allProducts ?? [];
+      const products = data.foundProduct ?? [];
       setFetchData(products);
       setShowData(products.slice(0, 12));
     } catch (error) {
