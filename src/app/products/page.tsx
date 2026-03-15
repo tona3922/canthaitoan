@@ -5,14 +5,8 @@ import Filter from "./components/Filter";
 import { TProduct } from "./product";
 import { useSearchParams } from "next/navigation";
 import { Empty, Pagination, Spin } from "antd";
-import { db } from "@/firebase/firebase";
-import {
-  getDocs,
-  collection,
-  QueryConstraint,
-  where,
-  query,
-} from "firebase/firestore";
+
+const API_BASE = "https://canthaitoan-be.click";
 
 export default function Page() {
   const [fetchData, setFetchData] = useState<any>([]);
@@ -27,34 +21,26 @@ export default function Page() {
     setShowData(fetchData.slice((page - 1) * pageSize, page * pageSize));
   };
   useEffect(() => {
-    const fetchData = async () => {
-      const conditions: QueryConstraint[] = [];
-      if (type) {
-        conditions.push(where("type", "==", type));
-      }
+    const loadProducts = async () => {
+      const params = new URLSearchParams();
+      if (type) params.set("type", type);
+      if (subtype) params.set("subtype", subtype);
 
-      if (subtype) {
-        conditions.push(where("subtype", "==", subtype));
-      }
       setIsLoading(true);
       try {
-        const q = query(collection(db, "users"), ...conditions);
-
-        const snapshot = await getDocs(q);
-        const data = snapshot.docs.map((doc) => ({
-          _id: doc.id,
-          ...doc.data(),
-        }));
-        setFetchData(data);
-        setShowData(data.slice(0, 12));
+        const res = await fetch(`${API_BASE}/product?${params.toString()}`);
+        const data = await res.json();
+        const products: TProduct[] = data.allProducts ?? [];
+        setFetchData(products);
+        setShowData(products.slice(0, 12));
       } catch (error) {
-        console.error("Error fetching Firestore data:", error);
+        console.error("Error fetching products:", error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchData();
+    loadProducts();
   }, [type, subtype]);
   return (
     <main className="pt-20 pb-6 py-10 mx-10">

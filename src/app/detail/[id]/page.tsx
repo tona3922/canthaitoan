@@ -7,10 +7,8 @@ import Cookies from "js-cookie";
 import { Modal } from "antd";
 import { usePathname } from "next/navigation";
 import { NavbarLayer } from "@/asset/NavbarLayer";
-import { db, storage } from "@/firebase/firebase";
-import { deleteDoc, doc, getDoc } from "firebase/firestore";
-import { ref, deleteObject } from "firebase/storage";
-import { deleteImage } from "@/hooks/deleteImage";
+
+const API_BASE = "https://canthaitoan-be.click";
 export default function Page() {
   const pathname = usePathname();
   const id = pathname.substring(pathname.lastIndexOf("/") + 1);
@@ -24,10 +22,7 @@ export default function Page() {
 
   const handleOk = async () => {
     try {
-      if (detail) {
-        deleteImage(detail.image);
-        await deleteDoc(doc(db, "users", id));
-      }
+      await fetch(`${API_BASE}/product/${id}`, { method: "DELETE" });
     } catch (error) {}
     router.push("/products");
     setIsModalOpen(false);
@@ -39,15 +34,9 @@ export default function Page() {
   useEffect(() => {
     const getDetailProduct = async () => {
       try {
-        const docRef = doc(db, "users", id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          setDetail(docSnap.data() as TProduct);
-          // console.log(docSnap.data());
-        } else {
-          console.log("No such document!");
-        }
+        const res = await fetch(`${API_BASE}/product/${id}`);
+        const data = await res.json();
+        setDetail(data.product as TProduct);
       } catch (error: any) {
         throw new Error(`Data failed: ${error.message}`);
       }

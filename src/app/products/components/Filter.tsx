@@ -2,22 +2,13 @@
 import React, {
   Dispatch,
   SetStateAction,
-  useCallback,
-  useRef,
   useState,
 } from "react";
 import { Select } from "antd";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { useDebouncedCallback } from "use-debounce";
-import {
-  collection,
-  getDocs,
-  or,
-  query,
-  QueryConstraint,
-  where,
-} from "firebase/firestore";
-import { db } from "@/firebase/firebase";
+
+const API_BASE = "https://canthaitoan-be.click";
 
 const Filter: React.FC<{
   setFetchData: Dispatch<SetStateAction<any>>;
@@ -40,39 +31,19 @@ const Filter: React.FC<{
     setSubType(value);
   };
   const handleSubmit = async () => {
-    const paramsObj = {
-      type: type ?? "",
-      subtype: subType ?? "",
-      name: inp ?? "",
-    };
+    const params = new URLSearchParams();
+    if (type) params.set("type", type);
+    if (subType) params.set("subtype", subType);
+    if (inp) params.set("name", inp);
+
     try {
-      const conditions: QueryConstraint[] = [];
-
-      // If you want to do a prefix match on `type` with `name`
-      if (paramsObj.name) {
-        conditions.push(
-          where("type", ">=", paramsObj.name),
-          where("type", "<=", paramsObj.name + "~")
-        );
-      }
-
-      if (paramsObj.type) {
-        conditions.push(where("type", "==", paramsObj.type));
-      }
-
-      if (paramsObj.subtype) {
-        conditions.push(where("subtype", "==", paramsObj.subtype));
-      }
-      // Build the query dynamically
-      const q = query(collection(db, "users"), ...conditions);
-
-      const snapshot = await getDocs(q);
-      const data = snapshot.docs.map((doc) => ({ _id: doc.id, ...doc.data() }));
-      setFetchData(data);
-      setShowData(data.slice(0, 10));
-      // // Handle success
+      const res = await fetch(`${API_BASE}/product?${params.toString()}`);
+      const data = await res.json();
+      const products = data.allProducts ?? [];
+      setFetchData(products);
+      setShowData(products.slice(0, 12));
     } catch (error) {
-      throw new Error("Failed post data");
+      throw new Error("Failed to fetch products");
     }
   };
   const debounced = useDebouncedCallback((value) => {
