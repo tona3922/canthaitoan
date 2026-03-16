@@ -22,7 +22,11 @@ export default function Page() {
 
   const handleOk = async () => {
     try {
-      await fetch(`${API_BASE}/product/${id}`, { method: "DELETE" });
+      const token = Cookies.get("__session");
+      await fetch(`${API_BASE}/product/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
     } catch (error) {}
     router.push("/products");
     setIsModalOpen(false);
@@ -77,7 +81,7 @@ export default function Page() {
           </div>
           <div className="flex flex-col gap-0.5 mt-2">
             <h2 className="text-lg font-semibold text-slate-500">Mô tả</h2>
-            <p className="text-md whitespace-pre">{detail?.description}</p>
+            <div className="text-md prose max-w-none" dangerouslySetInnerHTML={{ __html: detail?.description ?? "" }} />
           </div>
           {detail?.information && (
             <div className="flex flex-col gap-0.5 mt-2">

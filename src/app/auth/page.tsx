@@ -22,8 +22,9 @@ export default function Page() {
         body: JSON.stringify({ email, password }),
       });
       if (!res.ok) throw new Error("Invalid credentials");
-      const { token } = await res.json();
-      Cookies.set("__session", token, { expires: 7, sameSite: "strict" });
+      const { accessToken } = await res.json();
+      console.log(accessToken);
+      Cookies.set("__session", accessToken, { expires: 7, sameSite: "strict" });
       window.dispatchEvent(new Event("session-updated"));
       router.push("/");
     } catch (error) {

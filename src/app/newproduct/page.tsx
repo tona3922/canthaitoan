@@ -6,6 +6,7 @@ import { Spin, notification, Select } from "antd";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import InfoChunk from "@/components/InfoChunk";
 import QuillEditor from "@/components/QuillEditor";
+import Cookies from "js-cookie";
 
 const API_BASE = "https://canthaitoan-be.click/api";
 export type TNote = {
@@ -44,16 +45,20 @@ export default function Page() {
       const formData = new FormData(event.target as HTMLFormElement);
       const productData = {
         name: formData.get("name"),
-        description: formData.get("description"),
+        description: description,
         type,
         subtype: type2,
         image: imageUrl,
         information: note,
       };
 
-      const res = await fetch(`${API_BASE}/product`, {
+      const token = Cookies.get("__session");
+      const res = await fetch(`${API_BASE}/product/newproduct`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(productData),
       });
       if (!res.ok) throw new Error("Failed to add product");

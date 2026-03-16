@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useS3Upload } from "@/hooks/useS3Upload";
 import { Spin, notification } from "antd";
 import Image from "next/image";
@@ -9,7 +9,10 @@ const UploadImageBtn: React.FC<{
   onUploadComplete: (url: string) => void;
   defaultImageLink?: string;
 }> = ({ onUploadComplete, defaultImageLink }) => {
-  const [preview, setPreview] = useState<string>(defaultImageLink ?? "");
+  const [preview, setPreview] = useState<string>("");
+  useEffect(() => {
+    if (defaultImageLink) setPreview(defaultImageLink);
+  }, [defaultImageLink]);
   const { upload, isUploading } = useS3Upload();
   const [api, contextHolder] = notification.useNotification();
 

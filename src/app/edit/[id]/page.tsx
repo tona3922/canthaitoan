@@ -9,6 +9,7 @@ import UploadImageBtn from "@/components/UploadImageBtn";
 import { TNote } from "@/app/products/product";
 import { LoadingOutlined } from "@ant-design/icons";
 import QuillEditor from "@/components/QuillEditor";
+import Cookies from "js-cookie";
 
 const API_BASE = "https://canthaitoan-be.click/api";
 
@@ -46,7 +47,9 @@ export default function Page({ params }: { params: { id: string } }) {
   const [api, contextHolder] = notification.useNotification();
   const data = NavbarLayer;
   const [newImageUrl, setNewImageUrl] = useState<string>("");
-  const [note, setNote] = useState<TNote[]>([{ noteName: "", noteDescription: "" }]);
+  const [note, setNote] = useState<TNote[]>([
+    { noteName: "", noteDescription: "" },
+  ]);
   const [type, setType] = useState<string>("");
   const [type2, setType2] = useState<string>("");
   const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
@@ -75,19 +78,29 @@ export default function Page({ params }: { params: { id: string } }) {
         image: newImageUrl !== "" ? newImageUrl : product?.image,
         information: note,
       };
+      const token = Cookies.get("__session");
       const res = await fetch(`${API_BASE}/product/${params.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(body),
       });
       if (!res.ok) throw new Error("Failed to update product");
-      api["success"]({ message: "Success", description: "Cập nhật sản phẩm thành công" });
+      api["success"]({
+        message: "Success",
+        description: "Cập nhật sản phẩm thành công",
+      });
       setIsLoading(false);
       setTimeout(() => {
         router.push(`/detail/${params.id}`);
       }, 1500);
     } catch (error) {
-      api["error"]({ message: "Error", description: "Đã có lỗi xảy ra vui lòng thử lại" });
+      api["error"]({
+        message: "Error",
+        description: "Đã có lỗi xảy ra vui lòng thử lại",
+      });
       setIsLoading(false);
     }
   };
