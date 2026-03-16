@@ -6,7 +6,6 @@ import rightArrow from "@/asset/right-arrow.png";
 import { NavbarLayer } from "@/asset/NavbarLayer";
 import Cookies from "js-cookie";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
-import { signOut, getAuth } from "firebase/auth";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -150,14 +149,6 @@ const Navbar = () => {
                 Cookies.remove("__session");
                 setCookie("");
                 window.dispatchEvent(new Event("session-updated"));
-                const auth = getAuth();
-                signOut(auth)
-                  .then(() => {
-                    console.log("User signed out.");
-                  })
-                  .catch((error) => {
-                    console.error("Sign out error:", error);
-                  });
               }}
             >
               <Link

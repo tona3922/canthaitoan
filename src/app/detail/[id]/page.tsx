@@ -7,10 +7,8 @@ import Cookies from "js-cookie";
 import { Modal } from "antd";
 import { usePathname } from "next/navigation";
 import { NavbarLayer } from "@/asset/NavbarLayer";
-import { db, storage } from "@/firebase/firebase";
-import { deleteDoc, doc, getDoc } from "firebase/firestore";
-import { ref, deleteObject } from "firebase/storage";
-import { deleteImage } from "@/hooks/deleteImage";
+
+const API_BASE = "https://canthaitoan-be.click/api";
 export default function Page() {
   const pathname = usePathname();
   const id = pathname.substring(pathname.lastIndexOf("/") + 1);
@@ -24,10 +22,11 @@ export default function Page() {
 
   const handleOk = async () => {
     try {
-      if (detail) {
-        deleteImage(detail.image);
-        await deleteDoc(doc(db, "users", id));
-      }
+      const token = Cookies.get("__session");
+      await fetch(`${API_BASE}/product/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
     } catch (error) {}
     router.push("/products");
     setIsModalOpen(false);
@@ -39,15 +38,9 @@ export default function Page() {
   useEffect(() => {
     const getDetailProduct = async () => {
       try {
-        const docRef = doc(db, "users", id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          setDetail(docSnap.data() as TProduct);
-          // console.log(docSnap.data());
-        } else {
-          console.log("No such document!");
-        }
+        const res = await fetch(`${API_BASE}/product/${id}`);
+        const data = await res.json();
+        setDetail(data.product as TProduct);
       } catch (error: any) {
         throw new Error(`Data failed: ${error.message}`);
       }
@@ -88,7 +81,7 @@ export default function Page() {
           </div>
           <div className="flex flex-col gap-0.5 mt-2">
             <h2 className="text-lg font-semibold text-slate-500">Mô tả</h2>
-            <p className="text-md whitespace-pre">{detail?.description}</p>
+            <div className="text-md prose max-w-none" dangerouslySetInnerHTML={{ __html: detail?.description ?? "" }} />
           </div>
           {detail?.information && (
             <div className="flex flex-col gap-0.5 mt-2">

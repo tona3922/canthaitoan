@@ -1,3 +1,8 @@
+export type TNote = {
+  noteName: string;
+  noteDescription: string;
+};
+
 export type TProduct = {
   _id: string;
   name: string;

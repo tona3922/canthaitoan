@@ -1,57 +1,67 @@
 "use client";
-import React, { Dispatch, SetStateAction } from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useS3Upload } from "@/hooks/useS3Upload";
+import { Spin, notification } from "antd";
 import Image from "next/image";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const UploadImageBtn: React.FC<{
-  setImageUpload: Dispatch<SetStateAction<File | null>>;
+  onUploadComplete: (url: string) => void;
   defaultImageLink?: string;
-}> = ({ setImageUpload, defaultImageLink }) => {
-  const [preview, setPreview] = useState<string>(defaultImageLink ?? "");
-
-  const [selectedFile, setSelectedFile] = useState();
-
-  // create a preview as a side effect, whenever selected file is changed
+}> = ({ onUploadComplete, defaultImageLink }) => {
+  const [preview, setPreview] = useState<string>("");
   useEffect(() => {
-    if (!selectedFile) {
-      // setPreview(undefined)
-      return;
-    }
+    if (defaultImageLink) setPreview(defaultImageLink);
+  }, [defaultImageLink]);
+  const { upload, isUploading } = useS3Upload();
+  const [api, contextHolder] = notification.useNotification();
 
-    const objectUrl = URL.createObjectURL(selectedFile);
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Show local preview immediately
+    const objectUrl = URL.createObjectURL(file);
     setPreview(objectUrl);
 
-    // free memory when ever this component is unmounted
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedFile]);
-
-  const onSelectFile = (e: any) => {
-    if (!e.target.files || e.target.files.length === 0) {
-      setSelectedFile(undefined);
-      return;
+    try {
+      const { publicUrl } = await upload(file);
+      onUploadComplete(publicUrl);
+      URL.revokeObjectURL(objectUrl);
+      setPreview(publicUrl);
+    } catch (err) {
+      URL.revokeObjectURL(objectUrl);
+      setPreview(defaultImageLink ?? "");
+      const message = err instanceof Error ? err.message : "Upload thất bại";
+      api.error({ message: "Lỗi tải ảnh", description: message });
     }
-
-    // I've kept this example simple by using the first image instead of multiple
-    setSelectedFile(e.target.files[0]);
   };
+
   return (
-    <div className="App">
+    <div className="flex flex-col gap-2">
+      {contextHolder}
       <input
         type="file"
-        onChange={(event) => {
-          setImageUpload(
-            event.target.files && event.target.files[0]
-              ? event.target.files[0]
-              : null
-          );
-          onSelectFile(event);
-        }}
+        accept="image/*"
+        onChange={handleFileChange}
+        disabled={isUploading}
       />
-      {selectedFile ? (
-        <Image src={preview} alt="preview" width={200} height={200} />
-      ) : defaultImageLink ? (
-        <Image src={defaultImageLink} alt="default" width={200} height={200} />
-      ) : null}
+      {isUploading && (
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <Spin indicator={<LoadingOutlined spin />} size="small" />
+          <span>Đang tải ảnh lên...</span>
+        </div>
+      )}
+      {preview && (
+        <Image
+          src={preview}
+          alt="preview"
+          width={200}
+          height={200}
+          className="object-contain"
+          unoptimized={preview.startsWith("blob:")}
+        />
+      )}
     </div>
   );
 };
