@@ -1,59 +1,17 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { TProduct } from "../../products/product";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import { Modal } from "antd";
 import { usePathname } from "next/navigation";
-import { NavbarLayer } from "@/asset/NavbarLayer";
+import { useProductDetail } from "@/hooks/useProductDetail";
 
-const API_BASE = "https://canthaitoan-be.click/api";
 export default function Page() {
   const pathname = usePathname();
   const id = pathname.substring(pathname.lastIndexOf("/") + 1);
-  const [detail, setDetail] = useState<TProduct>();
   const router = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const cookie = Cookies.get("__session");
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+  const { detail, isModalOpen, cookie, showModal, handleOk, handleCancel, showTypeLabel } =
+    useProductDetail(id);
 
-  const handleOk = async () => {
-    try {
-      const token = Cookies.get("__session");
-      await fetch(`${API_BASE}/product/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-    } catch (error) {}
-    router.push("/products");
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-  useEffect(() => {
-    const getDetailProduct = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/product/${id}`);
-        const data = await res.json();
-        setDetail(data.product as TProduct);
-      } catch (error: any) {
-        throw new Error(`Data failed: ${error.message}`);
-      }
-    };
-    getDetailProduct();
-  }, [id]);
-  const showTypeLabel = (str: string | undefined) => {
-    if (detail) {
-      const findData = NavbarLayer.find((item) => item.value === str);
-      return findData?.label;
-    }
-    return "";
-  };
   return (
     <main className="min-h-screen pt-20 pb-10 flex justify-center items-center">
       <div className="phone:w-4/5 lg:w-2/3 flex phone:flex-col lg:flex-row gap-6">
@@ -88,19 +46,12 @@ export default function Page() {
               <h2 className="text-lg font-semibold text-slate-500">
                 Thông số kỹ thuật
               </h2>
-              {detail?.information.map((criteria, index) => {
-                return (
-                  <div
-                    className="flex flex-row gap-2 items-center mt-2"
-                    key={index}
-                  >
-                    <h2 className="text-md">{criteria.noteName} :</h2>
-                    <p className="text-md font-semibold">
-                      {criteria.noteDescription}
-                    </p>
-                  </div>
-                );
-              })}
+              {detail.information.map((criteria, index) => (
+                <div className="flex flex-row gap-2 items-center mt-2" key={index}>
+                  <h2 className="text-md">{criteria.noteName} :</h2>
+                  <p className="text-md font-semibold">{criteria.noteDescription}</p>
+                </div>
+              ))}
             </div>
           )}
           <div className="mt-6 flex gap-3">
@@ -120,9 +71,7 @@ export default function Page() {
                 </button>
                 <button
                   className="bg-red-500 p-2 rounded-lg text-white font-semibold"
-                  onClick={() => {
-                    showModal();
-                  }}
+                  onClick={showModal}
                 >
                   Xóa sản phẩm
                 </button>

@@ -1,78 +1,24 @@
 "use client";
 import UploadImageBtn from "@/components/UploadImageBtn";
-import React, { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Spin, notification, Select } from "antd";
-import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
+import { Spin, Select } from "antd";
+import { NavbarLayer } from "@/asset/NavbarLayer";
 import InfoChunk from "@/components/InfoChunk";
 import QuillEditor from "@/components/QuillEditor";
-import Cookies from "js-cookie";
-
-const API_BASE = "https://canthaitoan-be.click/api";
-export type TNote = {
-  noteName: string;
-  noteDescription: string;
-};
+import { useNewProduct } from "@/hooks/useNewProduct";
 
 export default function Page() {
-  const [imageUrl, setImageUrl] = useState<string>("");
-  const [api, contextHolder] = notification.useNotification();
-  const [note, setNote] = useState<TNote[]>([
-    { noteName: "", noteDescription: "" },
-  ]);
-  const [type, setType] = useState<string>("");
-  const [type2, setType2] = useState<string>("");
-  const [subData, setSubData] = useState<TSelectData[] | undefined>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [description, setDescription] = useState<string>("");
-
-  const handleChange = (value: string) => {
-    setType(value);
-    const findData = NavbarLayer.find((item) => item.value === value);
-    setSubData(findData?.children);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!imageUrl) {
-      api.error({ message: "Error", description: "Chưa thêm hình ảnh" });
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const formData = new FormData(event.target as HTMLFormElement);
-      const productData = {
-        name: formData.get("name"),
-        description: description,
-        type,
-        subtype: type2,
-        image: imageUrl,
-        information: note,
-      };
-
-      const token = Cookies.get("__session");
-      const res = await fetch(`${API_BASE}/product/newproduct`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(productData),
-      });
-      if (!res.ok) throw new Error("Failed to add product");
-      api.success({
-        message: "Success",
-        description: "Thêm sản phẩm mới thành công",
-      });
-    } catch (error) {
-      console.error("Error adding document: ", error);
-      api.error({ message: "Error", description: "Fail to add product" });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const {
+    setImageUrl,
+    isLoading,
+    contextHolder,
+    handleSubmit,
+    type, type2, subData,
+    note, setNote,
+    description, setDescription,
+    handleChange, handleChangeSub,
+    addNote,
+  } = useNewProduct();
 
   return (
     <div className="py-20 min-h-screen flex justify-center">
@@ -105,6 +51,7 @@ export default function Page() {
             }
             options={NavbarLayer}
             onChange={handleChange}
+            value={type || undefined}
           />
         </div>
         {subData && subData.length > 0 && (
@@ -122,28 +69,20 @@ export default function Page() {
                   .localeCompare((optionB?.label ?? "").toLowerCase())
               }
               options={subData}
-              onChange={setType2}
+              onChange={handleChangeSub}
+              value={type2 || undefined}
             />
           </div>
         )}
         <div className="flex flex-col gap-1">
           <label className="text-lg">Mô tả</label>
-          <QuillEditor
-            value={description}
-            onChange={setDescription}
-            placeholder="Mô tả"
-          />
+          <QuillEditor value={description} onChange={setDescription} placeholder="Mô tả" />
         </div>
         <div className="flex flex-row gap-2">
           <button
             type="button"
             className="bg-neutral-800 p-2 rounded-lg text-white"
-            onClick={() =>
-              setNote((prev) => [
-                ...prev,
-                { noteName: "", noteDescription: "" },
-              ])
-            }
+            onClick={addNote}
           >
             Thêm thông số kỹ thuật
           </button>
