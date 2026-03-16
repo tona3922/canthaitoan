@@ -28,9 +28,11 @@ export default function Page() {
 
       setIsLoading(true);
       try {
-        const res = await fetch(`${API_BASE}/product?${params.toString()}`);
+        const res = await fetch(
+          `${API_BASE}/product/filter?${params.toString()}`,
+        );
         const data = await res.json();
-        const products: TProduct[] = data.allProducts ?? [];
+        const products: TProduct[] = data.foundProduct ?? [];
         setFetchData(products);
         setShowData(products.slice(0, 12));
       } catch (error) {
