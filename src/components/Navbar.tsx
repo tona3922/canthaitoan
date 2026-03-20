@@ -6,6 +6,7 @@ import rightArrow from "@/asset/right-arrow.png";
 import { NavbarLayer } from "@/asset/NavbarLayer";
 import Cookies from "js-cookie";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
+import logo from "@/asset/logo.jpg";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -31,7 +32,8 @@ const Navbar = () => {
             href="/"
             className="flex flex-row text-2xl font-bold font-customTitle items-center justify-center gap-2 text-sky-600"
           >
-            Cân Thái Toàn
+            <Image src={logo} alt="" width={32} height={32} />
+            <span>Cân Thái Toàn</span>
           </Link>
           <nav className="phone:hidden md:flex flex-row justify-center lg:gap-20 md:gap-6">
             <button>
