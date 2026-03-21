@@ -3,6 +3,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { Select } from "antd";
 import { NavbarLayer, TSelectData } from "@/asset/NavbarLayer";
 import { useDebouncedCallback } from "use-debounce";
+import { CloseOutlined } from "@ant-design/icons";
 
 const API_BASE = "https://canthaitoan-be.click/api";
 
@@ -15,6 +16,7 @@ const Filter: React.FC<{
   const [type, setType] = useState<string>("");
   const [subType, setSubType] = useState<string>("");
   const [inp, setInp] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const handleChange = (value: string) => {
     setType(value);
     const findData = NavbarLayer.find((item) => item.value === value);
@@ -47,18 +49,47 @@ const Filter: React.FC<{
   const debounced = useDebouncedCallback((value) => {
     setInp(value);
   }, 1000);
+
+  const handleClear = async () => {
+    setInputValue("");
+    setInp("");
+    try {
+      const res = await fetch(`${API_BASE}/product/filter`);
+      const data = await res.json();
+      const products = data.foundProduct ?? [];
+      setFetchData(products);
+      setShowData(products.slice(0, 12));
+    } catch (error) {
+      throw new Error("Failed to fetch products");
+    }
+  };
+
   return (
     <div className="flex flex-col p-4 justify-center gap-4 rounded-lg border">
       <h1 className="text-xl font-semibold text-gray-600">Bộ lọc tìm kiếm</h1>
       <div className="flex flex-col gap-1">
         <h3 className="text-md">Sản phẩm cần tìm</h3>
-        <input
-          type="text"
-          placeholder="Nhập tên sản phẩm"
-          defaultValue={inp}
-          onChange={(e) => debounced(e.target.value)}
-          className="text-sm border rounded-md py-2.5 pl-2 outline-none w-full"
-        />
+        <div className="flex border rounded-md overflow-hidden">
+          <input
+            type="text"
+            placeholder="Nhập tên sản phẩm"
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+              debounced(e.target.value);
+            }}
+            className="flex-1 text-sm py-2.5 pl-2 outline-none min-w-0"
+          />
+          {inputValue && (
+            <button
+              type="button"
+              className="flex-shrink-0 px-2 text-gray-400 hover:text-gray-600"
+              onClick={handleClear}
+            >
+              <CloseOutlined />
+            </button>
+          )}
+        </div>
       </div>
       <div className="flex flex-col gap-1">
         <h3 className="text-md">Loại cân</h3>

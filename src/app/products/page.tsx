@@ -14,6 +14,7 @@ export default function Page() {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
   const subtype = searchParams.get("subtype");
+  const name = searchParams.get("name");
   const [page, setPage] = useState(1);
   const [showData, setShowData] = useState<any>([]);
   const setChange = (page: number, pageSize: number) => {
@@ -25,6 +26,7 @@ export default function Page() {
       const params = new URLSearchParams();
       if (type) params.set("type", type);
       if (subtype) params.set("subtype", subtype);
+      if (name) params.set("name", name);
 
       setIsLoading(true);
       try {
@@ -43,16 +45,14 @@ export default function Page() {
     };
 
     loadProducts();
-  }, [type, subtype]);
+  }, [type, subtype, name]);
   return (
-    <main className="pt-20 pb-6 py-10 mx-10">
+    <main className="pt-24 md:pt-32 pb-6 md:pb-10 mx-10">
       <div className="flex gap-4 phone:flex-col xl:flex-row">
-        <div className="xl:basis-1/5 xl:min-h-screen">
-          <div className="sticky top-20">
-            <Filter setFetchData={setFetchData} setShowData={setShowData} />
-          </div>
+        <div className="block md:hidden">
+          <Filter setFetchData={setFetchData} setShowData={setShowData} />
         </div>
-        <div className="xl:basis-4/5">
+        <div className="w-full">
           {isLoading ? (
             <div className="flex">
               <div className="flex flex-row gap-2 items-center mx-auto mt-40">
@@ -64,7 +64,10 @@ export default function Page() {
             </div>
           ) : showData.length ? (
             <>
-              <div className="phone:flex phone:flex-col phone:items-center md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3 xl:grid-cols-4 xl:place-items-start gap-4">
+              <div>
+                Kết quả tìm kiếm : <b>{fetchData.length}</b> sản phẩm
+              </div>
+              <div className="phone:flex phone:flex-col phone:items-center md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {showData.map((item: TProduct, index: any) => {
                   return <Item props={item} key={index} />;
                 })}

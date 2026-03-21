@@ -19,7 +19,7 @@ const TopSelectItem = dynamic(() => import("@/components/TopSelectItem"), {
 
 export default function Page() {
   return (
-    <div className="py-10 min-h-screen">
+    <div className="py-10 md:py-20 min-h-screen">
       <div className="flex justify-center pt-16 pb-12 bg-gradient-to-br from-sky-700 to-sky-600">
         <div className="text-white text-sm sm:text-lg px-6 md:w-3/4 lg:w-1/2">
           <p>

@@ -9,11 +9,18 @@ export default function Page() {
   const pathname = usePathname();
   const id = pathname.substring(pathname.lastIndexOf("/") + 1);
   const router = useRouter();
-  const { detail, isModalOpen, cookie, showModal, handleOk, handleCancel, showTypeLabel } =
-    useProductDetail(id);
+  const {
+    detail,
+    isModalOpen,
+    cookie,
+    showModal,
+    handleOk,
+    handleCancel,
+    showTypeLabel,
+  } = useProductDetail(id);
 
   return (
-    <main className="min-h-screen pt-20 pb-10 flex justify-center items-center">
+    <main className="min-h-screen pt-24 pb-10 flex justify-center items-center">
       <div className="phone:w-4/5 lg:w-2/3 flex phone:flex-col lg:flex-row gap-6">
         <div className="flex-1 flex justify-center items-center">
           <Image
@@ -39,7 +46,10 @@ export default function Page() {
           </div>
           <div className="flex flex-col gap-0.5 mt-2">
             <h2 className="text-lg font-semibold text-slate-500">Mô tả</h2>
-            <div className="text-md prose max-w-none" dangerouslySetInnerHTML={{ __html: detail?.description ?? "" }} />
+            <div
+              className="text-md prose max-w-none"
+              dangerouslySetInnerHTML={{ __html: detail?.description ?? "" }}
+            />
           </div>
           {detail?.information && (
             <div className="flex flex-col gap-0.5 mt-2">
@@ -47,9 +57,14 @@ export default function Page() {
                 Thông số kỹ thuật
               </h2>
               {detail.information.map((criteria, index) => (
-                <div className="flex flex-row gap-2 items-center mt-2" key={index}>
+                <div
+                  className="flex flex-row gap-2 items-center mt-2"
+                  key={index}
+                >
                   <h2 className="text-md">{criteria.noteName} :</h2>
-                  <p className="text-md font-semibold">{criteria.noteDescription}</p>
+                  <p className="text-md font-semibold">
+                    {criteria.noteDescription}
+                  </p>
                 </div>
               ))}
             </div>
