@@ -51,7 +51,7 @@ export default function Page() {
                 height={5}
                 priority
               />
-              <p className="text-lg">0908699986 - 0903638421</p>
+              <p className="text-lg">02835170598 - 0908699986 - 0903638421</p>
             </div>
             <div className="flex gap-3">
               <Image

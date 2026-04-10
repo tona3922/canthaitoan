@@ -20,6 +20,7 @@ export default function Page() {
   const setChange = (page: number, pageSize: number) => {
     setPage(page);
     setShowData(fetchData.slice((page - 1) * pageSize, page * pageSize));
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   useEffect(() => {
     const loadProducts = async () => {
@@ -67,7 +68,7 @@ export default function Page() {
               <div>
                 Kết quả tìm kiếm : <b>{fetchData.length}</b> sản phẩm
               </div>
-              <div className="phone:flex phone:flex-col phone:items-center md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="phone:flex phone:flex-col phone:items-center md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3 xl:grid-cols-4 gap-12">
                 {showData.map((item: TProduct, index: any) => {
                   return <Item props={item} key={index} />;
                 })}
@@ -78,6 +79,7 @@ export default function Page() {
                   total={fetchData.length}
                   onChange={setChange}
                   pageSize={12}
+                  showSizeChanger={false}
                   className="mx-auto"
                 />
               </div>

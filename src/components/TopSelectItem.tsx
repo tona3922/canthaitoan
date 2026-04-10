@@ -6,7 +6,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Scrollbar } from "swiper/modules";
 const API_BASE = "https://canthaitoan-be.click/api";
 
-const TopSelectItem: React.FC<{ type: string }> = ({ type }) => {
+const TopSelectItem: React.FC<{ type: string; excludeId?: string }> = ({
+  type,
+  excludeId,
+}) => {
   const [fetchData, setFetchData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
@@ -17,7 +20,11 @@ const TopSelectItem: React.FC<{ type: string }> = ({ type }) => {
           `${API_BASE}/product/filter?type=${encodeURIComponent(type)}`,
         );
         const data = await res.json();
-        setFetchData((data.foundProduct ?? data).slice(0, 5));
+        const products: TProduct[] = data.foundProduct ?? data;
+        const filtered = excludeId
+          ? products.filter((p: TProduct) => p._id !== excludeId)
+          : products;
+        setFetchData(filtered.slice(0, 10));
       } catch (error: any) {
         throw new Error(`Data failed: ${error.message}`);
       } finally {
@@ -25,7 +32,7 @@ const TopSelectItem: React.FC<{ type: string }> = ({ type }) => {
       }
     };
     getAllProducts();
-  }, [type]);
+  }, [type, excludeId]);
   return (
     <Suspense fallback={<>Loading</>}>
       {isLoading ? (
@@ -40,7 +47,7 @@ const TopSelectItem: React.FC<{ type: string }> = ({ type }) => {
       ) : (
         fetchData.length > 0 && (
           <>
-            <div className="phone:hidden lg:grid lg:grid-cols-3 xl:grid-cols-5 place-items-center gap-4">
+            <div className="phone:hidden lg:grid lg:grid-cols-3 xl:grid-cols-5 place-items-center gap-12">
               {fetchData.map((item: TProduct, index: any) => {
                 return <Item props={item} key={index} />;
               })}

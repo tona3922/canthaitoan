@@ -10,6 +10,7 @@ export function useProductDetail(id: string) {
   const router = useRouter();
   const [detail, setDetail] = useState<TProduct>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const cookie = Cookies.get("__session");
 
   useEffect(() => {
@@ -20,6 +21,8 @@ export function useProductDetail(id: string) {
         setDetail(data.product as TProduct);
       } catch (error: any) {
         throw new Error(`Data failed: ${error.message}`);
+      } finally {
+        setIsLoading(false);
       }
     };
     getDetailProduct();
@@ -48,5 +51,5 @@ export function useProductDetail(id: string) {
     setIsModalOpen(false);
   };
 
-  return { detail, isModalOpen, cookie, showModal, handleOk, handleCancel, showTypeLabel };
+  return { detail, isLoading, isModalOpen, cookie, showModal, handleOk, handleCancel, showTypeLabel };
 }

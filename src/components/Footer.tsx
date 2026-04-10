@@ -29,7 +29,7 @@ const Footer = () => {
               108 Hùng Vương, TT. Hoà Thành, Hoà Thành, Tây Ninh, Vietnam
             </a>
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <span className="font-semibold">Điện thoại : </span>
             <a className="text-sky-600" href="tel:0908699996">
               0908699986
@@ -37,6 +37,10 @@ const Footer = () => {
             -
             <a className="text-sky-600" href="tel:0903638421">
               0903638421
+            </a>
+            -
+            <a className="text-sky-600" href="tel:0903638421">
+              02835170598
             </a>
           </div>
           <p>

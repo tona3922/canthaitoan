@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Modal } from "antd";
+import { Modal, Spin } from "antd";
 import { usePathname } from "next/navigation";
 import { useProductDetail } from "@/hooks/useProductDetail";
+import TopSelectItem from "@/components/TopSelectItem";
 
 export default function Page() {
   const pathname = usePathname();
@@ -11,6 +12,7 @@ export default function Page() {
   const router = useRouter();
   const {
     detail,
+    isLoading,
     isModalOpen,
     cookie,
     showModal,
@@ -19,8 +21,16 @@ export default function Page() {
     showTypeLabel,
   } = useProductDetail(id);
 
+  if (isLoading) {
+    return (
+      <main className="min-h-screen flex justify-center items-center">
+        <Spin size="large" />
+      </main>
+    );
+  }
+
   return (
-    <main className="min-h-screen pt-24 pb-10 flex justify-center items-center">
+    <main className="min-h-screen pt-32 pb-10 flex flex-col w-full justify-center items-center">
       <div className="phone:w-4/5 lg:w-2/3 flex phone:flex-col lg:flex-row gap-6">
         <div className="flex-1 flex justify-center items-center">
           <Image
@@ -71,7 +81,7 @@ export default function Page() {
           )}
           <div className="mt-6 flex gap-3">
             <button
-              className="p-2 bg-gray-700 rounded-lg text-white font-semibold"
+              className="p-2 text-xl bg-sky-700 rounded-lg text-white font-semibold"
               onClick={() => router.push("/about")}
             >
               Liên hệ báo giá
@@ -95,6 +105,14 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+      {detail?.type && (
+        <div className="phone:w-4/5 lg:w-5/6 mt-10">
+          <h2 className="text-xl font-semibold mb-4">Sản phẩm liên quan</h2>
+          <TopSelectItem type={detail.type} excludeId={id} />
+        </div>
+      )}
+
       <Modal
         title="Xóa sản phẩm"
         open={isModalOpen}
