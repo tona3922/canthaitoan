@@ -1,4 +1,5 @@
 "use client";
+
 import BrandName from "@/components/BrandName";
 import SwiperAd from "@/components/SwiperAd";
 import { sampleImages } from "@/asset/sample";
@@ -34,22 +35,26 @@ export default function Page() {
       </div>
       <div className="phone:px-6 lg:px-32 py-10 flex flex-col gap-5">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {sampleImages.map((img, index) => (
-            <article
-              key={index}
-              className="relative h-52 border-none cursor-pointer hover:border-sky-700 hover:scale-105 transition-all hover:duration-200 ease-in overflow-hidden rounded-sm"
-            >
-              <Image
-                src={img}
-                alt={`sample-${index + 1}`}
-                fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                className="object-contain"
-                placeholder="blur"
-                loading="lazy"
-              />
-            </article>
-          ))}
+          {sampleImages.map((img, index) => {
+            const aboveFold = index < 4;
+            return (
+              <article
+                key={index}
+                className="relative h-52 border-none cursor-pointer hover:border-sky-700 hover:scale-105 transition-all hover:duration-200 ease-in overflow-hidden rounded-sm"
+              >
+                <Image
+                  src={img}
+                  alt={`sample-${index + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-contain"
+                  placeholder="blur"
+                  priority={aboveFold}
+                  loading={aboveFold ? "eager" : "lazy"}
+                />
+              </article>
+            );
+          })}
         </div>
       </div>
       <hr className="h-0.5 mx-auto w-1/3 my-6 bg-neutral-400 rounded-full" />
