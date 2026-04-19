@@ -1,10 +1,34 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Volkhov, Mulish, Montserrat, Comforter_Brush } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Suspense } from "react";
-const inter = Inter({ subsets: ["latin"] });
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const volkhov = Volkhov({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-volkhov",
+  display: "swap",
+});
+const mulish = Mulish({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-mulish",
+  display: "swap",
+});
+const montserrat = Montserrat({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+const comforterBrush = Comforter_Brush({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-comforter-brush",
+  display: "swap",
+});
 
 import type { Viewport } from "next";
 
@@ -29,7 +53,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${volkhov.variable} ${mulish.variable} ${montserrat.variable} ${comforterBrush.variable}`}>
         <Navbar />
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
         <Footer />
