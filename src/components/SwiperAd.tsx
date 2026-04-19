@@ -28,7 +28,8 @@ const SwiperAd = () => {
               alt={`slide-${index + 1}`}
               width={400}
               height={300}
-              priority
+              priority={index === 0}
+              loading={index === 0 ? "eager" : "lazy"}
               src={imgSrc}
             />
           </div>

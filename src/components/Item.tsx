@@ -14,6 +14,8 @@ const Item: React.FC<{ props: TProduct }> = ({ props }) => {
           className="phone:w-full h-64"
           width={200}
           height={100}
+          loading="lazy"
+          sizes="(max-width: 1024px) 288px, 208px"
         />
         <h2 className="font-semibold font-customCardTitle px-2 text-lg">
           {props.name}
