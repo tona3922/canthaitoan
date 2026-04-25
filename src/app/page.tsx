@@ -50,7 +50,7 @@ export default function Page() {
                   className="object-contain"
                   placeholder="blur"
                   priority={aboveFold}
-                  loading={aboveFold ? "eager" : "lazy"}
+                  fetchPriority="high"
                 />
               </article>
             );

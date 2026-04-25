@@ -68,7 +68,7 @@ export default function Page() {
               <div>
                 Kết quả tìm kiếm : <b>{fetchData.length}</b> sản phẩm
               </div>
-              <div className="phone:flex phone:flex-col phone:items-center md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3 xl:grid-cols-4 gap-12">
+              <div className="mt-4 phone:flex phone:flex-col phone:items-center md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3 xl:grid-cols-4 gap-12">
                 {showData.map((item: TProduct, index: any) => {
                   return <Item props={item} key={index} />;
                 })}
