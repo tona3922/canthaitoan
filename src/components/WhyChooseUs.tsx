@@ -87,10 +87,10 @@ export default function WhyChooseUs() {
           </div>
           <p className="text-neutral-600">
             &bull; Liên tục cập nhật những sản phẩm mới nhất, hiện đại nhất để
-            phục vụ khách hàng và luôn thực hiện phương châm "Bảo Đảm Uy Tín –
-            Phát Triển Bền Vững", sản phẩm của chúng tôi cung cấp luôn đạt: độ
-            chính xác cao - độ bền cao - mẫu mã phong phú - chức năng hiện đại -
-            giá cả phải chăng.
+            phục vụ khách hàng và luôn thực hiện phương châm{" "}
+            <b>Bảo Đảm Uy Tín – Phát Triển Bền Vững</b>, sản phẩm của chúng tôi
+            cung cấp luôn đạt: độ chính xác cao - độ bền cao - mẫu mã phong phú
+            - chức năng hiện đại - giá cả phải chăng.
           </p>
         </div>
         <div className="rounded-lg p-4 flex justify-end items-center">
