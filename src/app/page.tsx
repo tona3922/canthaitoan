@@ -36,7 +36,7 @@ export default function Page() {
       <div className="phone:px-6 lg:px-32 py-10 flex flex-col gap-5">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {sampleImages.map((img, index) => {
-            const aboveFold = index < 2;
+            const aboveFold = index < 8;
             return (
               <article
                 key={index}
