@@ -1,6 +1,6 @@
+"use client";
 import React, { Suspense, useEffect, useState } from "react";
 import Item from "./Item";
-import { Spin } from "antd";
 import { TProduct } from "@/app/products/product";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Scrollbar } from "swiper/modules";
@@ -38,7 +38,7 @@ const TopSelectItem: React.FC<{ type: string; excludeId?: string }> = ({
       {isLoading ? (
         <div className="flex">
           <div className="flex flex-row gap-2 items-center mx-auto mt-40">
-            <Spin size="large" />
+            <div className="w-8 h-8 border-4 border-sky-600 border-t-transparent rounded-full animate-spin" />
             <p className="text-lg font-customDetail">
               Đang tải sản phẩm, quý khách vui lòng chờ trong giây lát
             </p>

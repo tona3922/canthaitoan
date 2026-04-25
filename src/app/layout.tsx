@@ -53,6 +53,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://canthaitoan-be.click" />
+        <link rel="dns-prefetch" href="https://canthaitoan-be.click" />
+      </head>
       <body className={`${inter.variable} ${volkhov.variable} ${mulish.variable} ${montserrat.variable} ${comforterBrush.variable}`}>
         <Navbar />
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
