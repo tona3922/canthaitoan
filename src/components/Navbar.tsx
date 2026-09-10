@@ -6,7 +6,8 @@ import rightArrow from "@/asset/right-arrow.png";
 import { NavbarLayer } from "@/asset/NavbarLayer";
 import Cookies from "js-cookie";
 import { CloseOutlined, MenuOutlined, SearchOutlined } from "@ant-design/icons";
-import logo from "@/asset/logo.jpg";
+import StaticImg from "@/components/StaticImg";
+import { staticImages } from "@/asset/staticImages";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
@@ -46,7 +47,7 @@ const Navbar = () => {
             href="/"
             className="flex flex-row text-2xl font-bold font-customTitle items-center justify-center gap-2 text-sky-600"
           >
-            <Image src={logo} alt="" width={32} height={32} />
+            <StaticImg image={staticImages.logo} alt="Cân Thái Toàn" sizes="32px" className="h-8 w-8 object-contain" priority />
             <span>Cân Thái Toàn</span>
           </Link>
           <div className="flex flex-col">
