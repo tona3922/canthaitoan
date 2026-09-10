@@ -50,11 +50,7 @@ export default function StaticImg({
       height={image.height}
       decoding="async"
       loading={priority ? "eager" : "lazy"}
-      // lowercase: passed straight through to the DOM on React 18
-      {...({ fetchPriority: priority ? "high" : undefined } as Record<
-        string,
-        string | undefined
-      >)}
+      fetchPriority={priority ? "high" : "auto"}
       className={className}
       style={
         fill
