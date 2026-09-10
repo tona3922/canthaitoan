@@ -1,13 +1,21 @@
 import React from "react";
-import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { ACH3, CB, LN, PX, HT } from "@/asset/carousel";
+import StaticImg from "./StaticImg";
+import { staticImages } from "@/asset/staticImages";
+
+const SLIDES = [
+  "carousel/ACH3",
+  "carousel/CB",
+  "carousel/LN",
+  "carousel/PX",
+  "carousel/HT",
+] as const;
+
 const SwiperAd = () => {
-  const slideImages = [ACH3, CB, LN, PX, HT];
   return (
     <Swiper
       navigation
@@ -21,16 +29,15 @@ const SwiperAd = () => {
       modules={[Navigation, Pagination, Autoplay]}
       style={{ paddingBottom: "30px" }}
     >
-      {slideImages.map((imgSrc, index) => (
-        <SwiperSlide key={index} className="flex place-content-center">
+      {SLIDES.map((key, index) => (
+        <SwiperSlide key={key} className="flex place-content-center">
           <div className="flex justify-center">
-            <Image
+            <StaticImg
+              image={staticImages[key]}
               alt={`slide-${index + 1}`}
-              width={400}
-              height={300}
               priority={index === 0}
-              loading={index === 0 ? "eager" : "lazy"}
-              src={imgSrc}
+              sizes="(max-width: 1024px) 90vw, 400px"
+              className="h-auto w-full max-w-[400px] object-contain"
             />
           </div>
         </SwiperSlide>

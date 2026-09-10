@@ -2,10 +2,25 @@
 
 import BrandName from "@/components/BrandName";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import { sampleImages } from "@/asset/sample";
+import StaticImg from "@/components/StaticImg";
+import { staticImages } from "@/asset/staticImages";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { Suspense } from "react";
+
+const SAMPLE_KEYS = [
+  "sample/can1",
+  "sample/can2",
+  "sample/can3",
+  "sample/can4",
+  "sample/can5",
+  "sample/can6",
+  "sample/can7",
+  "sample/can8",
+  "sample/can9",
+  "sample/can10",
+  "sample/can11",
+  "sample/can12",
+] as const;
 
 const SwiperAd = dynamic(() => import("@/components/SwiperAd"), { ssr: false });
 const TopSelectItem = dynamic(() => import("@/components/TopSelectItem"), {
@@ -29,22 +44,20 @@ export default function Page() {
       </div>
       <div className="phone:px-6 lg:px-32 py-10 flex flex-col gap-5">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {sampleImages.map((img, index) => {
-            const aboveFold = index < 2;
+          {SAMPLE_KEYS.map((key, index) => {
+            const aboveFold = index < 4;
             return (
               <article
-                key={index}
+                key={key}
                 className="relative h-52 border-none cursor-pointer hover:border-sky-700 hover:scale-105 transition-all hover:duration-200 ease-in overflow-hidden rounded-sm"
               >
-                <Image
-                  src={img}
+                <StaticImg
+                  image={staticImages[key]}
                   alt={`sample-${index + 1}`}
                   fill
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   className="object-contain"
-                  placeholder="blur"
                   priority={aboveFold}
-                  loading={aboveFold ? "eager" : "lazy"}
                 />
               </article>
             );
